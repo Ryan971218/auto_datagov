@@ -4941,95 +4941,373 @@ ORDER BY 1 DESC;</pre>
           </div>
           
           <!-- ====== 质量校验 panel ====== -->
-          <div class="depth-panel quality-panel">
-            <div class="card">
-              <div class="flex-between" style="margin-bottom: 12px;">
-                <div>
-                  <div style="font-size: 16px; font-weight: 600;">质量规则 · 36 条 · 本月 94% 通过</div>
-                  <div class="text-xs text-dim" style="margin-top: 4px;">14 axiom 自动校验 + 22 ad-hoc 规则</div>
-                </div>
-                <div class="flex" style="gap: 8px;">
-                  <span class="badge badge-info">接入 8</span>
-                  <span class="badge badge-accent">加工 14</span>
-                  <span class="badge badge-purple">服务 10</span>
-                  <span class="badge badge-warning">应用 4</span>
-                </div>
-              </div>
-              
-              <!-- 4 个层级网格 -->
-              <div class="grid grid-2 section">
-                <div class="card" style="padding: 16px;">
-                  <div class="flex-between" style="margin-bottom: 8px;">
-                    <span class="badge badge-info">接入层 (Source)</span>
-                    <span style="font-weight: 600; color: var(--success);">92%</span>
-                  </div>
-                  <div class="progress" style="margin-top: 8px;"><div class="progress-bar" style="width: 92%; background: var(--success);"></div></div>
-                  <div class="text-xs text-dim" style="margin-top: 8px;">8 规则 · 1 失败（Kafka 积压）</div>
-                </div>
-                <div class="card" style="padding: 16px;">
-                  <div class="flex-between" style="margin-bottom: 8px;">
-                    <span class="badge badge-accent">加工层 (Processing)</span>
-                    <span style="font-weight: 600; color: var(--warning);">87%</span>
-                  </div>
-                  <div class="progress" style="margin-top: 8px;"><div class="progress-bar" style="width: 87%; background: var(--warning);"></div></div>
-                  <div class="text-xs text-dim" style="margin-top: 8px;">14 规则 · 2 失败（主键重复 + axiom 待 ratify）</div>
-                </div>
-                <div class="card" style="padding: 16px;">
-                  <div class="flex-between" style="margin-bottom: 8px;">
-                    <span class="badge badge-purple">服务层 (Serving)</span>
-                    <span style="font-weight: 600; color: var(--success);">96%</span>
-                  </div>
-                  <div class="progress" style="margin-top: 8px;"><div class="progress-bar" style="width: 96%; background: var(--success);"></div></div>
-                  <div class="text-xs text-dim" style="margin-top: 8px;">10 规则 · 0 失败 · axiom A14 覆盖</div>
-                </div>
-                <div class="card" style="padding: 16px;">
-                  <div class="flex-between" style="margin-bottom: 8px;">
-                    <span class="badge badge-warning">应用层 (Application)</span>
-                    <span style="font-weight: 600; color: var(--success);">100%</span>
-                  </div>
-                  <div class="progress" style="margin-top: 8px;"><div class="progress-bar" style="width: 100%; background: var(--success);"></div></div>
-                  <div class="text-xs text-dim" style="margin-top: 8px;">4 规则 · API + BI 报表 SLA 全部达标</div>
-                </div>
-              </div>
-            </div>
-            
-            <!-- 失败规则明细 -->
-            <div class="card" style="padding: 0; margin-top: 16px;">
-              <div style="padding: 12px 16px; border-bottom: 1px solid var(--border); background: var(--surface-2);">
-                <span class="badge badge-danger">失败规则</span> <strong>3 条需介入</strong>
-              </div>
-              <div class="list-item" style="background: rgba(248, 81, 73, 0.05);">
-                <div class="list-item-icon" style="background: rgba(248, 81, 73, 0.15); color: var(--danger); font-weight: 700;">P0</div>
-                <div class="list-item-main">
-                  <div class="list-item-title">realtime_gmv_aggregation Flink Job checkpoint 失败</div>
-                  <div class="list-item-sub">来源: Spark 监控 · 5 分钟前 · 关联 GMV 实时看板 · 关联 axiom A14</div>
-                </div>
-                <div class="list-item-meta">
-                  <span class="badge badge-danger" style="font-size: 10px;">P0</span>
-                </div>
-              </div>
-              <div class="list-item" style="background: rgba(248, 81, 73, 0.05);">
-                <div class="list-item-icon" style="background: rgba(248, 81, 73, 0.15); color: var(--danger); font-weight: 700;">!</div>
-                <div class="list-item-main">
-                  <div class="list-item-title">Kafka events_kafka 消息积压 23,450（阈值 1000）</div>
-                  <div class="list-item-sub">来源: Kafka 监控 · 30 分钟前 · 关联 axiom A18 · 关联问题 2026-08-18</div>
-                </div>
-                <div class="list-item-meta">
-                  <span class="badge badge-danger" style="font-size: 10px;">P0</span>
-                  <span class="badge badge-info" style="font-size: 10px;">已认领</span>
-                </div>
-              </div>
-              <div class="list-item" style="background: rgba(210, 153, 34, 0.05);">
-                <div class="list-item-icon" style="background: rgba(210, 153, 34, 0.15); color: var(--warning);">⚠</div>
-                <div class="list-item-main">
-                  <div class="list-item-title">fct_orders 行数波动 +47%（阈值 ±30%）</div>
-                  <div class="list-item-sub">来源: 调度监控 · 昨日 · 关联 axiom A07 · 关联问题 2026-08-17</div>
-                </div>
-                <div class="list-item-meta">
-                  <span class="badge badge-warning" style="font-size: 10px;">P1</span>
-                </div>
-              </div>
-            </div>
+          <!-- ====== 质量校验 panel ====== -->
+<div class="depth-panel quality-panel">
+  <div class="card">
+    <div class="flex-between" style="margin-bottom: 12px;">
+      <div>
+        <div style="font-size: 16px; font-weight: 600;">质量规则 · 36 条 · 本月 94% 通过</div>
+        <div class="text-xs text-dim" style="margin-top: 4px;">14 axiom 自动校验 + 22 ad-hoc 规则 · 最近一次全量校验：23 分钟前</div>
+      </div>
+      <div class="flex" style="gap: 8px;">
+        <span class="badge badge-info">接入 8</span>
+        <span class="badge badge-accent">加工 14</span>
+        <span class="badge badge-purple">服务 10</span>
+        <span class="badge badge-warning">应用 4</span>
+      </div>
+    </div>
+    <div style="margin-bottom: 16px; padding: 12px; background: var(--surface-2); border-radius: 6px;">
+      <div style="font-size: 12px; font-weight: 600; color: var(--text-dim); margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;">
+        <span>📈 近 30 天通过率趋势</span>
+        <span style="font-size: 10px; font-weight: 400;">加工层本周连续 3 天下滑 ⚠</span>
+      </div>
+      <svg viewBox="0 0 800 180" style="width: 100%; height: auto; max-height: 180px;">
+  <g stroke="var(--border)" stroke-width="0.5" stroke-dasharray="2,3">
+    <line x1="40" y1="20" x2="780" y2="20"/>
+    <line x1="40" y1="56.25" x2="780" y2="56.25"/>
+    <line x1="40" y1="92.5" x2="780" y2="92.5"/>
+    <line x1="40" y1="128.75" x2="780" y2="128.75"/>
+    <line x1="40" y1="155" x2="780" y2="155"/>
+  </g>
+  <g font-size="9" fill="var(--text-dim)" text-anchor="end">
+    <text x="36" y="23">100%</text><text x="36" y="59">93%</text><text x="36" y="95">85%</text><text x="36" y="131">78%</text><text x="36" y="158">70%</text>
+  </g>
+  <g font-size="9" fill="var(--text-dim)" text-anchor="middle">
+    <text x="40" y="172">07-21</text><text x="163.3" y="172">07-26</text><text x="286.7" y="172">07-31</text>
+    <text x="410" y="172">08-05</text><text x="533.3" y="172">08-10</text><text x="656.7" y="172">08-15</text><text x="780" y="172">08-19</text>
+  </g>
+  <line x1="40" y1="42.5" x2="780" y2="42.5" stroke="var(--success)" stroke-width="1" stroke-dasharray="6,3" opacity="0.4"/>
+  <text x="785" y="45" fill="var(--success)" font-size="9" opacity="0.6">95%</text>
+  <polyline fill="none" stroke="var(--warning)" stroke-width="1.5" points="40.0,20.0 65.5,20.0 91.0,20.0 116.6,20.0 142.1,20.0 167.6,20.0 193.1,20.0 218.6,20.0 244.1,20.0 269.7,20.0 295.2,20.0 320.7,20.0 346.2,20.0 371.7,20.0 397.2,20.0 422.8,20.0 448.3,20.0 473.8,20.0 499.3,20.0 524.8,20.0 550.3,20.0 575.9,20.0 601.4,20.0 626.9,20.0 652.4,20.0 677.9,20.0 703.4,20.0 729.0,20.0 754.5,20.0 780.0,20.0"/>
+  <circle cx="780" cy="20.0" r="3.5" fill="var(--warning)"/>
+  <text x="786.0" y="23.0" fill="var(--warning)" font-size="10" font-weight="600">100%</text>
+  <polyline fill="none" stroke="var(--accent-2)" stroke-width="1.5" points="40.0,29.0 65.5,24.5 91.0,20.0 116.6,24.5 142.1,29.0 167.6,20.0 193.1,24.5 218.6,33.5 244.1,29.0 269.7,24.5 295.2,20.0 320.7,24.5 346.2,29.0 371.7,33.5 397.2,29.0 422.8,24.5 448.3,20.0 473.8,24.5 499.3,29.0 524.8,33.5 550.3,29.0 575.9,24.5 601.4,20.0 626.9,24.5 652.4,29.0 677.9,33.5 703.4,29.0 729.0,24.5 754.5,20.0 780.0,38.0"/>
+  <circle cx="780" cy="38.0" r="3.5" fill="var(--accent-2)"/>
+  <text x="786.0" y="41.0" fill="var(--accent-2)" font-size="10" font-weight="600">96%</text>
+  <polyline fill="none" stroke="var(--info)" stroke-width="2.5" points="40.0,38.0 65.5,33.5 91.0,42.5 116.6,29.0 142.1,38.0 167.6,24.5 193.1,20.0 218.6,33.5 244.1,38.0 269.7,29.0 295.2,42.5 320.7,24.5 346.2,20.0 371.7,38.0 397.2,47.0 422.8,33.5 448.3,20.0 473.8,24.5 499.3,38.0 524.8,29.0 550.3,20.0 575.9,33.5 601.4,42.5 626.9,38.0 652.4,20.0 677.9,24.5 703.4,42.5 729.0,51.5 754.5,65.0 780.0,56.0"/>
+  <circle cx="780" cy="56.0" r="3.5" fill="var(--info)"/>
+  <text x="786.0" y="59.0" fill="var(--info)" font-size="10" font-weight="600">92%</text>
+  <polyline fill="none" stroke="var(--accent)" stroke-width="2.5" points="40.0,56.0 65.5,65.0 91.0,51.5 116.6,60.5 142.1,69.5 167.6,56.0 193.1,47.0 218.6,60.5 244.1,74.0 269.7,65.0 295.2,69.5 320.7,60.5 346.2,51.5 371.7,65.0 397.2,56.0 422.8,60.5 448.3,69.5 473.8,56.0 499.3,47.0 524.8,65.0 550.3,69.5 575.9,56.0 601.4,60.5 626.9,74.0 652.4,65.0 677.9,60.5 703.4,69.5 729.0,74.0 754.5,69.5 780.0,78.5"/>
+  <circle cx="780" cy="78.5" r="3.5" fill="var(--accent)"/>
+  <text x="786.0" y="81.5" fill="var(--accent)" font-size="10" font-weight="600">87%</text>
+  <g font-size="10" fill="var(--text-dim)">
+    <rect x="40" y="6" width="8" height="3" fill="var(--info)"/><text x="52" y="10">接入</text>
+    <rect x="100" y="6" width="8" height="3" fill="var(--accent)"/><text x="112" y="10">加工</text>
+    <rect x="160" y="6" width="8" height="3" fill="var(--accent-2)"/><text x="172" y="10">服务</text>
+    <rect x="220" y="6" width="8" height="3" fill="var(--warning)"/><text x="232" y="10">应用</text>
+  </g></svg>
+    </div>
+    <div class="grid grid-2 section">
+      <div class="card" style="padding: 16px;">
+        <div class="flex-between" style="margin-bottom: 8px;">
+          <span class="badge badge-info">接入层 (Source)</span>
+          <span style="font-weight: 600; color: var(--success);">92%</span>
+        </div>
+        <div class="progress" style="margin-top: 8px;"><div class="progress-bar" style="width: 92%; background: var(--success);"></div></div>
+        <div class="text-xs text-dim" style="margin-top: 8px;">8 规则 · 1 失败（Kafka 积压）</div>
+        <div class="divider"></div>
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px;">
+          <svg viewBox="0 0 100 24" style="width: 100%; height: 24px; display: block;">
+    <polyline fill="none" stroke="var(--info)" stroke-width="1.5" points="0.0,3.0 16.7,6.0 33.3,0.0 50.0,9.0 66.7,15.0 83.3,24.0 100.0,18.0"/>
+    <circle cx="100" cy="18.0" r="2" fill="var(--info)"/>
+  </svg>
+          <div class="text-xs text-dim" style="text-align: right; min-width: 60px;">
+            axiom 4 · ad-hoc 4<br>
+            owner: @张磊
+          </div>
+        </div>
+      </div>
+      <div class="card" style="padding: 16px;">
+        <div class="flex-between" style="margin-bottom: 8px;">
+          <span class="badge badge-accent">加工层 (Processing)</span>
+          <span style="font-weight: 600; color: var(--warning);">87%</span>
+        </div>
+        <div class="progress" style="margin-top: 8px;"><div class="progress-bar" style="width: 87%; background: var(--warning);"></div></div>
+        <div class="text-xs text-dim" style="margin-top: 8px;">14 规则 · 2 失败（主键重复 + axiom 待 ratify）</div>
+        <div class="divider"></div>
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px;">
+          <svg viewBox="0 0 100 24" style="width: 100%; height: 24px; display: block;">
+    <polyline fill="none" stroke="var(--accent)" stroke-width="1.5" points="0.0,0.0 16.7,9.6 33.3,14.4 50.0,9.6 66.7,14.4 83.3,19.2 100.0,24.0"/>
+    <circle cx="100" cy="24.0" r="2" fill="var(--accent)"/>
+  </svg>
+          <div class="text-xs text-dim" style="text-align: right; min-width: 60px;">
+            axiom 6 · ad-hoc 8<br>
+            owner: @陈默
+          </div>
+        </div>
+      </div>
+      <div class="card" style="padding: 16px;">
+        <div class="flex-between" style="margin-bottom: 8px;">
+          <span class="badge badge-purple">服务层 (Serving)</span>
+          <span style="font-weight: 600; color: var(--success);">96%</span>
+        </div>
+        <div class="progress" style="margin-top: 8px;"><div class="progress-bar" style="width: 96%; background: var(--success);"></div></div>
+        <div class="text-xs text-dim" style="margin-top: 8px;">10 规则 · 0 失败 · axiom A14 覆盖</div>
+        <div class="divider"></div>
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px;">
+          <svg viewBox="0 0 100 24" style="width: 100%; height: 24px; display: block;">
+    <polyline fill="none" stroke="var(--accent-2)" stroke-width="1.5" points="0.0,12.0 16.7,6.0 33.3,12.0 50.0,6.0 66.7,0.0 83.3,6.0 100.0,24.0"/>
+    <circle cx="100" cy="24.0" r="2" fill="var(--accent-2)"/>
+  </svg>
+          <div class="text-xs text-dim" style="text-align: right; min-width: 60px;">
+            axiom 3 · ad-hoc 7<br>
+            owner: @林薇
+          </div>
+        </div>
+      </div>
+      <div class="card" style="padding: 16px;">
+        <div class="flex-between" style="margin-bottom: 8px;">
+          <span class="badge badge-warning">应用层 (Application)</span>
+          <span style="font-weight: 600; color: var(--success);">100%</span>
+        </div>
+        <div class="progress" style="margin-top: 8px;"><div class="progress-bar" style="width: 100%; background: var(--success);"></div></div>
+        <div class="text-xs text-dim" style="margin-top: 8px;">4 规则 · API + BI 报表 SLA 全部达标</div>
+        <div class="divider"></div>
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px;">
+          <svg viewBox="0 0 100 24" style="width: 100%; height: 24px; display: block;">
+    <polyline fill="none" stroke="var(--warning)" stroke-width="1.5" points="0.0,24.0 16.7,24.0 33.3,24.0 50.0,24.0 66.7,24.0 83.3,24.0 100.0,24.0"/>
+    <circle cx="100" cy="24.0" r="2" fill="var(--warning)"/>
+  </svg>
+          <div class="text-xs text-dim" style="text-align: right; min-width: 60px;">
+            axiom 1 · ad-hoc 3<br>
+            owner: @周野
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top: 16px; padding: 0;">
+    <div style="padding: 12px 16px; border-bottom: 1px solid var(--border); background: var(--surface-2); display: flex; justify-content: space-between; align-items: center;">
+      <div><span class="badge badge-info">规则总览</span> <strong>36 条 · 按层级分组</strong></div>
+      <div class="flex" style="gap: 6px; font-size: 11px;">
+        <span class="badge badge-accent" style="font-size: 10px;">axiom 14</span>
+        <span class="badge" style="font-size: 10px; background: var(--surface); border: 1px solid var(--border);">ad-hoc 22</span>
+      </div>
+    </div>
+    <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
+      <thead>
+        <tr style="background: var(--surface-2);">
+          <th style="padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border); font-weight: 600; color: var(--text-dim); font-size: 10px; text-transform: uppercase;">规则</th>
+          <th style="padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border); font-weight: 600; color: var(--text-dim); font-size: 10px; text-transform: uppercase;">层</th>
+          <th style="padding: 8px 12px; text-align: center; border-bottom: 1px solid var(--border); font-weight: 600; color: var(--text-dim); font-size: 10px; text-transform: uppercase;">类型</th>
+          <th style="padding: 8px 12px; text-align: center; border-bottom: 1px solid var(--border); font-weight: 600; color: var(--text-dim); font-size: 10px; text-transform: uppercase;">axiom</th>
+          <th style="padding: 8px 12px; text-align: right; border-bottom: 1px solid var(--border); font-weight: 600; color: var(--text-dim); font-size: 10px; text-transform: uppercase;">通过率</th>
+          <th style="padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border); font-weight: 600; color: var(--text-dim); font-size: 10px; text-transform: uppercase;">最近运行</th>
+          <th style="padding: 8px 12px; text-align: center; border-bottom: 1px solid var(--border); font-weight: 600; color: var(--text-dim); font-size: 10px; text-transform: uppercase;">状态</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); font-family: 'SF Mono', monospace; font-size: 11px;">kafka_lag_check</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border);"><span class="badge badge-info" style="font-size: 9px;">接入</span></td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: center;">ad-hoc</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: center;">A18</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: right; font-weight: 600; color: var(--danger);">0%</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border);">30 分钟前</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: center;"><span class="badge badge-danger" style="font-size: 9px;">失败</span></td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); font-family: 'SF Mono', monospace; font-size: 11px;">mysql_rowcount_delta</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border);"><span class="badge badge-info" style="font-size: 9px;">接入</span></td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: center;">axiom</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: center;">A01</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: right; font-weight: 600; color: var(--success);">100%</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border);">15 分钟前</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: center;"><span class="badge badge-success" style="font-size: 9px;">通过</span></td>
+        </tr>
+        <tr style="background: rgba(248, 81, 73, 0.05);">
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); font-family: 'SF Mono', monospace; font-size: 11px;">flink_checkpoint_health</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border);"><span class="badge badge-accent" style="font-size: 9px;">加工</span></td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: center;">ad-hoc</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: center;">A14</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: right; font-weight: 600; color: var(--danger);">12%</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border);">5 分钟前</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: center;"><span class="badge badge-danger" style="font-size: 9px;">P0</span></td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); font-family: 'SF Mono', monospace; font-size: 11px;">fct_pk_uniqueness</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border);"><span class="badge badge-accent" style="font-size: 9px;">加工</span></td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: center;">axiom</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: center;">A07</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: right; font-weight: 600; color: var(--warning);">78%</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border);">2 小时前</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: center;"><span class="badge badge-warning" style="font-size: 9px;">偶发</span></td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); font-family: 'SF Mono', monospace; font-size: 11px;">dm_rowcount_vs_source</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border);"><span class="badge badge-purple" style="font-size: 9px;">服务</span></td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: center;">axiom</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: center;">A14</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: right; font-weight: 600; color: var(--success);">100%</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border);">8 分钟前</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: center;"><span class="badge badge-success" style="font-size: 9px;">通过</span></td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); font-family: 'SF Mono', monospace; font-size: 11px;">gmv_reconciliation</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border);"><span class="badge badge-purple" style="font-size: 9px;">服务</span></td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: center;">axiom</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: center;">A14</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: right; font-weight: 600; color: var(--success);">96%</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border);">23 分钟前</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: center;"><span class="badge badge-success" style="font-size: 9px;">通过</span></td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); font-family: 'SF Mono', monospace; font-size: 11px;">dau_active_user_consistency</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border);"><span class="badge badge-purple" style="font-size: 9px;">服务</span></td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: center;">axiom</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: center;">A09</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: right; font-weight: 600; color: var(--warning);">82%</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border);">1 小时前</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: center;"><span class="badge badge-warning" style="font-size: 9px;">波动</span></td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); font-family: 'SF Mono', monospace; font-size: 11px;">api_v1_gmv_sla</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border);"><span class="badge badge-warning" style="font-size: 9px;">应用</span></td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: center;">ad-hoc</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: center;">—</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: right; font-weight: 600; color: var(--success);">100%</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border);">3 分钟前</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: center;"><span class="badge badge-success" style="font-size: 9px;">通过</span></td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); font-family: 'SF Mono', monospace; font-size: 11px;">bi_dashboard_freshness</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border);"><span class="badge badge-warning" style="font-size: 9px;">应用</span></td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: center;">axiom</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: center;">A22</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: right; font-weight: 600; color: var(--success);">100%</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border);">7 分钟前</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: center;"><span class="badge badge-success" style="font-size: 9px;">通过</span></td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); font-family: 'SF Mono', monospace; font-size: 11px;">schema_drift_detect</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border);"><span class="badge badge-accent" style="font-size: 9px;">加工</span></td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: center;">axiom</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: center;">A04</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: right; font-weight: 600; color: var(--success);">100%</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border);">12 分钟前</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: center;"><span class="badge badge-success" style="font-size: 9px;">通过</span></td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); font-family: 'SF Mono', monospace; font-size: 11px;">pii_field_detect</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border);"><span class="badge badge-accent" style="font-size: 9px;">加工</span></td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: center;">ad-hoc</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: center;">—</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: right; font-weight: 600; color: var(--warning);">65%</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border);">昨日</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: center;"><span class="badge badge-warning" style="font-size: 9px;">待 ratify</span></td>
+        </tr>
+        <tr>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); font-family: 'SF Mono', monospace; font-size: 11px;">consumer_freshness_dashboard</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border);"><span class="badge badge-warning" style="font-size: 9px;">应用</span></td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: center;">ad-hoc</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: center;">—</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: right; font-weight: 600; color: var(--success);">100%</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border);">5 分钟前</td>
+          <td style="padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: center;"><span class="badge badge-success" style="font-size: 9px;">通过</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="padding: 10px 16px; background: var(--surface-2); border-top: 1px solid var(--border); font-size: 12px; color: var(--text-dim); display: flex; justify-content: space-between;">
+      <span>显示 12 / 36 条 · 已隐藏 24 条通过率 ≥95% 的规则</span>
+      <a class="link">查看全部 →</a>
+    </div>
+  </div>
+
+  <div class="card" style="padding: 0; margin-top: 16px;">
+    <div style="padding: 12px 16px; border-bottom: 1px solid var(--border); background: var(--surface-2); display: flex; justify-content: space-between; align-items: center;">
+      <div><span class="badge badge-danger">失败规则</span> <strong>3 条需介入</strong> · 按 P0 → P1 排序</div>
+      <span class="text-xs text-dim">平均恢复时间 4.2h</span>
+    </div>
+    <div style="padding: 14px 16px; background: rgba(248, 81, 73, 0.05); border-bottom: 1px solid var(--border);">
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+        <span class="badge badge-danger" style="font-weight: 700;">P0</span>
+        <strong style="font-size: 14px;">realtime_gmv_aggregation Flink Job checkpoint 失败</strong>
+        <span style="margin-left: auto;" class="text-xs text-dim">5 分钟前</span>
+      </div>
+      <div class="text-xs text-dim" style="margin-bottom: 8px;">来源: Spark 监控 · 关联 GMV 实时看板 · 关联 axiom A14 · 关联问题 2026-08-19-001</div>
+      <div class="divider" style="margin: 8px 0;"></div>
+      <div class="flex" style="gap: 24px; font-size: 12px;">
+        <div>
+          <div class="text-xs text-dim">影响资产</div>
+          <div style="margin-top: 4px;"><span class="badge badge-purple" style="font-size: 10px;">dm_finance_gmv</span> <span class="badge badge-warning" style="font-size: 10px;">销售周报.GMV</span></div>
+        </div>
+        <div>
+          <div class="text-xs text-dim">最近 5 次</div>
+          <div style="margin-top: 4px; font-family: 'SF Mono', monospace; font-size: 11px;">
+            <span style="color: var(--success);">✓✓✓✓</span><span style="color: var(--danger);">✗</span>
+          </div>
+        </div>
+        <div>
+          <div class="text-xs text-dim">建议操作</div>
+          <div style="margin-top: 4px;"><a class="link">重启 Flink Job →</a></div>
+        </div>
+        <div style="margin-left: auto;">
+          <div class="text-xs text-dim">owner</div>
+          <div style="margin-top: 4px;"><span style="color: var(--text);">@张磊</span> · <span class="badge badge-info" style="font-size: 9px;">已认领</span></div>
+        </div>
+      </div>
+    </div>
+    <div style="padding: 14px 16px; background: rgba(248, 81, 73, 0.05); border-bottom: 1px solid var(--border);">
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+        <span class="badge badge-danger" style="font-weight: 700;">P0</span>
+        <strong style="font-size: 14px;">Kafka events_kafka 消息积压 23,450（阈值 1000）</strong>
+        <span style="margin-left: auto;" class="text-xs text-dim">30 分钟前</span>
+      </div>
+      <div class="text-xs text-dim" style="margin-bottom: 8px;">来源: Kafka 监控 · 关联 axiom A18 · 关联问题 2026-08-18</div>
+      <div class="divider" style="margin: 8px 0;"></div>
+      <div class="flex" style="gap: 24px; font-size: 12px;">
+        <div>
+          <div class="text-xs text-dim">影响资产</div>
+          <div style="margin-top: 4px;"><span class="badge badge-accent" style="font-size: 10px;">dwd_user_event</span> <span class="badge badge-purple" style="font-size: 10px;">ads_user_segments</span></div>
+        </div>
+        <div>
+          <div class="text-xs text-dim">最近 5 次</div>
+          <div style="margin-top: 4px; font-family: 'SF Mono', monospace; font-size: 11px;">
+            <span style="color: var(--success);">✓✓</span><span style="color: var(--danger);">✗✗✗</span>
+          </div>
+        </div>
+        <div>
+          <div class="text-xs text-dim">建议操作</div>
+          <div style="margin-top: 4px;"><a class="link">扩容 consumer →</a></div>
+        </div>
+        <div style="margin-left: auto;">
+          <div class="text-xs text-dim">owner</div>
+          <div style="margin-top: 4px;"><span style="color: var(--text);">@陈默</span> · <span class="badge badge-info" style="font-size: 9px;">已认领</span></div>
+        </div>
+      </div>
+    </div>
+    <div style="padding: 14px 16px; background: rgba(210, 153, 34, 0.05);">
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+        <span class="badge badge-warning" style="font-weight: 700;">P1</span>
+        <strong style="font-size: 14px;">fct_orders 行数波动 +47%（阈值 ±30%）</strong>
+        <span style="margin-left: auto;" class="text-xs text-dim">昨日</span>
+      </div>
+      <div class="text-xs text-dim" style="margin-bottom: 8px;">来源: 调度监控 · 关联 axiom A07 · 关联问题 2026-08-17</div>
+      <div class="divider" style="margin: 8px 0;"></div>
+      <div class="flex" style="gap: 24px; font-size: 12px;">
+        <div>
+          <div class="text-xs text-dim">影响资产</div>
+          <div style="margin-top: 4px;"><span class="badge badge-accent" style="font-size: 10px;">fct_orders</span></div>
+        </div>
+        <div>
+          <div class="text-xs text-dim">最近 5 次</div>
+          <div style="margin-top: 4px; font-family: 'SF Mono', monospace; font-size: 11px;">
+            <span style="color: var(--success);">✓</span><span style="color: var(--warning);">!</span><span style="color: var(--success);">✓✓✓</span>
+          </div>
+        </div>
+        <div>
+          <div class="text-xs text-dim">建议操作</div>
+          <div style="margin-top: 4px;"><a class="link">对比昨日明细 →</a></div>
+        </div>
+        <div style="margin-left: auto;">
+          <div class="text-xs text-dim">owner</div>
+          <div style="margin-top: 4px;"><span style="color: var(--text);">@林薇</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></div>
           </div>
         </div>
       </div>
