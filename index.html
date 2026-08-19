@@ -4763,6 +4763,105 @@ ORDER BY 1 DESC;</pre>
                     </div>
                     <span class="badge badge-success" style="font-size: 10px;">字段级 64%</span>
                   </div>
+                  <!-- 链路图：GMV 主路径高亮 -->
+                  <div style="margin-bottom: 16px; padding: 12px; background: var(--surface-2); border-radius: 6px;">
+                    <div style="font-size: 12px; font-weight: 600; color: var(--text-dim); margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
+                      <span>📊 链路图 · GMV 主路径高亮</span>
+                      <span style="font-size: 10px; font-weight: 400;">5 层 · 7 节点 · 8 条边</span>
+                    </div>
+                    <svg viewBox="0 0 1000 320" style="width: 100%; height: auto; max-height: 320px;">
+                      <defs>
+                        <marker id="field-arrow-main" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+                          <path d="M0,0 L0,6 L6,3 z" fill="var(--accent-2)"/>
+                        </marker>
+                        <marker id="field-arrow-dim" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+                          <path d="M0,0 L0,6 L6,3 z" fill="var(--text-dim)"/>
+                        </marker>
+                        <marker id="field-arrow-app" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+                          <path d="M0,0 L0,6 L6,3 z" fill="var(--warning)"/>
+                        </marker>
+                      </defs>
+                      <!-- 层标题 -->
+                      <text x="100" y="20" text-anchor="middle" fill="var(--info)" font-size="11" font-weight="600">接入层 Source</text>
+                      <text x="300" y="20" text-anchor="middle" fill="var(--accent)" font-size="11" font-weight="600">明细层 DWD</text>
+                      <text x="500" y="20" text-anchor="middle" fill="var(--accent)" font-size="11" font-weight="600">汇总层 FCT</text>
+                      <text x="700" y="20" text-anchor="middle" fill="var(--accent-2)" font-size="11" font-weight="600">集市层 DM</text>
+                      <text x="900" y="20" text-anchor="middle" fill="var(--warning)" font-size="11" font-weight="600">应用层 App</text>
+                      <!-- 接入层 -->
+                      <rect x="20" y="40" width="160" height="36" rx="6" fill="rgba(57, 197, 207, 0.15)" stroke="var(--info)" stroke-width="1.5"/>
+                      <text x="100" y="55" text-anchor="middle" fill="var(--text)" font-size="10">MySQL.orders</text>
+                      <text x="100" y="69" text-anchor="middle" fill="var(--info)" font-size="10" font-family="'SF Mono', monospace">paid_amount</text>
+                      <rect x="20" y="90" width="160" height="36" rx="6" fill="rgba(57, 197, 207, 0.15)" stroke="var(--info)" stroke-width="1.5"/>
+                      <text x="100" y="105" text-anchor="middle" fill="var(--text)" font-size="10">MySQL.orders</text>
+                      <text x="100" y="119" text-anchor="middle" fill="var(--info)" font-size="10" font-family="'SF Mono', monospace">refund_amount</text>
+                      <rect x="20" y="160" width="160" height="36" rx="6" fill="rgba(57, 197, 207, 0.15)" stroke="var(--info)" stroke-width="1.5"/>
+                      <text x="100" y="175" text-anchor="middle" fill="var(--text)" font-size="10">Kafka.click</text>
+                      <text x="100" y="189" text-anchor="middle" fill="var(--info)" font-size="10" font-family="'SF Mono', monospace">user_id</text>
+                      <!-- 明细层 -->
+                      <rect x="220" y="40" width="160" height="36" rx="6" fill="rgba(88, 166, 255, 0.15)" stroke="var(--accent)" stroke-width="1.5"/>
+                      <text x="300" y="55" text-anchor="middle" fill="var(--text)" font-size="10">dwd_orders</text>
+                      <text x="300" y="69" text-anchor="middle" fill="var(--accent)" font-size="10" font-family="'SF Mono', monospace">paid_order_amount</text>
+                      <rect x="220" y="90" width="160" height="36" rx="6" fill="rgba(88, 166, 255, 0.15)" stroke="var(--accent)" stroke-width="1.5"/>
+                      <text x="300" y="105" text-anchor="middle" fill="var(--text)" font-size="10">dwd_orders</text>
+                      <text x="300" y="119" text-anchor="middle" fill="var(--accent)" font-size="10" font-family="'SF Mono', monospace">refund_amount</text>
+                      <rect x="220" y="160" width="160" height="36" rx="6" fill="rgba(88, 166, 255, 0.15)" stroke="var(--accent)" stroke-width="1.5"/>
+                      <text x="300" y="175" text-anchor="middle" fill="var(--text)" font-size="10">dwd_user_event</text>
+                      <text x="300" y="189" text-anchor="middle" fill="var(--accent)" font-size="10" font-family="'SF Mono', monospace">user_id_masked</text>
+                      <!-- 汇总层 -->
+                      <rect x="420" y="40" width="160" height="36" rx="6" fill="rgba(88, 166, 255, 0.15)" stroke="var(--accent)" stroke-width="1.5"/>
+                      <text x="500" y="55" text-anchor="middle" fill="var(--text)" font-size="10">fct_orders</text>
+                      <text x="500" y="69" text-anchor="middle" fill="var(--accent)" font-size="10" font-family="'SF Mono', monospace">paid_order_amount</text>
+                      <!-- 集市层（核心） -->
+                      <rect x="620" y="40" width="160" height="50" rx="6" fill="rgba(188, 140, 255, 0.22)" stroke="var(--accent-2)" stroke-width="2.5"/>
+                      <text x="700" y="58" text-anchor="middle" fill="var(--accent-2)" font-size="11" font-weight="700">dm_finance_gmv</text>
+                      <text x="700" y="74" text-anchor="middle" fill="var(--accent-2)" font-size="12" font-weight="700" font-family="'SF Mono', monospace">gmv ⭐</text>
+                      <text x="700" y="87" text-anchor="middle" fill="var(--text-dim)" font-size="9">axiom A14 · A07</text>
+                      <!-- 应用层 -->
+                      <rect x="820" y="40" width="160" height="36" rx="6" fill="rgba(210, 153, 34, 0.15)" stroke="var(--warning)" stroke-width="1.5"/>
+                      <text x="900" y="55" text-anchor="middle" fill="var(--text)" font-size="10">销售周报</text>
+                      <text x="900" y="69" text-anchor="middle" fill="var(--warning)" font-size="10" font-family="'SF Mono', monospace">GMV</text>
+                      <rect x="820" y="90" width="160" height="36" rx="6" fill="rgba(210, 153, 34, 0.15)" stroke="var(--warning)" stroke-width="1.5"/>
+                      <text x="900" y="105" text-anchor="middle" fill="var(--text)" font-size="10">FastAPI</text>
+                      <text x="900" y="119" text-anchor="middle" fill="var(--warning)" font-size="10" font-family="'SF Mono', monospace">/api/v1/gmv</text>
+                      <!-- 辅助/旁路（虚线细线） -->
+                      <g stroke="var(--text-dim)" stroke-width="1.5" fill="none" stroke-dasharray="4,3" marker-end="url(#field-arrow-dim)">
+                        <line x1="180" y1="108" x2="220" y2="108"/>
+                        <line x1="180" y1="178" x2="220" y2="178"/>
+                      </g>
+                      <!-- refund 流入 dm.gmv（核心计算的另一输入） -->
+                      <line x1="380" y1="108" x2="620" y2="78" stroke="var(--accent-2)" stroke-width="1.5" stroke-dasharray="5,3" fill="none" marker-end="url(#field-arrow-main)"/>
+                      <text x="500" y="100" fill="var(--accent-2)" font-size="9" text-anchor="middle" font-style="italic">SUM减法（与paid相减）</text>
+                      <!-- GMV 主路径（实线粗） -->
+                      <g stroke="var(--accent-2)" stroke-width="3" fill="none" marker-end="url(#field-arrow-main)">
+                        <line x1="180" y1="58" x2="220" y2="58"/>
+                        <line x1="380" y1="58" x2="420" y2="58"/>
+                        <line x1="580" y1="58" x2="620" y2="65"/>
+                      </g>
+                      <!-- 转换标签 -->
+                      <text x="200" y="51" fill="var(--accent-2)" font-size="9" text-anchor="middle">rename</text>
+                      <text x="400" y="51" fill="var(--accent-2)" font-size="9" text-anchor="middle">直传</text>
+                      <!-- 消费出口 -->
+                      <g stroke="var(--warning)" stroke-width="2.5" fill="none" marker-end="url(#field-arrow-app)">
+                        <line x1="780" y1="65" x2="820" y2="58"/>
+                        <line x1="780" y1="80" x2="820" y2="108"/>
+                      </g>
+                      <text x="800" y="51" fill="var(--warning)" font-size="9" text-anchor="middle">直传</text>
+                      <text x="800" y="100" fill="var(--warning)" font-size="9" text-anchor="middle">API</text>
+                      <!-- 图例 -->
+                      <g font-size="11">
+                        <rect x="20" y="240" width="960" height="60" rx="6" fill="rgba(255,255,255,0.02)" stroke="var(--border)"/>
+                        <text x="30" y="258" fill="var(--text-dim)" font-size="11" font-weight="600">图例</text>
+                        <line x1="30" y1="278" x2="60" y2="278" stroke="var(--accent-2)" stroke-width="3"/>
+                        <text x="68" y="282" fill="var(--text-dim)" font-size="11">GMV 主路径（paid → dwd → fct → dm.gmv）</text>
+                        <line x1="340" y1="278" x2="370" y2="278" stroke="var(--accent-2)" stroke-width="1.5" stroke-dasharray="5,3"/>
+                        <text x="378" y="282" fill="var(--text-dim)" font-size="11">辅助输入（refund 进 SUM减法）</text>
+                        <line x1="620" y1="278" x2="650" y2="278" stroke="var(--text-dim)" stroke-width="1.5" stroke-dasharray="4,3"/>
+                        <text x="658" y="282" fill="var(--text-dim)" font-size="11">旁路字段（不参与 GMV）</text>
+                        <line x1="30" y1="294" x2="60" y2="294" stroke="var(--warning)" stroke-width="2.5"/>
+                        <text x="68" y="298" fill="var(--text-dim)" font-size="11">消费出口（dm.gmv 的下游）</text>
+                      </g>
+                    </svg>
+                  </div>
                   <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
                     <thead>
                       <tr style="background: var(--surface-2);">
