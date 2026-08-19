@@ -1,0 +1,26 @@
+# 压缩版（生成产物，不入库）
+index.min.html
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 日志 / 临时
+*.log
+*.tmp
+.env
+.env.local
+
+# 依赖
+node_modules/
+__pycache__/
+*.pyc
+.venv/
