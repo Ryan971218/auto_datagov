@@ -1,26 +1,66 @@
-# 压缩版（生成产物，不入库）
+# ===== 生成产物（不入库） =====
 index.min.html
+dist/
+build/
+out/
+*.min.js
+*.min.css
 
-# macOS
+# ===== macOS =====
 .DS_Store
 .AppleDouble
 .LSOverride
+._*
+.Spotlight-V100
+.Trashes
 
-# IDE
+# ===== Windows =====
+Thumbs.db
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# ===== IDE / 编辑器 =====
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
+*.bak
+*.orig
+*.rej
 
-# 日志 / 临时
+# ===== 日志 / 临时 =====
 *.log
 *.tmp
+*.pid
+*.seed
+*.pid.lock
+
+# ===== 环境变量 =====
 .env
 .env.local
+.env.*.local
 
-# 依赖
+# ===== 依赖 / 缓存 =====
 node_modules/
 __pycache__/
 *.pyc
+*.pyo
+.pyo
 .venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.parcel-cache/
+.next/
+.nuxt/
+.cache/
+
+# ===== 覆盖率 / 测试产物 =====
+coverage/
+.nyc_output/
+htmlcov/
+*.lcov
