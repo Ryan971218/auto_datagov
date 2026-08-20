@@ -1,0 +1,440 @@
+<template id="tpl-page-dictionary">
+      <div id="dictionary" class="page">
+        <div class="page-header">
+          <div class="flex-between">
+            <div>
+              <div class="page-title">数据字典</div>
+              <div class="page-subtitle">字段级元数据 + 概念映射 + axiom 关联——不是权威字典，是治理元数据层</div>
+            </div>
+            <button class="btn">+ 同步字段</button>
+          </div>
+        </div>
+        
+        <!-- 顶部 banner -->
+        <div class="banner">
+          <div class="banner-icon">📖</div>
+          <div class="banner-content">
+            <div class="banner-title">整合视角 · 不做权威源</div>
+            <div class="banner-text">
+              本页面是<strong>治理元数据层</strong>，从数据源 / dbt / axiom 整合而来。<br>
+              字段真实定义以 <code class="code">dbt docs</code> / <code class="code">Hive metastore</code> 为准，本页只附加<strong>业务语义 + axiom 关联 + 影响面</strong>。
+            </div>
+          </div>
+        </div>
+        
+        <!-- 顶部统计 -->
+        <div class="grid grid-4 section">
+          <div class="card">
+            <div class="card-title">表覆盖</div>
+            <div class="metric">87 / 368</div>
+            <div class="metric-trend">24% · 剩余自动同步中</div>
+          </div>
+          <div class="card">
+            <div class="card-title">字段总数</div>
+            <div class="metric">1,234</div>
+            <div class="metric-trend text-sm" style="color: var(--text-dim);">含 nullable / 类型 / sample</div>
+          </div>
+          <div class="card">
+            <div class="card-title">字段 → 业务概念</div>
+            <div class="metric">73<span style="font-size: 16px; color: var(--text-dim);">%</span></div>
+            <div class="metric-trend warn">331 字段无业务含义</div>
+          </div>
+          <div class="card">
+            <div class="card-title">axiom 关联字段</div>
+            <div class="metric">234</div>
+            <div class="metric-trend">12 axiom 覆盖中</div>
+          </div>
+        </div>
+        
+        <!-- 数据源 tab -->
+        <div class="tabs" data-tabset="dictionary-source">
+          <div class="tab active" data-target="dict-all">全部 <span class="text-xs text-dim">(87)</span></div>
+          <div class="tab" data-target="dict-mysql">MySQL <span class="text-xs text-dim">(42)</span></div>
+          <div class="tab" data-target="dict-postgres">PostgreSQL <span class="text-xs text-dim">(8)</span></div>
+          <div class="tab" data-target="dict-hive">Hive <span class="text-xs text-dim">(37)</span></div>
+        </div>
+        
+        <!-- 全部视图（两栏）-->
+        <div class="tab-pane active" data-pane="dict-all">
+          <div style="display: grid; grid-template-columns: 320px 1fr; gap: 16px;">
+            
+            <!-- 左侧：表列表 -->
+            <div class="card" style="padding: 0; max-height: 700px; overflow-y: auto;">
+              <div style="padding: 12px 16px; border-bottom: 1px solid var(--border); background: var(--surface-2);">
+                <span class="text-sm" style="font-weight: 600;">📂 表列表 · 87 张</span>
+              </div>
+              <div style="padding: 4px;">
+                <div class="text-xs text-dim" style="padding: 8px 12px;">MySQL · yunhai_biz_oltp (42)</div>
+                <div class="flex-between" style="padding: 6px 12px; border-radius: 4px; background: rgba(88, 166, 255, 0.1); border-left: 3px solid var(--accent); cursor: pointer;">
+                  <span style="font-size: 12px;"><code class="code">yunhai_biz.orders</code></span>
+                  <span class="text-xs text-dim">12 字段</span>
+                </div>
+                <div class="flex-between" style="padding: 6px 12px; border-radius: 4px; cursor: pointer;">
+                  <span style="font-size: 12px;"><code class="code">yunhai_biz.returns</code></span>
+                  <span class="text-xs text-dim">8 字段</span>
+                </div>
+                <div class="flex-between" style="padding: 6px 12px; border-radius: 4px; cursor: pointer;">
+                  <span style="font-size: 12px;"><code class="code">yunhai_biz.users</code></span>
+                  <span class="text-xs text-dim">15 字段</span>
+                </div>
+                
+                <div class="text-xs text-dim" style="padding: 8px 12px; margin-top: 8px;">PostgreSQL · metabase_pg (8)</div>
+                <div class="flex-between" style="padding: 6px 12px; border-radius: 4px; cursor: pointer;">
+                  <span style="font-size: 12px;"><code class="code">metabase.report_card</code></span>
+                  <span class="text-xs text-dim">14 字段</span>
+                </div>
+                <div class="flex-between" style="padding: 6px 12px; border-radius: 4px; cursor: pointer;">
+                  <span style="font-size: 12px;"><code class="code">metabase.activity</code></span>
+                  <span class="text-xs text-dim">9 字段</span>
+                </div>
+                
+                <div class="text-xs text-dim" style="padding: 8px 12px; margin-top: 8px;">Hive · yunhai_dw (37)</div>
+                <div class="flex-between" style="padding: 6px 12px; border-radius: 4px; background: rgba(88, 166, 255, 0.1); border-left: 3px solid var(--accent); cursor: pointer;">
+                  <span style="font-size: 12px;"><code class="code">dwd.dwd_orders</code></span>
+                  <span class="text-xs text-dim">12 字段</span>
+                </div>
+                <div class="flex-between" style="padding: 6px 12px; border-radius: 4px; cursor: pointer;">
+                  <span style="font-size: 12px;"><code class="code">dwd.dwd_user_event</code></span>
+                  <span class="text-xs text-dim">18 字段</span>
+                </div>
+                <div class="flex-between" style="padding: 6px 12px; border-radius: 4px; cursor: pointer;">
+                  <span style="font-size: 12px;"><code class="code">dwd.dwd_returns</code></span>
+                  <span class="text-xs text-dim">10 字段</span>
+                </div>
+                <div class="flex-between" style="padding: 6px 12px; border-radius: 4px; cursor: pointer;">
+                  <span style="font-size: 12px;"><code class="code">dm.dm_finance_gmv</code></span>
+                  <span class="text-xs text-dim">8 字段</span>
+                </div>
+                <div class="flex-between" style="padding: 6px 12px; border-radius: 4px; cursor: pointer;">
+                  <span style="font-size: 12px;"><code class="code">dm.dm_user_profile</code></span>
+                  <span class="text-xs text-dim">22 字段</span>
+                </div>
+                <div style="padding: 8px 12px; text-align: center; color: var(--text-dim); font-size: 11px;">··· 还有 77 张表 ···</div>
+              </div>
+            </div>
+            
+            <!-- 右侧：字段详情 -->
+            <div>
+              <div class="card" style="padding: 0;">
+                <div style="padding: 16px; border-bottom: 1px solid var(--border);">
+                  <div class="flex-between">
+                    <div>
+                      <div style="font-family: 'SF Mono', Monaco, monospace; font-size: 14px; font-weight: 600;">📊 dwd.dwd_orders</div>
+                      <div class="text-xs text-dim" style="margin-top: 4px;">
+                        12 字段 · 来自 Hive · yunhai_dw · 8 字段映射概念 · 5 字段关联 axiom
+                      </div>
+                    </div>
+                    <div class="flex" style="gap: 6px;">
+                      <span class="badge badge-success" style="font-size: 10px;">66% 完整</span>
+                      <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">✏️ 编辑语义</button>
+                    </div>
+                  </div>
+                </div>
+                
+                <div style="padding: 16px;">
+                  <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
+                    <thead>
+                      <tr style="background: var(--surface-2);">
+                        <th style="padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border); font-weight: 600; color: var(--text-dim); font-size: 10px; text-transform: uppercase;">字段</th>
+                        <th style="padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border); font-weight: 600; color: var(--text-dim); font-size: 10px; text-transform: uppercase;">类型 / 约束</th>
+                        <th style="padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border); font-weight: 600; color: var(--text-dim); font-size: 10px; text-transform: uppercase;">示例</th>
+                        <th style="padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border); font-weight: 600; color: var(--text-dim); font-size: 10px; text-transform: uppercase;">业务含义</th>
+                        <th style="padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border); font-weight: 600; color: var(--text-dim); font-size: 10px; text-transform: uppercase;">axiom</th>
+                        <th style="padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border); font-weight: 600; color: var(--text-dim); font-size: 10px; text-transform: uppercase;">下游引用</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td style="padding: 10px 12px; border-bottom: 1px solid var(--border); font-family: 'SF Mono', monospace;"><strong>order_id</strong></td>
+                        <td style="padding: 10px 12px; border-bottom: 1px solid var(--border);">
+                          <code class="code">bigint</code><br>
+                          <span class="text-xs text-dim">PK, NOT NULL</span>
+                        </td>
+                        <td style="padding: 10px 12px; border-bottom: 1px solid var(--border); font-family: 'SF Mono', monospace; color: var(--accent-2);">12345678</td>
+                        <td style="padding: 10px 12px; border-bottom: 1px solid var(--border);">
+                          <a class="link">订单 ID</a>
+                        </td>
+                        <td style="padding: 10px 12px; border-bottom: 1px solid var(--border);">
+                          <span class="badge badge-info" style="font-size: 10px;">A18</span>
+                        </td>
+                        <td style="padding: 10px 12px; border-bottom: 1px solid var(--border);">
+                          <span class="text-xs">fct_orders · dm_finance_gmv · 销售周报 · 月度看板</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding: 10px 12px; border-bottom: 1px solid var(--border); font-family: 'SF Mono', monospace;"><strong>user_id_masked</strong></td>
+                        <td style="padding: 10px 12px; border-bottom: 1px solid var(--border);">
+                          <code class="code">varchar(32)</code><br>
+                          <span class="text-xs text-dim">NOT NULL</span>
+                        </td>
+                        <td style="padding: 10px 12px; border-bottom: 1px solid var(--border); font-family: 'SF Mono', monospace; color: var(--accent-2);">"a***1234"</td>
+                        <td style="padding: 10px 12px; border-bottom: 1px solid var(--border);">
+                          <a class="link">用户</a>
+                          <div class="text-xs text-dim">已脱敏的 user_id</div>
+                        </td>
+                        <td style="padding: 10px 12px; border-bottom: 1px solid var(--border);">
+                          <span class="badge badge-accent" style="font-size: 10px;">A01</span>
+                          <div class="text-xs text-dim">P0 · 阻断 merge</div>
+                        </td>
+                        <td style="padding: 10px 12px; border-bottom: 1px solid var(--border);">
+                          <span class="text-xs">dm_user_profile · 推荐系统</span>
+                        </td>
+                      </tr>
+                      <tr style="background: rgba(188, 140, 255, 0.05);">
+                        <td style="padding: 10px 12px; border-bottom: 1px solid var(--border); font-family: 'SF Mono', monospace;"><strong>paid_order_amount</strong></td>
+                        <td style="padding: 10px 12px; border-bottom: 1px solid var(--border);">
+                          <code class="code">decimal(18,2)</code><br>
+                          <span class="text-xs text-dim">NOT NULL, ≥ 0</span>
+                        </td>
+                        <td style="padding: 10px 12px; border-bottom: 1px solid var(--border); font-family: 'SF Mono', monospace; color: var(--accent-2);">1280.50</td>
+                        <td style="padding: 10px 12px; border-bottom: 1px solid var(--border);">
+                          <strong><a class="link">GMV</a></strong>
+                          <div class="text-xs text-dim">核心业务指标</div>
+                        </td>
+                        <td style="padding: 10px 12px; border-bottom: 1px solid var(--border);">
+                          <span class="badge badge-accent" style="font-size: 10px;">A14</span>
+                          <div class="text-xs text-dim">单一源</div>
+                          <span class="badge badge-accent" style="font-size: 10px;">A07</span>
+                          <div class="text-xs text-dim">时间窗口</div>
+                        </td>
+                        <td style="padding: 10px 12px; border-bottom: 1px solid var(--border);">
+                          <span class="text-xs">fct_orders · dm_finance_gmv · /api/v1/gmv · BI 销售周报 · 月度看板</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding: 10px 12px; border-bottom: 1px solid var(--border); font-family: 'SF Mono', monospace;"><strong>refund_amount</strong></td>
+                        <td style="padding: 10px 12px; border-bottom: 1px solid var(--border);">
+                          <code class="code">decimal(18,2)</code><br>
+                          <span class="text-xs text-dim">NULL, ≥ 0</span>
+                        </td>
+                        <td style="padding: 10px 12px; border-bottom: 1px solid var(--border); font-family: 'SF Mono', monospace; color: var(--accent-2);">0.00</td>
+                        <td style="padding: 10px 12px; border-bottom: 1px solid var(--border);">
+                          <a class="link">退款</a>
+                        </td>
+                        <td style="padding: 10px 12px; border-bottom: 1px solid var(--border);">
+                          <span class="badge badge-warning" style="font-size: 10px;">⚠ 待映射</span>
+                          <div class="text-xs text-dim">A07 时间窗口待 ratify</div>
+                        </td>
+                        <td style="padding: 10px 12px; border-bottom: 1px solid var(--border);">
+                          <span class="text-xs">dm_finance_gmv</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding: 10px 12px; border-bottom: 1px solid var(--border); font-family: 'SF Mono', monospace;"><strong>order_date</strong></td>
+                        <td style="padding: 10px 12px; border-bottom: 1px solid var(--border);">
+                          <code class="code">date</code><br>
+                          <span class="text-xs text-dim">NOT NULL</span>
+                        </td>
+                        <td style="padding: 10px 12px; border-bottom: 1px solid var(--border); font-family: 'SF Mono', monospace; color: var(--accent-2);">2026-08-15</td>
+                        <td style="padding: 10px 12px; border-bottom: 1px solid var(--border);">
+                          <a class="link">订单日期</a>
+                        </td>
+                        <td style="padding: 10px 12px; border-bottom: 1px solid var(--border);">
+                          <span class="badge badge-info" style="font-size: 10px;">A18</span>
+                        </td>
+                        <td style="padding: 10px 12px; border-bottom: 1px solid var(--border);">
+                          <span class="text-xs">所有 mart · 8 个 dbt model</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding: 10px 12px; border-bottom: 1px solid var(--border); font-family: 'SF Mono', monospace;"><strong>order_status</strong></td>
+                        <td style="padding: 10px 12px; border-bottom: 1px solid var(--border);">
+                          <code class="code">varchar(16)</code><br>
+                          <span class="text-xs text-dim">NOT NULL, ENUM</span>
+                        </td>
+                        <td style="padding: 10px 12px; border-bottom: 1px solid var(--border); font-family: 'SF Mono', monospace; color: var(--accent-2);">"PAID"</td>
+                        <td style="padding: 10px 12px; border-bottom: 1px solid var(--border);">
+                          <a class="link">订单状态</a>
+                        </td>
+                        <td style="padding: 10px 12px; border-bottom: 1px solid var(--border);">
+                          <span class="text-xs text-dim">—</span>
+                        </td>
+                        <td style="padding: 10px 12px; border-bottom: 1px solid var(--border);">
+                          <span class="text-xs">下游报表</span>
+                        </td>
+                      </tr>
+                      <tr style="background: rgba(210, 153, 34, 0.05);">
+                        <td style="padding: 10px 12px; border-bottom: 1px solid var(--border); font-family: 'SF Mono', monospace;"><strong>created_at</strong></td>
+                        <td style="padding: 10px 12px; border-bottom: 1px solid var(--border);">
+                          <code class="code">timestamp</code><br>
+                          <span class="text-xs text-dim">NOT NULL</span>
+                        </td>
+                        <td style="padding: 10px 12px; border-bottom: 1px solid var(--border); font-family: 'SF Mono', monospace; color: var(--accent-2);">2026-08-15 10:23:45</td>
+                        <td style="padding: 10px 12px; border-bottom: 1px solid var(--border);">
+                          <span class="badge badge-warning" style="font-size: 10px;">⚠ 缺业务含义</span>
+                        </td>
+                        <td style="padding: 10px 12px; border-bottom: 1px solid var(--border);">
+                          <span class="badge badge-info" style="font-size: 10px;">A18</span>
+                        </td>
+                        <td style="padding: 10px 12px; border-bottom: 1px solid var(--border);">
+                          <span class="text-xs">12 个下游</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding: 10px 12px; font-family: 'SF Mono', monospace;"><strong>updated_at</strong></td>
+                        <td style="padding: 10px 12px;">
+                          <code class="code">timestamp</code><br>
+                          <span class="text-xs text-dim">NOT NULL</span>
+                        </td>
+                        <td style="padding: 10px 12px; font-family: 'SF Mono', monospace; color: var(--accent-2);">2026-08-15 10:23:45</td>
+                        <td style="padding: 10px 12px;">
+                          <span class="text-xs text-dim">—</span>
+                        </td>
+                        <td style="padding: 10px 12px;">
+                          <span class="badge badge-info" style="font-size: 10px;">A18</span>
+                        </td>
+                        <td style="padding: 10px 12px;">
+                          <span class="text-xs">—</span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                
+                <div style="padding: 12px 16px; border-top: 1px solid var(--border); background: var(--surface-2);">
+                  <div class="text-xs text-dim" style="display: flex; justify-content: space-between;">
+                    <span>显示 8 / 12 字段 · 4 字段无业务含义</span>
+                    <span>字段来源: Hive metastore + dbt schema.yml + 业务方反馈</span>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- 字段详情补充 -->
+              <div class="card" style="margin-top: 16px;">
+                <div class="section-title">字段治理状态 · 4 项待办</div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px;">
+                  <div class="card" style="padding: 12px; background: rgba(210, 153, 34, 0.05); border-color: rgba(210, 153, 34, 0.3);">
+                    <div class="flex" style="gap: 8px; align-items: center;">
+                      <span class="badge badge-warning" style="font-size: 10px;">⚠</span>
+                      <strong class="text-sm">2 字段缺业务含义</strong>
+                    </div>
+                    <div class="text-xs text-dim" style="margin-top: 6px;">
+                      created_at / updated_at / 等 · 需要业务方补充
+                    </div>
+                    <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px; margin-top: 8px;">→ 分配给 owner</button>
+                  </div>
+                  <div class="card" style="padding: 12px; background: rgba(248, 81, 73, 0.05); border-color: rgba(248, 81, 73, 0.3);">
+                    <div class="flex" style="gap: 8px; align-items: center;">
+                      <span class="badge badge-danger" style="font-size: 10px;">✗</span>
+                      <strong class="text-sm">1 axiom 待 ratify</strong>
+                    </div>
+                    <div class="text-xs text-dim" style="margin-top: 6px;">
+                      A07 时间窗口口径 — 退款字段归属待确认
+                    </div>
+                    <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px; margin-top: 8px;">→ axiom 页面</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 各数据源简化视图 -->
+        <div class="tab-pane" data-pane="dict-mysql">
+          <div class="card">
+            <div class="text-sm text-dim" style="padding: 24px; text-align: center;">
+              MySQL · yunhai_biz_oltp · 42 张表<br>
+              <span style="margin-top: 12px; display: inline-block;">同上布局，按数据源切换</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="tab-pane" data-pane="dict-postgres">
+          <div class="card">
+            <div class="text-sm text-dim" style="padding: 24px; text-align: center;">
+              PostgreSQL · metabase_pg · 8 张表<br>
+              <span style="margin-top: 12px; display: inline-block;">同上布局</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="tab-pane" data-pane="dict-hive">
+          <div class="card">
+            <div class="text-sm text-dim" style="padding: 24px; text-align: center;">
+              Hive · yunhai_dw · 37 张表<br>
+              <span style="margin-top: 12px; display: inline-block;">同上布局</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 缺失业务含义字段汇总 -->
+        <div class="section">
+          <div class="section-title">缺失业务含义字段 · 待业务方补充（331 个）</div>
+          <div class="card" style="padding: 0;">
+            <div class="list-item">
+              <div class="list-item-icon" style="background: rgba(210, 153, 34, 0.15); color: var(--warning);">⚠</div>
+              <div class="list-item-main">
+                <div class="list-item-title">dwd.dwd_orders.created_at / updated_at</div>
+                <div class="list-item-sub">时间戳字段 · 12 个下游引用 · 影响 SLA 监控准确性</div>
+              </div>
+              <div class="list-item-meta">
+                <span class="badge badge-warning" style="font-size: 10px;">2 字段</span>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">→ 业务方</button>
+              </div>
+            </div>
+            <div class="list-item">
+              <div class="list-item-icon" style="background: rgba(210, 153, 34, 0.15); color: var(--warning);">⚠</div>
+              <div class="list-item-main">
+                <div class="list-item-title">dwd.dwd_user_event.event_meta (json)</div>
+                <div class="list-item-sub">JSON 字段 · 嵌套结构未展开 · 影响用户行为分析</div>
+              </div>
+              <div class="list-item-meta">
+                <span class="badge badge-warning" style="font-size: 10px;">8 字段</span>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">→ 业务方</button>
+              </div>
+            </div>
+            <div class="list-item">
+              <div class="list-item-icon" style="background: rgba(210, 153, 34, 0.15); color: var(--warning);">⚠</div>
+              <div class="list-item-main">
+                <div class="list-item-title">yunhai_biz.orders 扩展字段（customer_note, internal_flag...）</div>
+                <div class="list-item-sub">9 字段 · 部分仅内部使用 · 待 owner 确认是否纳入治理</div>
+              </div>
+              <div class="list-item-meta">
+                <span class="badge badge-warning" style="font-size: 10px;">9 字段</span>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">→ 业务方</button>
+              </div>
+            </div>
+            <div style="padding: 12px 16px; background: var(--surface-2); text-align: center; color: var(--text-dim); font-size: 12px;">
+              还有 312 个字段 · 按 owner 分组后批量分配
+            </div>
+          </div>
+        </div>
+        
+        <!-- axiom 字段覆盖率 -->
+        <div class="section">
+          <div class="section-title">axiom 字段覆盖率 · 12 axiom</div>
+          <div class="card" style="padding: 0;">
+            <div class="list-item">
+              <div class="list-item-icon" style="background: rgba(88, 166, 255, 0.15); color: var(--accent);">A01</div>
+              <div class="list-item-main">
+                <div class="list-item-title">无直接 PII 字段</div>
+                <div class="list-item-sub">覆盖 23 个字段 · 包括 user_id_masked / phone / id_card / email · 100% 通过</div>
+              </div>
+              <div class="list-item-meta">
+                <span class="badge badge-success" style="font-size: 10px;">23 字段</span>
+              </div>
+            </div>
+            <div class="list-item">
+              <div class="list-item-icon" style="background: rgba(88, 166, 255, 0.15); color: var(--accent);">A14</div>
+              <div class="list-item-main">
+                <div class="list-item-title">指标单一源（GMV）</div>
+                <div class="list-item-sub">覆盖 1 个核心字段 paid_order_amount · 阻断 dwd_orders 与 dm_finance_gmv 重复计算</div>
+              </div>
+              <div class="list-item-meta">
+                <span class="badge badge-success" style="font-size: 10px;">1 字段</span>
+              </div>
+            </div>
+            <div class="list-item">
+              <div class="list-item-icon" style="background: rgba(88, 166, 255, 0.15); color: var(--accent);">A18</div>
+              <div class="list-item-main">
+                <div class="list-item-title">事故-资产影响映射</div>
+                <div class="list-item-sub">覆盖 187 个字段 · 自动关联 incident · 100% 通过</div>
+              </div>
+              <div class="list-item-meta">
+                <span class="badge badge-success" style="font-size: 10px;">187 字段</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</template>

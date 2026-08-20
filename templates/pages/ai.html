@@ -1,0 +1,291 @@
+<template id="tpl-page-ai">
+      <div id="ai" class="page">
+        <div class="page-header">
+          <div class="page-title">AI 助手 · 含义流转引擎</div>
+          <div class="page-subtitle">不是"通用 AI"，是基于你团队 wiki 的、有溯源的回答者</div>
+        </div>
+        
+        <div class="banner">
+          <div class="banner-icon">✦</div>
+          <div class="banner-content">
+            <div class="banner-title">每个答案都带溯源 · 每个错误都会沉淀</div>
+            <div class="banner-text">
+              AI <strong>只从你团队的 wiki 里检索 + 组装</strong>——不发明、不编造。<br>
+              答错的反馈（👎）会自动写入 log.md，<strong>下一次类似问题就能答对</strong>。
+            </div>
+          </div>
+        </div>
+        
+        <!-- 4 种问答模式 -->
+        <div class="section">
+          <div class="section-title">4 种问答模式</div>
+          <div class="grid grid-4">
+            <div class="card" style="padding: 16px;">
+              <span class="badge badge-accent">定义查询</span>
+              <div style="margin-top: 8px; font-weight: 600;">"GMV 是什么"</div>
+              <div class="text-xs text-dim" style="margin-top: 4px;">→ 检索 concepts/gmv.md</div>
+            </div>
+            <div class="card" style="padding: 16px;">
+              <span class="badge badge-info">历史经验</span>
+              <div style="margin-top: 8px; font-weight: 600;">"为什么对不上"</div>
+              <div class="text-xs text-dim" style="margin-top: 4px;">→ 拉 problems/ 找相似案例</div>
+            </div>
+            <div class="card" style="padding: 16px;">
+              <span class="badge badge-purple">生成协助</span>
+              <div style="margin-top: 8px; font-weight: 600;">"帮我写对账 SQL"</div>
+              <div class="text-xs text-dim" style="margin-top: 4px;">→ 调 template/ 生成代码</div>
+            </div>
+            <div class="card" style="padding: 16px;">
+              <span class="badge badge-warning">跨实体查询</span>
+              <div style="margin-top: 8px; font-weight: 600;">"哪些表涉及手机号"</div>
+              <div class="text-xs text-dim" style="margin-top: 4px;">→ 扫所有 asset + axiom</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 对话示例 -->
+        <div class="section">
+          <div class="flex-between" style="margin-bottom: 12px;">
+            <div class="section-title" style="margin: 0;">对话示例 · 最近 3 轮</div>
+            <button class="btn btn-ghost">清空对话</button>
+          </div>
+          
+          <div class="card" style="padding: 20px;">
+            
+            <!-- Round 1: 我问 -->
+            <div class="flex" style="gap: 12px; margin-bottom: 16px;">
+              <div class="list-item-icon" style="background: rgba(88, 166, 255, 0.2); color: var(--accent);">我</div>
+              <div style="flex: 1;">
+                <div style="background: var(--surface-2); padding: 12px 16px; border-radius: 8px; border-left: 3px solid var(--accent);">
+                  GMV 又跟财务对不上了，这次差 200 万，可能根因是什么？
+                </div>
+                <div class="text-xs text-dim" style="margin-top: 4px;">2026-08-17 14:23</div>
+              </div>
+            </div>
+            
+            <!-- Round 1: AI 答 -->
+            <div class="flex" style="gap: 12px; margin-bottom: 24px;">
+              <div class="list-item-icon" style="background: rgba(188, 140, 255, 0.2); color: var(--accent-2);">✦</div>
+              <div style="flex: 1;">
+                <div style="background: rgba(188, 140, 255, 0.05); padding: 16px; border-radius: 8px; border-left: 3px solid var(--accent-2);">
+                  <div style="font-size: 14px; line-height: 1.7;">
+                    基于你团队 wiki 里的 5 次类似案例，归结为 3 类常见根因（按可能性排序）：
+                  </div>
+                  
+                  <div style="margin-top: 16px; padding: 12px; background: rgba(248, 81, 73, 0.05); border-left: 2px solid var(--danger); border-radius: 4px;">
+                    <div style="font-weight: 600; color: var(--danger);">1. 口径变更未通知 <span class="text-xs text-dim" style="font-weight: normal;">(可能性 65%)</span></div>
+                    <div class="text-sm" style="margin-top: 4px; color: var(--text-dim);">
+                      业务方调整定义但未走 [[flows/flow-001|上游变更通知流]]。<br>
+                      <span class="text-xs">证据：</span><a class="link">problems/2026-08</a> · <a class="link">problems/2026-08-15</a>
+                    </div>
+                  </div>
+                  
+                  <div style="margin-top: 12px; padding: 12px; background: rgba(210, 153, 34, 0.05); border-left: 2px solid var(--warning); border-radius: 4px;">
+                    <div style="font-weight: 600; color: var(--warning);">2. 退款时间窗口不一致 <span class="text-xs text-dim" style="font-weight: normal;">(可能性 20%)</span></div>
+                    <div class="text-sm" style="margin-top: 4px; color: var(--text-dim);">
+                      财务用 30 天窗口，数仓用 90 天。<br>
+                      <span class="text-xs">证据：</span><a class="link">problems/2026-07</a><br>
+                      <span class="text-xs">解决方案：</span><a class="link">sops/sop-gmv-001</a> GMV 月度对账
+                    </div>
+                  </div>
+                  
+                  <div style="margin-top: 12px; padding: 12px; background: rgba(139, 148, 158, 0.05); border-left: 2px solid var(--text-dim); border-radius: 4px;">
+                    <div style="font-weight: 600; color: var(--text-dim);">3. 计算口径分歧 <span class="text-xs text-dim" style="font-weight: normal;">(可能性 15%)</span></div>
+                    <div class="text-sm" style="margin-top: 4px; color: var(--text-dim);">
+                      含/不含未支付订单的口径不一致。<br>
+                      <span class="text-xs">已沉淀为：</span><a class="link">axiom A14 指标单一源</a>
+                    </div>
+                  </div>
+                  
+                  <div style="margin-top: 16px; padding: 10px 12px; background: rgba(88, 166, 255, 0.08); border-radius: 4px;">
+                    <div class="text-sm" style="color: var(--text-dim);">💡 <strong style="color: var(--text);">建议下一步：</strong></div>
+                    <ul class="text-sm" style="margin-top: 4px; padding-left: 20px; color: var(--text-dim);">
+                      <li>直接 <a class="link">触发 SOP sop-gmv-001</a> 跑对账</li>
+                      <li>查 <a class="link">concepts/gmv 口径冲突历史</a> 看上次怎么解决的</li>
+                    </ul>
+                  </div>
+                </div>
+                
+                <!-- 反馈行 -->
+                <div class="flex" style="gap: 8px; margin-top: 12px; padding-left: 4px;">
+                  <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">👍 有用</button>
+                  <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">👎 答错</button>
+                  <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">📌 沉淀为 SOP</button>
+                  <span class="text-xs text-dim" style="margin-left: auto; align-self: center;">基于 5 个 wiki 页面 · 0.8s</span>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Round 2: 我问 -->
+            <div class="flex" style="gap: 12px; margin-bottom: 16px;">
+              <div class="list-item-icon" style="background: rgba(88, 166, 255, 0.2); color: var(--accent);">我</div>
+              <div style="flex: 1;">
+                <div style="background: var(--surface-2); padding: 12px 16px; border-radius: 8px; border-left: 3px solid var(--accent);">
+                  那 A14 这个 axiom 怎么落到我们现在的 dbt 项目里？
+                </div>
+                <div class="text-xs text-dim" style="margin-top: 4px;">2026-08-17 14:24</div>
+              </div>
+            </div>
+            
+            <!-- Round 2: AI 答 -->
+            <div class="flex" style="gap: 12px; margin-bottom: 24px;">
+              <div class="list-item-icon" style="background: rgba(188, 140, 255, 0.2); color: var(--accent-2);">✦</div>
+              <div style="flex: 1;">
+                <div style="background: rgba(188, 140, 255, 0.05); padding: 16px; border-radius: 8px; border-left: 3px solid var(--accent-2);">
+                  <div style="font-size: 14px; line-height: 1.7;">
+                    A14 的核心是"每个业务指标必须有且仅有一个权威计算源"。落到 dbt 项目有 3 步：
+                  </div>
+                  
+                  <div class="text-sm" style="margin-top: 12px; padding-left: 16px; color: var(--text-dim);">
+                    <strong style="color: var(--text);">① 在 dbt_project.yml 里标记唯一 mart</strong><br>
+                    每个业务指标在 schema.yml 加 <code class="code">meta: {primary_mart: true}</code>
+                  </div>
+                  
+                  <div class="text-sm" style="margin-top: 8px; padding-left: 16px; color: var(--text-dim);">
+                    <strong style="color: var(--text);">② 加 dbt test 阻断多版本</strong><br>
+                    用 <a class="link">templates/tpl-daily-etl</a> 里已有的测试集
+                  </div>
+                  
+                  <div class="text-sm" style="margin-top: 8px; padding-left: 16px; color: var(--text-dim);">
+                    <strong style="color: var(--text);">③ axiom lint 集成到 CI</strong><br>
+                    每次 PR 自动跑 axiom 校验
+                  </div>
+                  
+                  <div class="note" style="margin-top: 12px;">
+                    ⚠ <strong>诚实边界</strong>：以上是<strong>建议</strong>，不是已经在你项目里跑过的实践。<br>
+                    A14 这条 axiom 是新的，目前没有团队在用的落地代码。我可以<strong>基于类似项目经验给模板</strong>，但你需要根据自己项目调整。
+                  </div>
+                </div>
+                
+                <div class="flex" style="gap: 8px; margin-top: 12px; padding-left: 4px;">
+                  <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">👍 有用</button>
+                  <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">👎 答错</button>
+                  <span class="text-xs text-dim" style="margin-left: auto; align-self: center;">基于 axiom A14 + 1 个 template · 1.2s</span>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Round 3: 我问 -->
+            <div class="flex" style="gap: 12px; margin-bottom: 16px;">
+              <div class="list-item-icon" style="background: rgba(88, 166, 255, 0.2); color: var(--accent);">我</div>
+              <div style="flex: 1;">
+                <div style="background: var(--surface-2); padding: 12px 16px; border-radius: 8px; border-left: 3px solid var(--accent);">
+                  帮我生成一个 GMV 月度对账的 SQL 模板
+                </div>
+                <div class="text-xs text-dim" style="margin-top: 4px;">2026-08-17 14:26</div>
+              </div>
+            </div>
+            
+            <!-- Round 3: AI 答 -->
+            <div class="flex" style="gap: 12px;">
+              <div class="list-item-icon" style="background: rgba(188, 140, 255, 0.2); color: var(--accent-2);">✦</div>
+              <div style="flex: 1;">
+                <div style="background: rgba(188, 140, 255, 0.05); padding: 16px; border-radius: 8px; border-left: 3px solid var(--accent-2);">
+                  <div style="font-size: 14px; line-height: 1.7;">
+                    基于 <a class="link">concepts/gmv</a> 的业务定义 + <a class="link">sops/sop-gmv-001</a> 的对账逻辑生成：
+                  </div>
+                  
+                  <pre style="margin-top: 12px; padding: 12px; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; font-size: 12px; font-family: 'SF Mono', Monaco, monospace; overflow-x: auto; color: var(--text);"><span style="color: var(--text-dim);">-- 财务 GMV vs 数仓 GMV 月度对账</span>
+<span style="color: var(--text-dim);">-- 来源: concepts/gmv.md, sops/sop-gmv-001</span>
+WITH finance_gmv AS (
+  SELECT
+    DATE_TRUNC('month', order_date) AS month,
+    SUM(paid_amount_cny) - SUM(refund_amount_cny) AS gmv
+  FROM finance.dm_finance_gmv
+  WHERE order_date >= DATE_TRUNC('month', CURRENT_DATE - INTERVAL '1 month')
+  GROUP BY 1
+),
+warehouse_gmv AS (
+  SELECT
+    DATE_TRUNC('month', paid_at) AS month,
+    SUM(paid_order_amount) - SUM(refund_amount) AS gmv
+  FROM {{ ref('dm_finance_gmv') }}
+  WHERE paid_at >= DATE_TRUNC('month', CURRENT_DATE - INTERVAL '1 month')
+  GROUP BY 1
+)
+SELECT
+  f.month,
+  f.gmv AS finance_gmv,
+  w.gmv AS warehouse_gmv,
+  f.gmv - w.gmv AS diff,
+  ROUND((f.gmv - w.gmv) * 100.0 / f.gmv, 2) AS diff_pct
+FROM finance_gmv f
+JOIN warehouse_gmv w USING (month)
+WHERE ABS(f.gmv - w.gmv) > 100  <span style="color: var(--text-dim);">-- 阈值 100 元</span>
+ORDER BY 1 DESC;</pre>
+                  
+                  <div class="note" style="margin-top: 12px;">
+                    ⚠ <strong>需要你确认</strong>：表名 <code class="code">finance.dm_finance_gmv</code> 和字段 <code class="code">paid_amount_cny</code> 是我推断的，<strong>不一定是你项目的真实表</strong>。请检查后使用。
+                  </div>
+                </div>
+                
+                <div class="flex" style="gap: 8px; margin-top: 12px; padding-left: 4px;">
+                  <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">👍 有用</button>
+                  <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">👎 答错</button>
+                  <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">📋 复制</button>
+                  <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">💾 存为 template</button>
+                  <span class="text-xs text-dim" style="margin-left: auto; align-self: center;">基于 2 个 wiki 页面 · 2.1s</span>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+        
+        <!-- 输入区 -->
+        <div class="section">
+          <div class="card">
+            <div class="section-title">问 AI 任何关于业务含义、问题、方法论的事</div>
+            <textarea placeholder="例如：哪些表涉及手机号？DAU 突然下跌怎么排查？帮我写一个订单对账 SQL..." style="width: 100%; min-height: 80px; padding: 12px; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-family: inherit; font-size: 13px; resize: vertical;"></textarea>
+            <div class="flex-between" style="margin-top: 12px;">
+              <div class="flex" style="gap: 8px;">
+                <span class="text-xs text-dim">快捷：</span>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">📖 解释这个表</button>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">🔍 给相似 SQL</button>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">⚡ 排查报错</button>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">💡 推荐 axiom</button>
+              </div>
+              <button class="btn">发送 ⏎</button>
+            </div>
+            <div class="text-xs text-dim" style="margin-top: 8px;">
+              ⌘+K 全局唤起 · AI 只从 wiki 检索 · 答错会写入 log.md，下次能更好
+            </div>
+          </div>
+        </div>
+        
+        <!-- AI 透明性 -->
+        <div class="section">
+          <div class="section-title">AI 的边界 · 诚实的自我说明</div>
+          <div class="grid grid-3">
+            <div class="card">
+              <div style="font-size: 16px; font-weight: 600;">✓ AI 能做的</div>
+              <ul class="text-sm" style="margin-top: 12px; padding-left: 20px; color: var(--text-dim);">
+                <li>从 wiki 检索 + 重组答案</li>
+                <li>找历史相似案例</li>
+                <li>生成 SQL / 文档 模板</li>
+                <li>识别口径冲突</li>
+                <li>提议 axiom 候选</li>
+              </ul>
+            </div>
+            <div class="card">
+              <div style="font-size: 16px; font-weight: 600; color: var(--warning);">⚠ AI 有限的</div>
+              <ul class="text-sm" style="margin-top: 12px; padding-left: 20px; color: var(--text-dim);">
+                <li>理解业务上下文（需业务方定义）</li>
+                <li>判断数据是否"合理"（需规则）</li>
+                <li>跨复杂系统的根因（需拓扑）</li>
+                <li>组织层面的协调（需人类）</li>
+              </ul>
+            </div>
+            <div class="card">
+              <div style="font-size: 16px; font-weight: 600; color: var(--danger);">✗ AI 不能做的</div>
+              <ul class="text-sm" style="margin-top: 12px; padding-left: 20px; color: var(--text-dim);">
+                <li>决定业务含义应该是什么</li>
+                <li>替你承担决策责任</li>
+                <li>替代人和人之间的对话</li>
+                <li>预测"还没发生过"的问题</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+</template>

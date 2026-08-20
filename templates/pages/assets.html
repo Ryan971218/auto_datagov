@@ -1,0 +1,249 @@
+<template id="tpl-page-assets">
+      <div id="assets" class="page">
+        <div class="page-header">
+          <div class="page-title">数据资产</div>
+          <div class="page-subtitle">业务含义的物理承载——与含义分离管理，避免概念层和资产层冲突混淆</div>
+        </div>
+        
+        <div class="card">
+          <div class="tabs" data-tabset="assets">
+            <div class="tab active" data-target="assets-tables">库表 <span class="text-xs text-dim">(234)</span></div>
+            <div class="tab" data-target="assets-bi">BI 报表 <span class="text-xs text-dim">(89)</span></div>
+            <div class="tab" data-target="assets-dbt">dbt models <span class="text-xs text-dim">(67)</span></div>
+            <div class="tab" data-target="assets-api">API <span class="text-xs text-dim">(12)</span></div>
+          </div>
+          
+          <!-- 库表 -->
+          <div class="tab-pane active" data-pane="assets-tables">
+            <div class="card" style="padding: 0; margin-top: 12px;">
+              <div class="list-item">
+                <div class="list-item-icon">▤</div>
+                <div class="list-item-main">
+                  <div class="list-item-title"><code class="code">dwd.dwd_orders</code></div>
+                  <div class="list-item-sub">订单事实表 · 234 个字段 · 承载含义：GMV, 退款, 客单价</div>
+                </div>
+                <div class="list-item-meta">
+                  <span class="badge badge-success">健康</span>
+                  <span class="text-xs text-dim">最近变更：3 天前</span>
+                </div>
+              </div>
+              <div class="list-item">
+                <div class="list-item-icon">▤</div>
+                <div class="list-item-main">
+                  <div class="list-item-title"><code class="code">dm.dm_finance_gmv</code></div>
+                  <div class="list-item-sub">财务 GMV 汇总 · dbt model · 承载含义：GMV</div>
+                </div>
+                <div class="list-item-meta">
+                  <span class="badge badge-warning">口径待对账</span>
+                </div>
+              </div>
+              <div class="list-item">
+                <div class="list-item-icon">▤</div>
+                <div class="list-item-main">
+                  <div class="list-item-title"><code class="code">dim.dim_user_profile</code></div>
+                  <div class="list-item-sub">用户画像表 · 89 个字段 · 承载含义：活跃用户, 留存</div>
+                </div>
+                <div class="list-item-meta">
+                  <span class="badge badge-danger">缺 union_id</span>
+                </div>
+              </div>
+              <div class="list-item">
+                <div class="list-item-icon">▤</div>
+                <div class="list-item-main">
+                  <div class="list-item-title"><code class="code">dwd.dwd_user_event</code></div>
+                  <div class="list-item-sub">用户行为日志 · 1.2 亿条/日 · 承载含义：DAU, 活跃用户</div>
+                </div>
+                <div class="list-item-meta">
+                  <span class="badge badge-success">健康</span>
+                  <span class="text-xs text-dim">最近变更：1 周前</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- BI 报表 -->
+          <div class="tab-pane" data-pane="assets-bi">
+            <div class="card" style="padding: 0; margin-top: 12px;">
+              <div class="list-item">
+                <div class="list-item-icon">▦</div>
+                <div class="list-item-main">
+                  <div class="list-item-title">销售周报</div>
+                  <div class="list-item-sub">每周一 09:00 自动发送 · 引用含义：GMV, DAU, 客单价 · 订阅方：@sales-team (12 人)</div>
+                </div>
+                <div class="list-item-meta">
+                  <span class="badge badge-success">健康</span>
+                  <span class="text-xs text-dim">上次刷新：2 天前</span>
+                </div>
+              </div>
+              <div class="list-item">
+                <div class="list-item-icon">▦</div>
+                <div class="list-item-main">
+                  <div class="list-item-title">月度财务看板</div>
+                  <div class="list-item-sub">每月 1 号 · 引用含义：GMV, 退款率, 复购率 · 订阅方：@finance-team</div>
+                </div>
+                <div class="list-item-meta">
+                  <span class="badge badge-warning">口径待对账</span>
+                  <span class="text-xs text-dim">上次刷新：15 天前</span>
+                </div>
+              </div>
+              <div class="list-item">
+                <div class="list-item-icon">▦</div>
+                <div class="list-item-main">
+                  <div class="list-item-title">运营 dashboard</div>
+                  <div class="list-item-sub">实时刷新 · 引用含义：DAU, 留存率, 活跃用户 · 订阅方：@growth-team</div>
+                </div>
+                <div class="list-item-meta">
+                  <span class="badge badge-success">健康</span>
+                  <span class="text-xs text-dim">5 分钟前</span>
+                </div>
+              </div>
+              <div class="list-item">
+                <div class="list-item-icon">▦</div>
+                <div class="list-item-main">
+                  <div class="list-item-title">用户画像报表</div>
+                  <div class="list-item-sub">每日 · 引用含义：活跃用户, union_id · 订阅方：@growth-team, @marketing</div>
+                </div>
+                <div class="list-item-meta">
+                  <span class="badge badge-danger">缺 union_id</span>
+                  <span class="text-xs text-dim">3 天前报错</span>
+                </div>
+              </div>
+              <div class="list-item">
+                <div class="list-item-icon">▦</div>
+                <div class="list-item-main">
+                  <div class="list-item-title">GMV 月度对账报表</div>
+                  <div class="list-item-sub">每月 30 号 · 引用含义：GMV · 自动对账 财务 GMV vs 数仓 GMV</div>
+                </div>
+                <div class="list-item-meta">
+                  <span class="badge badge-success">健康</span>
+                  <span class="text-xs text-dim">上次对账：30 天前</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- dbt models -->
+          <div class="tab-pane" data-pane="assets-dbt">
+            <div class="card" style="padding: 0; margin-top: 12px;">
+              <div class="list-item">
+                <div class="list-item-icon">⊕</div>
+                <div class="list-item-main">
+                  <div class="list-item-title"><code class="code">stg_orders</code> <span class="badge badge-info" style="margin-left: 8px;">staging</span></div>
+                  <div class="list-item-sub">上游：mysql.orders · 下游：fct_orders · 承载含义：订单明细</div>
+                </div>
+                <div class="list-item-meta">
+                  <span class="badge badge-success">测试 5/5</span>
+                  <span class="text-xs text-dim">2 小时前</span>
+                </div>
+              </div>
+              <div class="list-item">
+                <div class="list-item-icon">⊕</div>
+                <div class="list-item-main">
+                  <div class="list-item-title"><code class="code">dim_user</code> <span class="badge badge-purple" style="margin-left: 8px;">dimension</span></div>
+                  <div class="list-item-sub">上游：stg_users · 下游：dm_user_profile, fct_events · 承载含义：用户, 活跃用户</div>
+                </div>
+                <div class="list-item-meta">
+                  <span class="badge badge-success">测试 8/8</span>
+                  <span class="text-xs text-dim">3 小时前</span>
+                </div>
+              </div>
+              <div class="list-item">
+                <div class="list-item-icon">⊕</div>
+                <div class="list-item-main">
+                  <div class="list-item-title"><code class="code">fct_orders</code> <span class="badge badge-accent" style="margin-left: 8px;">fact</span></div>
+                  <div class="list-item-sub">上游：stg_orders · 下游：dm_finance_gmv · 承载含义：GMV, 退款, 客单价</div>
+                </div>
+                <div class="list-item-meta">
+                  <span class="badge badge-success">测试 12/12</span>
+                  <span class="text-xs text-dim">1 小时前</span>
+                </div>
+              </div>
+              <div class="list-item">
+                <div class="list-item-icon">⊕</div>
+                <div class="list-item-main">
+                  <div class="list-item-title"><code class="code">dm_finance_gmv</code> <span class="badge badge-warning" style="margin-left: 8px;">marts</span></div>
+                  <div class="list-item-sub">上游：fct_orders · 下游：BI 报表, /api/v1/gmv/* · 承载含义：GMV</div>
+                </div>
+                <div class="list-item-meta">
+                  <span class="badge badge-success">测试 3/3</span>
+                  <span class="text-xs text-dim">30 分钟前</span>
+                </div>
+              </div>
+              <div class="list-item">
+                <div class="list-item-icon">⊕</div>
+                <div class="list-item-main">
+                  <div class="list-item-title"><code class="code">fct_user_event</code> <span class="badge badge-accent" style="margin-left: 8px;">fact</span></div>
+                  <div class="list-item-sub">上游：dwd_user_event · 下游：运营 dashboard · 承载含义：DAU, 留存率</div>
+                </div>
+                <div class="list-item-meta">
+                  <span class="badge badge-warning">测试 6/7</span>
+                  <span class="text-xs text-dim">1 个测试失败</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- API -->
+          <div class="tab-pane" data-pane="assets-api">
+            <div class="card" style="padding: 0; margin-top: 12px;">
+              <div class="list-item">
+                <div class="list-item-icon">⇄</div>
+                <div class="list-item-main">
+                  <div class="list-item-title"><code class="code">GET /api/v1/users/{id}</code></div>
+                  <div class="list-item-sub">用户查询 · P99 80ms · 调用方：5 个内部系统 · owner：@data-eng-team</div>
+                </div>
+                <div class="list-item-meta">
+                  <span class="badge badge-success">SLA 99.95%</span>
+                </div>
+              </div>
+              <div class="list-item">
+                <div class="list-item-icon">⇄</div>
+                <div class="list-item-main">
+                  <div class="list-item-title"><code class="code">POST /api/v1/orders</code></div>
+                  <div class="list-item-sub">下单接口 · P99 200ms · 调用方：3 个业务前端 · owner：@data-eng-team</div>
+                </div>
+                <div class="list-item-meta">
+                  <span class="badge badge-success">SLA 99.99%</span>
+                </div>
+              </div>
+              <div class="list-item">
+                <div class="list-item-icon">⇄</div>
+                <div class="list-item-main">
+                  <div class="list-item-title"><code class="code">GET /api/v1/gmv/realtime</code></div>
+                  <div class="list-item-sub">实时 GMV · P99 1.2s · 调用方：运营 dashboard · owner：@data-eng-team</div>
+                </div>
+                <div class="list-item-meta">
+                  <span class="badge badge-warning">SLA 99.5%</span>
+                  <span class="text-xs text-dim">近 7 天超阈值</span>
+                </div>
+              </div>
+              <div class="list-item">
+                <div class="list-item-icon">⇄</div>
+                <div class="list-item-main">
+                  <div class="list-item-title"><code class="code">GET /api/v1/profile/{user_id}</code></div>
+                  <div class="list-item-sub">用户画像 · P99 150ms · 调用方：推荐系统, 营销系统 · owner：@data-eng-team</div>
+                </div>
+                <div class="list-item-meta">
+                  <span class="badge badge-success">SLA 99.9%</span>
+                </div>
+              </div>
+              <div class="list-item">
+                <div class="list-item-icon">⇄</div>
+                <div class="list-item-main">
+                  <div class="list-item-title"><code class="code">GET /api/v1/retention/cohort</code></div>
+                  <div class="list-item-sub">留存 cohort · P99 500ms · 调用方：增长 dashboard · owner：@growth-data</div>
+                </div>
+                <div class="list-item-meta">
+                  <span class="badge badge-danger">SLA 95.2%</span>
+                  <span class="text-xs text-dim">断流 2 次/周</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="note" style="margin-top: 16px;">
+            <strong>关键区分</strong>：资产是数据的<strong>存储</strong>（表、字段），概念是业务的<strong>含义</strong>（GMV = X）。一个概念可以由多个资产承载，一个资产可以承载多个概念。
+          </div>
+        </div>
+      </div>
+</template>

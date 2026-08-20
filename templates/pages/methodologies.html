@@ -1,0 +1,411 @@
+<template id="tpl-page-methodologies">
+<div id="methodologies" class="page">
+        <div class="page-header">
+          <div class="page-title">方法论</div>
+          <div class="page-subtitle">从问题里归纳出来的治理经验——4 种形态，各司其职</div>
+        </div>
+        
+        <div class="tabs" data-tabset="methodologies">
+          <div class="tab active" data-target="methodologies-axiom">axiom <span class="text-xs text-dim">(14)</span></div>
+          <div class="tab" data-target="methodologies-sop">SOP <span class="text-xs text-dim">(8)</span></div>
+          <div class="tab" data-target="methodologies-template">template <span class="text-xs text-dim">(12)</span></div>
+          <div class="tab" data-target="methodologies-flow">flow <span class="text-xs text-dim">(5)</span></div>
+        </div>
+        
+        <!-- axiom -->
+        <div class="tab-pane active" data-pane="methodologies-axiom">
+          <div class="grid grid-2">
+            <div class="card">
+              <div class="flex-between">
+                <span class="badge badge-accent">axiom</span>
+                <span class="text-xs text-dim">A14</span>
+              </div>
+              <div style="font-size: 16px; font-weight: 600; margin-top: 8px;">指标单一源</div>
+              <div class="text-sm text-dim" style="margin-top: 8px;">每个业务指标必须有且仅有一个权威计算源。lint 阻断多版本。</div>
+              <div class="divider"></div>
+              <div class="flex" style="gap: 16px;">
+                <div><div class="text-xs text-dim">使用次数</div><div style="font-weight: 600;">89</div></div>
+                <div><div class="text-xs text-dim">误报率</div><div style="font-weight: 600; color: var(--success);">2%</div></div>
+                <div><div class="text-xs text-dim">状态</div><div><span class="badge badge-success">active</span></div></div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="flex-between">
+                <span class="badge badge-accent">axiom</span>
+                <span class="text-xs text-dim">A01</span>
+              </div>
+              <div style="font-size: 16px; font-weight: 600; margin-top: 8px;">无直接 PII</div>
+              <div class="text-sm text-dim" style="margin-top: 8px;">禁止 email / phone / id_card 等直接 PII 进入数仓。</div>
+              <div class="divider"></div>
+              <div class="flex" style="gap: 16px;">
+                <div><div class="text-xs text-dim">使用次数</div><div style="font-weight: 600;">234</div></div>
+                <div><div class="text-xs text-dim">误报率</div><div style="font-weight: 600; color: var(--success);">4%</div></div>
+                <div><div class="text-xs text-dim">状态</div><div><span class="badge badge-success">active</span></div></div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="flex-between">
+                <span class="badge badge-accent">axiom</span>
+                <span class="text-xs text-dim">A18</span>
+              </div>
+              <div style="font-size: 16px; font-weight: 600; margin-top: 8px;">事故-资产影响映射</div>
+              <div class="text-sm text-dim" style="margin-top: 8px;">每个事故必须明确影响哪些资产、可定位的 owner。</div>
+              <div class="divider"></div>
+              <div class="flex" style="gap: 16px;">
+                <div><div class="text-xs text-dim">使用次数</div><div style="font-weight: 600;">67</div></div>
+                <div><div class="text-xs text-dim">误报率</div><div style="font-weight: 600; color: var(--success);">0%</div></div>
+                <div><div class="text-xs text-dim">状态</div><div><span class="badge badge-success">active</span></div></div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="flex-between">
+                <span class="badge badge-warning">axiom</span>
+                <span class="text-xs text-dim">A08</span>
+              </div>
+              <div style="font-size: 16px; font-weight: 600; margin-top: 8px;">旧版 PII 检测规则</div>
+              <div class="text-sm text-dim" style="margin-top: 8px;">基于字段名正则的 PII 检测。误报率 35%，已超过阈值 20%。</div>
+              <div class="divider"></div>
+              <div class="flex" style="gap: 16px;">
+                <div><div class="text-xs text-dim">误报率</div><div style="font-weight: 600; color: var(--danger);">35%</div></div>
+                <div><div class="text-xs text-dim">建议</div><div><span class="badge badge-danger">降级到 provisional</span></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- SOP -->
+        <div class="tab-pane" data-pane="methodologies-sop">
+          <div class="grid grid-2">
+            <div class="card">
+              <div class="flex-between">
+                <span class="badge badge-info">SOP</span>
+                <span class="text-xs text-dim">sop-gmv-001</span>
+              </div>
+              <div style="font-size: 16px; font-weight: 600; margin-top: 8px;">GMV 月度对账</div>
+              <div class="text-sm text-dim" style="margin-top: 8px;">发现财务 GMV 与数仓 GMV 偏差时的标准排查流程。每月 30 号自动跑。</div>
+              <div class="divider"></div>
+              <div class="text-sm" style="color: var(--text-dim);">
+                <strong style="color: var(--text);">5 步：</strong>① 比对差额 → ② 拉取两端明细 → ③ 锁定口径差异 → ④ 通知业务方 → ⑤ 沉淀到 axiom/SOP
+              </div>
+              <div class="divider"></div>
+              <div class="flex" style="gap: 16px;">
+                <div><div class="text-xs text-dim">最近使用</div><div style="font-weight: 600;">15 天前</div></div>
+                <div><div class="text-xs text-dim">累计</div><div style="font-weight: 600;">7 次</div></div>
+                <div><div class="text-xs text-dim">成功率</div><div style="font-weight: 600; color: var(--success);">100%</div></div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="flex-between">
+                <span class="badge badge-info">SOP</span>
+                <span class="text-xs text-dim">sop-dau-001</span>
+              </div>
+              <div style="font-size: 16px; font-weight: 600; margin-top: 8px;">DAU 偏差排查</div>
+              <div class="text-sm text-dim" style="margin-top: 8px;">当日报 DAU 与上周同日差异 > 5% 时自动触发。</div>
+              <div class="divider"></div>
+              <div class="text-sm" style="color: var(--text-dim);">
+                <strong style="color: var(--text);">4 步：</strong>① 拉事件日志比对外露 → ② 排查 ETL 任务状态 → ③ 检查上游源数据 → ④ 若是口径变化则更新 axiom
+              </div>
+              <div class="divider"></div>
+              <div class="flex" style="gap: 16px;">
+                <div><div class="text-xs text-dim">最近使用</div><div style="font-weight: 600;">3 天前</div></div>
+                <div><div class="text-xs text-dim">累计</div><div style="font-weight: 600;">23 次</div></div>
+                <div><div class="text-xs text-dim">成功率</div><div style="font-weight: 600; color: var(--success);">91%</div></div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="flex-between">
+                <span class="badge badge-info">SOP</span>
+                <span class="text-xs text-dim">sop-incident-001</span>
+              </div>
+              <div style="font-size: 16px; font-weight: 600; margin-top: 8px;">数据事故响应</div>
+              <div class="text-sm text-dim" style="margin-top: 8px;">P0/P1 事故的标准响应流程。包含 5 分钟首响、30 分钟定位、4 小时修复的目标。</div>
+              <div class="divider"></div>
+              <div class="text-sm" style="color: var(--text-dim);">
+                <strong style="color: var(--text);">7 步：</strong>① 告警确认 → ② 影响面评估 → ③ owner 通知 → ④ 假设链生成 → ⑤ 定位根因 → ⑥ 修复 → ⑦ 复盘归档
+              </div>
+              <div class="divider"></div>
+              <div class="flex" style="gap: 16px;">
+                <div><div class="text-xs text-dim">最近使用</div><div style="font-weight: 600;">2 小时前</div></div>
+                <div><div class="text-xs text-dim">累计</div><div style="font-weight: 600;">12 次</div></div>
+                <div><div class="text-xs text-dim">成功率</div><div style="font-weight: 600; color: var(--success);">83%</div></div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="flex-between">
+                <span class="badge badge-info">SOP</span>
+                <span class="text-xs text-dim">sop-upstream-001</span>
+              </div>
+              <div style="font-size: 16px; font-weight: 600; margin-top: 8px;">上游 schema 变更接收</div>
+              <div class="text-sm text-dim" style="margin-top: 8px;">上游 MySQL/Hive 表结构变更时，下游如何在 24 小时内完成响应。</div>
+              <div class="divider"></div>
+              <div class="text-sm" style="color: var(--text-dim);">
+                <strong style="color: var(--text);">6 步：</strong>① 接收变更通知 → ② 评估下游影响 → ③ 协调变更窗口 → ④ 调整 dbt model → ⑤ 跑回归测试 → ⑥ 更新资产页
+              </div>
+              <div class="divider"></div>
+              <div class="flex" style="gap: 16px;">
+                <div><div class="text-xs text-dim">最近使用</div><div style="font-weight: 600;">3 周前</div></div>
+                <div><div class="text-xs text-dim">累计</div><div style="font-weight: 600;">8 次</div></div>
+                <div><div class="text-xs text-dim">成功率</div><div style="font-weight: 600; color: var(--warning);">75%</div></div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="flex-between">
+                <span class="badge badge-info">SOP</span>
+                <span class="text-xs text-dim">sop-onboard-001</span>
+              </div>
+              <div style="font-size: 16px; font-weight: 600; margin-top: 8px;">新业务方接入</div>
+              <div class="text-sm text-dim" style="margin-top: 8px;">新业务方第一次接入数据需求时的标准流程。</div>
+              <div class="divider"></div>
+              <div class="text-sm" style="color: var(--text-dim);">
+                <strong style="color: var(--text);">5 步：</strong>① 业务含义澄清（3 问）→ ② 创建 concept 页 → ③ 业务方确认定义 → ④ 接入数据工程实现 → ⑤ 录入 axiom/template
+              </div>
+              <div class="divider"></div>
+              <div class="flex" style="gap: 16px;">
+                <div><div class="text-xs text-dim">最近使用</div><div style="font-weight: 600;">5 天前</div></div>
+                <div><div class="text-xs text-dim">累计</div><div style="font-weight: 600;">4 次</div></div>
+                <div><div class="text-xs text-dim">成功率</div><div style="font-weight: 600; color: var(--success);">100%</div></div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="flex-between">
+                <span class="badge badge-info">SOP</span>
+                <span class="text-xs text-dim">sop-pii-001</span>
+              </div>
+              <div style="font-size: 16px; font-weight: 600; margin-top: 8px;">PII 字段处置</div>
+              <div class="text-sm text-dim" style="margin-top: 8px;">发现 PII 字段意外入库时的紧急处置流程。</div>
+              <div class="divider"></div>
+              <div class="text-sm" style="color: var(--text-dim);">
+                <strong style="color: var(--text);">4 步：</strong>① 立即停用下游读取 → ② 加密/脱敏处理 → ③ 通知法务/合规 → ④ 评估影响面 + 沉淀为 axiom
+              </div>
+              <div class="divider"></div>
+              <div class="flex" style="gap: 16px;">
+                <div><div class="text-xs text-dim">最近使用</div><div style="font-weight: 600;">2 个月前</div></div>
+                <div><div class="text-xs text-dim">累计</div><div style="font-weight: 600;">2 次</div></div>
+                <div><div class="text-xs text-dim">成功率</div><div style="font-weight: 600; color: var(--success);">100%</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- template -->
+        <div class="tab-pane" data-pane="methodologies-template">
+          <div class="grid grid-2">
+            <div class="card">
+              <div class="flex-between">
+                <span class="badge badge-purple">template</span>
+                <span class="text-xs text-dim">tpl-user-profile</span>
+              </div>
+              <div style="font-size: 16px; font-weight: 600; margin-top: 8px;">用户画像表标准 schema</div>
+              <div class="text-sm text-dim" style="margin-top: 8px;">新业务方接入用户维度时直接套用。必含字段：user_id / union_id / 注册时间 / 设备指纹。</div>
+              <div class="divider"></div>
+              <div class="text-sm" style="color: var(--text-dim);">
+                <strong style="color: var(--text);">类型：</strong>dbt model<br>
+                <strong style="color: var(--text);">字段数：</strong>12 个必含 + 18 个可选
+              </div>
+              <div class="divider"></div>
+              <div class="flex" style="gap: 16px;">
+                <div><div class="text-xs text-dim">复用次数</div><div style="font-weight: 600;">23</div></div>
+                <div><div class="text-xs text-dim">最近复用</div><div style="font-weight: 600;">3 天前</div></div>
+                <div><div class="text-xs text-dim">维护</div><div>@data-eng-team</div></div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="flex-between">
+                <span class="badge badge-purple">template</span>
+                <span class="text-xs text-dim">tpl-daily-etl</span>
+              </div>
+              <div style="font-size: 16px; font-weight: 600; margin-top: 8px;">业务指标每日 ETL</div>
+              <div class="text-sm text-dim" style="margin-top: 8px;">日级业务指标的标准 dbt 实现模板。含 source / staging / mart 三层。</div>
+              <div class="divider"></div>
+              <div class="text-sm" style="color: var(--text-dim);">
+                <strong style="color: var(--text);">类型：</strong>dbt model<br>
+                <strong style="color: var(--text);">测试：</strong>非空、唯一、增量、跨天一致性
+              </div>
+              <div class="divider"></div>
+              <div class="flex" style="gap: 16px;">
+                <div><div class="text-xs text-dim">复用次数</div><div style="font-weight: 600;">15</div></div>
+                <div><div class="text-xs text-dim">最近复用</div><div style="font-weight: 600;">1 周前</div></div>
+                <div><div class="text-xs text-dim">维护</div><div>@data-eng-team</div></div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="flex-between">
+                <span class="badge badge-purple">template</span>
+                <span class="text-xs text-dim">tpl-incident-report</span>
+              </div>
+              <div style="font-size: 16px; font-weight: 600; margin-top: 8px;">事故报告模板</div>
+              <div class="text-sm text-dim" style="margin-top: 8px;">事故结束后 24 小时内填写的标准复盘文档。</div>
+              <div class="divider"></div>
+              <div class="text-sm" style="color: var(--text-dim);">
+                <strong style="color: var(--text);">类型：</strong>Markdown 文档<br>
+                <strong style="color: var(--text);">必填：</strong>时间线 / 根因 / 影响面 / 沉淀动作
+              </div>
+              <div class="divider"></div>
+              <div class="flex" style="gap: 16px;">
+                <div><div class="text-xs text-dim">复用次数</div><div style="font-weight: 600;">12</div></div>
+                <div><div class="text-xs text-dim">最近复用</div><div style="font-weight: 600;">2 天前</div></div>
+                <div><div class="text-xs text-dim">维护</div><div>@sre-team</div></div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="flex-between">
+                <span class="badge badge-purple">template</span>
+                <span class="text-xs text-dim">tpl-concept-page</span>
+              </div>
+              <div style="font-size: 16px; font-weight: 600; margin-top: 8px;">业务含义页模板</div>
+              <div class="text-sm text-dim" style="margin-top: 8px;">新建 concept 页时复制此模板填入。</div>
+              <div class="divider"></div>
+              <div class="text-sm" style="color: var(--text-dim);">
+                <strong style="color: var(--text);">类型：</strong>Markdown 文档<br>
+                <strong style="color: var(--text);">必含：</strong>业务定义 / 数据工程视角 / 口径冲突历史 / 关联方法论
+              </div>
+              <div class="divider"></div>
+              <div class="flex" style="gap: 16px;">
+                <div><div class="text-xs text-dim">复用次数</div><div style="font-weight: 600;">8</div></div>
+                <div><div class="text-xs text-dim">最近复用</div><div style="font-weight: 600;">昨天</div></div>
+                <div><div class="text-xs text-dim">维护</div><div>@data-eng-team</div></div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="flex-between">
+                <span class="badge badge-purple">template</span>
+                <span class="text-xs text-dim">tpl-pii-mask</span>
+              </div>
+              <div style="font-size: 16px; font-weight: 600; margin-top: 8px;">PII 脱敏 SQL 片段</div>
+              <div class="text-sm text-dim" style="margin-top: 8px;">手机号、身份证、邮箱的脱敏函数。直接 copy 到 dbt model 里。</div>
+              <div class="divider"></div>
+              <div class="text-sm" style="color: var(--text-dim);">
+                <strong style="color: var(--text);">类型：</strong>SQL macro<br>
+                <strong style="color: var(--text);">支持：</strong>phone / id_card / email / name
+              </div>
+              <div class="divider"></div>
+              <div class="flex" style="gap: 16px;">
+                <div><div class="text-xs text-dim">复用次数</div><div style="font-weight: 600;">67</div></div>
+                <div><div class="text-xs text-dim">最近复用</div><div style="font-weight: 600;">2 天前</div></div>
+                <div><div class="text-xs text-dim">维护</div><div>@data-eng-team</div></div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="flex-between">
+                <span class="badge badge-purple">template</span>
+                <span class="text-xs text-dim">tpl-axiom-candidate</span>
+              </div>
+              <div style="font-size: 16px; font-weight: 600; margin-top: 8px;">axiom 候选评估模板</div>
+              <div class="text-sm text-dim" style="margin-top: 8px;">LLM 提议 axiom 时填的模板，强制要求 evidence ≥ 3 例。</div>
+              <div class="divider"></div>
+              <div class="text-sm" style="color: var(--text-dim);">
+                <strong style="color: var(--text);">类型：</strong>Markdown 文档<br>
+                <strong style="color: var(--text);">必含：</strong>evidence 链 / 建议严重度 / 反例分析
+              </div>
+              <div class="divider"></div>
+              <div class="flex" style="gap: 16px;">
+                <div><div class="text-xs text-dim">复用次数</div><div style="font-weight: 600;">3</div></div>
+                <div><div class="text-xs text-dim">最近复用</div><div style="font-weight: 600;">3 天前</div></div>
+                <div><div class="text-xs text-dim">维护</div><div>@data-eng-team</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- flow -->
+        <div class="tab-pane" data-pane="methodologies-flow">
+          <div class="grid grid-2">
+            <div class="card">
+              <div class="flex-between">
+                <span class="badge badge-warning">flow</span>
+                <span class="text-xs text-dim">flow-001</span>
+              </div>
+              <div style="font-size: 16px; font-weight: 600; margin-top: 8px;">上游 schema 变更通知</div>
+              <div class="text-sm text-dim" style="margin-top: 8px;">业务方/上游 DBA 修改源表结构时，触发的跨团队通知流。</div>
+              <div class="divider"></div>
+              <div class="text-sm" style="color: var(--text-dim);">
+                <strong style="color: var(--text);">参与方：</strong>上游 owner · 数据工程 · 业务方<br>
+                <strong style="color: var(--text);">5 步：</strong>变更申请 → 影响评估 → 通知下游 → 约定窗口 → 完成后归档
+              </div>
+              <div class="divider"></div>
+              <div class="flex" style="gap: 16px;">
+                <div><div class="text-xs text-dim">最近触发</div><div style="font-weight: 600;">3 周前</div></div>
+                <div><div class="text-xs text-dim">累计</div><div style="font-weight: 600;">8 次</div></div>
+                <div><div class="text-xs text-dim">平均周期</div><div style="font-weight: 600;">3 天</div></div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="flex-between">
+                <span class="badge badge-warning">flow</span>
+                <span class="text-xs text-dim">flow-002</span>
+              </div>
+              <div style="font-size: 16px; font-weight: 600; margin-top: 8px;">季度业务定义 review</div>
+              <div class="text-sm text-dim" style="margin-top: 8px;">每季度对所有 concept 页的定义做一次业务方确认。</div>
+              <div class="divider"></div>
+              <div class="text-sm" style="color: var(--text-dim);">
+                <strong style="color: var(--text);">参与方：</strong>所有业务方 · 数据工程 lead<br>
+                <strong style="color: var(--text);">4 步：</strong>清单生成 → 业务方确认 → 偏差标记 → 沉淀到 axiom/template
+              </div>
+              <div class="divider"></div>
+              <div class="flex" style="gap: 16px;">
+                <div><div class="text-xs text-dim">最近触发</div><div style="font-weight: 600;">1 个月前</div></div>
+                <div><div class="text-xs text-dim">累计</div><div style="font-weight: 600;">4 次</div></div>
+                <div><div class="text-xs text-dim">平均周期</div><div style="font-weight: 600;">92 天</div></div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="flex-between">
+                <span class="badge badge-warning">flow</span>
+                <span class="text-xs text-dim">flow-003</span>
+              </div>
+              <div style="font-size: 16px; font-weight: 600; margin-top: 8px;">新指标上线</div>
+              <div class="text-sm text-dim" style="margin-top: 8px;">业务方提出新指标需求到最终在 BI 报表上线的完整流程。</div>
+              <div class="divider"></div>
+              <div class="text-sm" style="color: var(--text-dim);">
+                <strong style="color: var(--text);">参与方：</strong>业务方 · 数据工程 · BI · 法务（如涉 PII）<br>
+                <strong style="color: var(--text);">6 步：</strong>需求登记 → 含义澄清 → 实现 → 测试 → 上线 → 文档归档
+              </div>
+              <div class="divider"></div>
+              <div class="flex" style="gap: 16px;">
+                <div><div class="text-xs text-dim">最近触发</div><div style="font-weight: 600;">5 天前</div></div>
+                <div><div class="text-xs text-dim">累计</div><div style="font-weight: 600;">11 次</div></div>
+                <div><div class="text-xs text-dim">平均周期</div><div style="font-weight: 600;">5 天</div></div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="flex-between">
+                <span class="badge badge-warning">flow</span>
+                <span class="text-xs text-dim">flow-004</span>
+              </div>
+              <div style="font-size: 16px; font-weight: 600; margin-top: 8px;">事故升级流</div>
+              <div class="text-sm text-dim" style="margin-top: 8px;">P0/P1 事故从发现到处理完成的升级路径。包含明确的升级时间点。</div>
+              <div class="divider"></div>
+              <div class="text-sm" style="color: var(--text-dim);">
+                <strong style="color: var(--text);">参与方：</strong>oncall · SRE · 数据工程 lead · 业务方 owner<br>
+                <strong style="color: var(--text);">5 步：</strong>P0: 5 分钟首响 → 30 分钟未定位升级 SRE → 1 小时未解升级 lead → 4 小时未解升级业务方
+              </div>
+              <div class="divider"></div>
+              <div class="flex" style="gap: 16px;">
+                <div><div class="text-xs text-dim">最近触发</div><div style="font-weight: 600;">2 小时前</div></div>
+                <div><div class="text-xs text-dim">累计</div><div style="font-weight: 600;">12 次</div></div>
+                <div><div class="text-xs text-dim">平均周期</div><div style="font-weight: 600;">2.5 小时</div></div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="flex-between">
+                <span class="badge badge-warning">flow</span>
+                <span class="text-xs text-dim">flow-005</span>
+              </div>
+              <div style="font-size: 16px; font-weight: 600; margin-top: 8px;">axiom 候选 ratify</div>
+              <div class="text-sm text-dim" style="margin-top: 8px;">LLM 提议 axiom → 人类 ratify → 升格或废弃的标准流。</div>
+              <div class="divider"></div>
+              <div class="text-sm" style="color: var(--text-dim);">
+                <strong style="color: var(--text);">参与方：</strong>数据工程 lead<br>
+                <strong style="color: var(--text);">3 步：</strong>每日 02:00 LLM 提议 → 早会拍板 → 状态机更新
+              </div>
+              <div class="divider"></div>
+              <div class="flex" style="gap: 16px;">
+                <div><div class="text-xs text-dim">最近触发</div><div style="font-weight: 600;">每日自动</div></div>
+                <div><div class="text-xs text-dim">累计提议</div><div style="font-weight: 600;">23 条</div></div>
+                <div><div class="text-xs text-dim">批准率</div><div style="font-weight: 600; color: var(--success);">78%</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</template>

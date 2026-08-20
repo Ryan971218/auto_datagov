@@ -1,0 +1,505 @@
+<template id="tpl-page-datasources">
+      <div id="datasources" class="page">
+        <div class="page-header">
+          <div class="flex-between">
+            <div>
+              <div class="page-title">数据源</div>
+              <div class="page-subtitle">系统连接的外部数据系统——自动发现 schema、提取 PII、追踪血缘的起点</div>
+            </div>
+            <button class="btn">+ 添加数据源</button>
+          </div>
+        </div>
+        
+        <!-- 顶部统计 -->
+        <div class="grid grid-4 section">
+          <div class="card">
+            <div class="card-title">已连接数据源</div>
+            <div class="metric">6</div>
+            <div class="metric-trend up">5 健康 / 1 异常</div>
+          </div>
+          <div class="card">
+            <div class="card-title">已发现资产</div>
+            <div class="metric">427</div>
+            <div class="metric-trend text-sm" style="color: var(--text-dim);">234 库表 + 89 Hive + 23 Kafka + 56 dbt + 25 BI</div>
+          </div>
+          <div class="card">
+            <div class="card-title">已识别 PII</div>
+            <div class="metric">73</div>
+            <div class="metric-trend warn">12 待确认</div>
+          </div>
+          <div class="card">
+            <div class="card-title">上次全局同步</div>
+            <div class="metric">2<span style="font-size: 16px; color: var(--text-dim);"> 小时前</span></div>
+            <div class="metric-trend up">下次：30 分钟后</div>
+          </div>
+        </div>
+        
+        <!-- 类型 tab -->
+        <div class="tabs" data-tabset="datasources">
+          <div class="tab active" data-target="ds-all">全部 <span class="text-xs text-dim">(6)</span></div>
+          <div class="tab" data-target="ds-rdb">关系数据库 <span class="text-xs text-dim">(2)</span></div>
+          <div class="tab" data-target="ds-warehouse">数仓 <span class="text-xs text-dim">(1)</span></div>
+          <div class="tab" data-target="ds-streaming">流处理 <span class="text-xs text-dim">(2)</span></div>
+          <div class="tab" data-target="ds-batch">批处理 <span class="text-xs text-dim">(1)</span></div>
+        </div>
+        
+        <!-- 全部 -->
+        <div class="tab-pane active" data-pane="ds-all">
+          <div class="grid grid-2 section">
+            
+            <!-- MySQL -->
+            <div class="card">
+              <div class="flex-between">
+                <div class="flex" style="gap: 12px;">
+                  <div class="list-item-icon" style="background: rgba(0, 117, 143, 0.2); color: #00758F; font-weight: 700;">M</div>
+                  <div>
+                    <div style="font-size: 16px; font-weight: 600;">yunhai_biz_oltp</div>
+                    <div class="text-xs text-dim">MySQL · 生产环境 · demo 模式</div>
+                  </div>
+                </div>
+                <span class="badge badge-success">● 健康</span>
+              </div>
+              <div class="divider"></div>
+              <div style="display: grid; grid-template-columns: 70px 1fr; gap: 6px 12px; font-size: 13px;">
+                <span class="text-dim">主机</span><span><code class="code">10.20.30.40:3306</code></span>
+                <span class="text-dim">数据库</span><span>yunhai_biz</span>
+                <span class="text-dim">用户</span><span><code class="code">${MYSQL_USER}</code></span>
+                <span class="text-dim">驱动</span><span>pymysql</span>
+              </div>
+              <div class="divider"></div>
+              <div class="text-xs text-dim" style="margin-bottom: 6px;">提取能力</div>
+              <div class="flex" style="gap: 6px; flex-wrap: wrap;">
+                <span class="badge badge-info">库表</span>
+                <span class="badge badge-info">字段</span>
+                <span class="badge badge-info">PII 检测</span>
+                <span class="badge badge-info">血缘起点</span>
+              </div>
+              <div class="divider"></div>
+              <div class="flex" style="gap: 16px;">
+                <div><div class="text-xs text-dim">已发现表</div><div style="font-weight: 600;">234</div></div>
+                <div><div class="text-xs text-dim">PII 字段</div><div style="font-weight: 600;">56</div></div>
+                <div><div class="text-xs text-dim">上次同步</div><div style="font-weight: 600;">2 小时前</div></div>
+              </div>
+              <div class="divider"></div>
+              <div class="flex" style="gap: 6px; flex-wrap: wrap;">
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">⚡ 测试连接</button>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">🔄 同步</button>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">📂 资产</button>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">⚙ 配置</button>
+              </div>
+            </div>
+            
+            <!-- PostgreSQL -->
+            <div class="card">
+              <div class="flex-between">
+                <div class="flex" style="gap: 12px;">
+                  <div class="list-item-icon" style="background: rgba(50, 102, 144, 0.2); color: #336791; font-weight: 700;">PG</div>
+                  <div>
+                    <div style="font-size: 16px; font-weight: 600;">metabase_pg</div>
+                    <div class="text-xs text-dim">PostgreSQL · 生产环境 · demo 模式</div>
+                  </div>
+                </div>
+                <span class="badge badge-success">● 健康</span>
+              </div>
+              <div class="divider"></div>
+              <div style="display: grid; grid-template-columns: 70px 1fr; gap: 6px 12px; font-size: 13px;">
+                <span class="text-dim">主机</span><span><code class="code">10.20.30.50:5432</code></span>
+                <span class="text-dim">数据库</span><span>metabase</span>
+                <span class="text-dim">用户</span><span><code class="code">${PG_USER}</code></span>
+                <span class="text-dim">驱动</span><span>psycopg2</span>
+              </div>
+              <div class="divider"></div>
+              <div class="text-xs text-dim" style="margin-bottom: 6px;">提取能力</div>
+              <div class="flex" style="gap: 6px; flex-wrap: wrap;">
+                <span class="badge badge-info">库表</span>
+                <span class="badge badge-info">字段</span>
+                <span class="badge badge-info">BI 元数据</span>
+                <span class="badge badge-info">血缘起点</span>
+              </div>
+              <div class="divider"></div>
+              <div class="flex" style="gap: 16px;">
+                <div><div class="text-xs text-dim">已发现表</div><div style="font-weight: 600;">45</div></div>
+                <div><div class="text-xs text-dim">看板</div><div style="font-weight: 600;">25</div></div>
+                <div><div class="text-xs text-dim">上次同步</div><div style="font-weight: 600;">3 小时前</div></div>
+              </div>
+              <div class="divider"></div>
+              <div class="flex" style="gap: 6px; flex-wrap: wrap;">
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">⚡ 测试连接</button>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">🔄 同步</button>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">📂 资产</button>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">⚙ 配置</button>
+              </div>
+            </div>
+            
+            <!-- Hive -->
+            <div class="card">
+              <div class="flex-between">
+                <div class="flex" style="gap: 12px;">
+                  <div class="list-item-icon" style="background: rgba(255, 122, 0, 0.2); color: #FF7A00; font-weight: 700;">H</div>
+                  <div>
+                    <div style="font-size: 16px; font-weight: 600;">yunhai_dw</div>
+                    <div class="text-xs text-dim">Hive · 生产环境 · Kerberos 认证</div>
+                  </div>
+                </div>
+                <span class="badge badge-success">● 健康</span>
+              </div>
+              <div class="divider"></div>
+              <div style="display: grid; grid-template-columns: 70px 1fr; gap: 6px 12px; font-size: 13px;">
+                <span class="text-dim">主机</span><span><code class="code">hive-server:10000</code></span>
+                <span class="text-dim">数据库</span><span>yunhai_dw</span>
+                <span class="text-dim">认证</span><span><code class="code">KERBEROS</code></span>
+                <span class="text-dim">驱动</span><span>pyhive</span>
+              </div>
+              <div class="divider"></div>
+              <div class="text-xs text-dim" style="margin-bottom: 6px;">提取能力</div>
+              <div class="flex" style="gap: 6px; flex-wrap: wrap;">
+                <span class="badge badge-info">库表</span>
+                <span class="badge badge-info">分区</span>
+                <span class="badge badge-info">血缘中间层</span>
+                <span class="badge badge-info">ETL 输出</span>
+              </div>
+              <div class="divider"></div>
+              <div class="flex" style="gap: 16px;">
+                <div><div class="text-xs text-dim">已发现表</div><div style="font-weight: 600;">89</div></div>
+                <div><div class="text-xs text-dim">分区表</div><div style="font-weight: 600;">56</div></div>
+                <div><div class="text-xs text-dim">上次同步</div><div style="font-weight: 600;">1 小时前</div></div>
+              </div>
+              <div class="divider"></div>
+              <div class="flex" style="gap: 6px; flex-wrap: wrap;">
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">⚡ 测试连接</button>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">🔄 同步</button>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">📂 资产</button>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">⚙ 配置</button>
+              </div>
+            </div>
+            
+            <!-- Kafka -->
+            <div class="card">
+              <div class="flex-between">
+                <div class="flex" style="gap: 12px;">
+                  <div class="list-item-icon" style="background: rgba(0, 0, 0, 0.4); color: #fff; font-weight: 700;">K</div>
+                  <div>
+                    <div style="font-size: 16px; font-weight: 600;">events_kafka</div>
+                    <div class="text-xs text-dim">Kafka · 生产环境 · 3 broker</div>
+                  </div>
+                </div>
+                <span class="badge badge-success">● 健康</span>
+              </div>
+              <div class="divider"></div>
+              <div style="display: grid; grid-template-columns: 70px 1fr; gap: 6px 12px; font-size: 13px;">
+                <span class="text-dim">主机</span><span><code class="code">kafka-broker:9092</code></span>
+                <span class="text-dim">认证</span><span>SASL_SSL</span>
+                <span class="text-dim">Schema Registry</span><span><code class="code">schema-registry:8081</code></span>
+                <span class="text-dim">驱动</span><span>kafka-python</span>
+              </div>
+              <div class="divider"></div>
+              <div class="text-xs text-dim" style="margin-bottom: 6px;">提取能力</div>
+              <div class="flex" style="gap: 6px; flex-wrap: wrap;">
+                <span class="badge badge-info">Topic</span>
+                <span class="badge badge-info">Schema (Avro/JSON)</span>
+                <span class="badge badge-info">Consumer Group</span>
+                <span class="badge badge-info">生产消费血缘</span>
+              </div>
+              <div class="divider"></div>
+              <div class="flex" style="gap: 16px;">
+                <div><div class="text-xs text-dim">Topic</div><div style="font-weight: 600;">23</div></div>
+                <div><div class="text-xs text-dim">Schema</div><div style="font-weight: 600;">23</div></div>
+                <div><div class="text-xs text-dim">上次同步</div><div style="font-weight: 600;">30 分钟前</div></div>
+              </div>
+              <div class="divider"></div>
+              <div class="flex" style="gap: 6px; flex-wrap: wrap;">
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">⚡ 测试连接</button>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">🔄 同步</button>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">📂 Topic</button>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">⚙ 配置</button>
+              </div>
+            </div>
+            
+            <!-- Flink -->
+            <div class="card">
+              <div class="flex-between">
+                <div class="flex" style="gap: 12px;">
+                  <div class="list-item-icon" style="background: rgba(252, 71, 119, 0.2); color: #FC4777; font-weight: 700;">F</div>
+                  <div>
+                    <div style="font-size: 16px; font-weight: 600;">realtime_jobs</div>
+                    <div class="text-xs text-dim">Flink · 生产环境 · REST API</div>
+                  </div>
+                </div>
+                <span class="badge badge-success">● 健康</span>
+              </div>
+              <div class="divider"></div>
+              <div style="display: grid; grid-template-columns: 70px 1fr; gap: 6px 12px; font-size: 13px;">
+                <span class="text-dim">REST API</span><span><code class="code">flink-rest:8081</code></span>
+                <span class="text-dim">集群</span><span>yunhai-flink-prod</span>
+                <span class="text-dim">认证</span><span>API Key</span>
+                <span class="text-dim">驱动</span><span>flink-rest</span>
+              </div>
+              <div class="divider"></div>
+              <div class="text-xs text-dim" style="margin-bottom: 6px;">提取能力</div>
+              <div class="flex" style="gap: 6px; flex-wrap: wrap;">
+                <span class="badge badge-info">Job</span>
+                <span class="badge badge-info">Source/Sink</span>
+                <span class="badge badge-info">Checkpoint</span>
+                <span class="badge badge-info">实时血缘</span>
+              </div>
+              <div class="divider"></div>
+              <div class="flex" style="gap: 16px;">
+                <div><div class="text-xs text-dim">Job 数</div><div style="font-weight: 600;">12</div></div>
+                <div><div class="text-xs text-dim">运行中</div><div style="font-weight: 600; color: var(--success);">11</div></div>
+                <div><div class="text-xs text-dim">上次同步</div><div style="font-weight: 600;">15 分钟前</div></div>
+              </div>
+              <div class="divider"></div>
+              <div class="flex" style="gap: 6px; flex-wrap: wrap;">
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">⚡ 测试连接</button>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">🔄 同步</button>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">📂 Job</button>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">⚙ 配置</button>
+              </div>
+            </div>
+            
+            <!-- Spark -->
+            <div class="card">
+              <div class="flex-between">
+                <div class="flex" style="gap: 12px;">
+                  <div class="list-item-icon" style="background: rgba(255, 145, 0, 0.2); color: #FF9100; font-weight: 700;">S</div>
+                  <div>
+                    <div style="font-size: 16px; font-weight: 600;">batch_etl</div>
+                    <div class="text-xs text-dim">Spark · 生产环境 · standalone</div>
+                  </div>
+                </div>
+                <span class="badge badge-warning">● 降级</span>
+              </div>
+              <div class="divider"></div>
+              <div style="display: grid; grid-template-columns: 70px 1fr; gap: 6px 12px; font-size: 13px;">
+                <span class="text-dim">Master</span><span><code class="code">spark-master:7077</code></span>
+                <span class="text-dim">UI</span><span><code class="code">spark-ui:8080</code></span>
+                <span class="text-dim">认证</span><span>无</span>
+                <span class="text-dim">驱动</span><span>spark-rest</span>
+              </div>
+              <div class="divider"></div>
+              <div class="text-xs text-dim" style="margin-bottom: 6px;">提取能力</div>
+              <div class="flex" style="gap: 6px; flex-wrap: wrap;">
+                <span class="badge badge-info">Job</span>
+                <span class="badge badge-info">Stage</span>
+                <span class="badge badge-info">批处理血缘</span>
+                <span class="badge badge-info">调度</span>
+              </div>
+              <div class="divider"></div>
+              <div class="flex" style="gap: 16px;">
+                <div><div class="text-xs text-dim">Job 数</div><div style="font-weight: 600;">8</div></div>
+                <div><div class="text-xs text-dim">失败</div><div style="font-weight: 600; color: var(--warning);">1</div></div>
+                <div><div class="text-xs text-dim">上次同步</div><div style="font-weight: 600;">2 天前 ⚠</div></div>
+              </div>
+              <div class="divider"></div>
+              <div class="note" style="margin: 0; padding: 8px 12px; font-size: 12px;">
+                ⚠ <strong>同步超时</strong> · Job <code class="code">etl_daily_summary</code> 跑超过 4 小时
+              </div>
+              <div class="flex" style="gap: 6px; flex-wrap: wrap; margin-top: 8px;">
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">⚡ 测试连接</button>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">🔄 同步</button>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">📂 Job</button>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">⚙ 配置</button>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+        
+        <!-- 关系数据库 -->
+        <div class="tab-pane" data-pane="ds-rdb">
+          <div class="grid grid-2 section">
+            <div class="card">
+              <div class="flex-between">
+                <div class="flex" style="gap: 12px;">
+                  <div class="list-item-icon" style="background: rgba(0, 117, 143, 0.2); color: #00758F; font-weight: 700;">M</div>
+                  <div>
+                    <div style="font-size: 16px; font-weight: 600;">yunhai_biz_oltp</div>
+                    <div class="text-xs text-dim">MySQL · 生产</div>
+                  </div>
+                </div>
+                <span class="badge badge-success">● 健康</span>
+              </div>
+              <div class="divider"></div>
+              <div class="text-sm"><code class="code">10.20.30.40:3306</code> · yunhai_biz · 234 表 · 56 PII · pymysql</div>
+              <div class="flex" style="gap: 6px; flex-wrap: wrap; margin-top: 12px;">
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">⚡ 测试</button>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">🔄 同步</button>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">⚙ 配置</button>
+              </div>
+            </div>
+            <div class="card">
+              <div class="flex-between">
+                <div class="flex" style="gap: 12px;">
+                  <div class="list-item-icon" style="background: rgba(50, 102, 144, 0.2); color: #336791; font-weight: 700;">PG</div>
+                  <div>
+                    <div style="font-size: 16px; font-weight: 600;">metabase_pg</div>
+                    <div class="text-xs text-dim">PostgreSQL · 生产</div>
+                  </div>
+                </div>
+                <span class="badge badge-success">● 健康</span>
+              </div>
+              <div class="divider"></div>
+              <div class="text-sm"><code class="code">10.20.30.50:5432</code> · metabase · 45 表 · 25 看板 · psycopg2</div>
+              <div class="flex" style="gap: 6px; flex-wrap: wrap; margin-top: 12px;">
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">⚡ 测试</button>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">🔄 同步</button>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">⚙ 配置</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 数仓 -->
+        <div class="tab-pane" data-pane="ds-warehouse">
+          <div class="grid grid-2 section">
+            <div class="card">
+              <div class="flex-between">
+                <div class="flex" style="gap: 12px;">
+                  <div class="list-item-icon" style="background: rgba(255, 122, 0, 0.2); color: #FF7A00; font-weight: 700;">H</div>
+                  <div>
+                    <div style="font-size: 16px; font-weight: 600;">yunhai_dw</div>
+                    <div class="text-xs text-dim">Hive · 生产 · Kerberos</div>
+                  </div>
+                </div>
+                <span class="badge badge-success">● 健康</span>
+              </div>
+              <div class="divider"></div>
+              <div class="text-sm"><code class="code">hive-server:10000</code> · yunhai_dw · 89 表 · 56 分区 · pyhive</div>
+              <div class="flex" style="gap: 6px; flex-wrap: wrap; margin-top: 12px;">
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">⚡ 测试</button>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">🔄 同步</button>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">⚙ 配置</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 流处理 -->
+        <div class="tab-pane" data-pane="ds-streaming">
+          <div class="grid grid-2 section">
+            <div class="card">
+              <div class="flex-between">
+                <div class="flex" style="gap: 12px;">
+                  <div class="list-item-icon" style="background: rgba(0, 0, 0, 0.4); color: #fff; font-weight: 700;">K</div>
+                  <div>
+                    <div style="font-size: 16px; font-weight: 600;">events_kafka</div>
+                    <div class="text-xs text-dim">Kafka · 生产</div>
+                  </div>
+                </div>
+                <span class="badge badge-success">● 健康</span>
+              </div>
+              <div class="divider"></div>
+              <div class="text-sm"><code class="code">kafka-broker:9092</code> · 23 topic · 23 schema · kafka-python</div>
+              <div class="flex" style="gap: 6px; flex-wrap: wrap; margin-top: 12px;">
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">⚡ 测试</button>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">🔄 同步</button>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">⚙ 配置</button>
+              </div>
+            </div>
+            <div class="card">
+              <div class="flex-between">
+                <div class="flex" style="gap: 12px;">
+                  <div class="list-item-icon" style="background: rgba(252, 71, 119, 0.2); color: #FC4777; font-weight: 700;">F</div>
+                  <div>
+                    <div style="font-size: 16px; font-weight: 600;">realtime_jobs</div>
+                    <div class="text-xs text-dim">Flink · 生产</div>
+                  </div>
+                </div>
+                <span class="badge badge-success">● 健康</span>
+              </div>
+              <div class="divider"></div>
+              <div class="text-sm"><code class="code">flink-rest:8081</code> · 12 job · 11 运行 · flink-rest</div>
+              <div class="flex" style="gap: 6px; flex-wrap: wrap; margin-top: 12px;">
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">⚡ 测试</button>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">🔄 同步</button>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">⚙ 配置</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 批处理 -->
+        <div class="tab-pane" data-pane="ds-batch">
+          <div class="grid grid-2 section">
+            <div class="card">
+              <div class="flex-between">
+                <div class="flex" style="gap: 12px;">
+                  <div class="list-item-icon" style="background: rgba(255, 145, 0, 0.2); color: #FF9100; font-weight: 700;">S</div>
+                  <div>
+                    <div style="font-size: 16px; font-weight: 600;">batch_etl</div>
+                    <div class="text-xs text-dim">Spark · 生产 · standalone</div>
+                  </div>
+                </div>
+                <span class="badge badge-warning">● 降级</span>
+              </div>
+              <div class="divider"></div>
+              <div class="text-sm"><code class="code">spark-master:7077</code> · 8 job · 1 失败 · spark-rest</div>
+              <div class="note" style="margin-top: 12px; padding: 8px 12px; font-size: 12px;">
+                ⚠ <strong>同步超时</strong> · 上次同步 2 天前
+              </div>
+              <div class="flex" style="gap: 6px; flex-wrap: wrap; margin-top: 8px;">
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">⚡ 测试</button>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">🔄 同步</button>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">⚙ 配置</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 添加新数据源 form 示意 -->
+        <div class="section">
+          <div class="section-title">添加新数据源 · 配置示例</div>
+          <div class="card">
+            <div class="text-sm text-dim" style="margin-bottom: 12px;">
+              通过 <code class="code">connections.yaml</code> 配置文件添加（demo 模式自动 fallback 到 mock 数据）：
+            </div>
+            <pre style="padding: 12px; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; font-size: 12px; font-family: 'SF Mono', Monaco, monospace; overflow-x: auto; color: var(--text);"><span style="color: var(--text-dim);"># connections.yaml — 数据源连接配置</span>
+<span style="color: var(--text-dim);"># 环境变量用 $&#123;VAR&#125; 语法（自动脱敏到日志）</span>
+
+sources:
+  <span style="color: var(--info);">mysql</span>:
+    - name: yunhai_biz_oltp
+      host: 10.20.30.40
+      port: 3306
+      user: $&#123;MYSQL_USER&#125;
+      password: $&#123;MYSQL_PASSWORD&#125;
+      database: yunhai_biz
+      enabled: true
+      demo: false  <span style="color: var(--text-dim);"># demo=true 用 mock 数据</span>
+
+  <span style="color: var(--info);">postgresql</span>:
+    - name: metabase_pg
+      host: 10.20.30.50
+      port: 5432
+      database: metabase
+
+  <span style="color: var(--info);">hive</span>:
+    - name: yunhai_dw
+      host: hive-server.company.com
+      port: 10000
+      auth: KERBEROS
+
+  <span style="color: var(--info);">kafka</span>:
+    - name: events_kafka
+      brokers: [kafka-1:9092, kafka-2:9092, kafka-3:9092]
+      schema_registry: http://schema-registry:8081
+
+  <span style="color: var(--info);">flink</span>:
+    - name: realtime_jobs
+      rest_url: http://flink-rest:8081
+      api_key: $&#123;FLINK_API_KEY&#125;
+
+  <span style="color: var(--info);">spark</span>:
+    - name: batch_etl
+      master: spark://spark-master:7077</pre>
+            <div class="divider"></div>
+            <div class="flex" style="gap: 8px;">
+              <button class="btn">📋 复制模板</button>
+              <button class="btn btn-ghost">📖 查看完整文档</button>
+              <button class="btn btn-ghost">⚡ 验证配置</button>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+</template>

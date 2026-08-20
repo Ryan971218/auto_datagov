@@ -1,0 +1,138 @@
+<template id="tpl-page-scenarios">
+      <div id="scenarios" class="page">
+        <div class="page-header">
+          <div class="page-title">4 个使用场景</div>
+          <div class="page-subtitle">同一个含义流转问题的 4 个切面，不是 4 个独立模块</div>
+        </div>
+        
+        <div class="grid grid-2 section">
+          <div class="card">
+            <div class="flex" style="gap: 12px;">
+              <div class="scenario-icon" style="margin: 0;">↓</div>
+              <div>
+                <div class="scenario-name">入库 · Ingestion</div>
+                <div class="scenario-desc">新数据进仓库的那一刻——在它造成下游事故之前发现它的问题</div>
+              </div>
+            </div>
+            <div class="divider"></div>
+            <div class="section-title">第一性约束（必须为真）</div>
+            <ul class="text-sm" style="padding-left: 20px; color: var(--text-dim);">
+              <li>数据接入有"时刻"——有明确动作点</li>
+              <li>"问题"是可定义的——有客观判据</li>
+              <li>接入阶段是最便宜的修复点</li>
+              <li>接入人愿意被告知 + 有能力修复</li>
+            </ul>
+            <div class="divider"></div>
+            <div class="section-title">量化目标</div>
+            <div class="metric-row">
+              <span class="metric-name">拦截率</span>
+              <span class="metric-current">78% → 目标 95%</span>
+            </div>
+            <div class="metric-row">
+              <span class="metric-name">误报率</span>
+              <span class="metric-current">12% → 目标 &lt; 10%</span>
+            </div>
+            <div class="divider"></div>
+            <div class="section-title">入口</div>
+            <div class="text-sm">IDE hook + axiom 校验 + escalation（不修怎么办）</div>
+          </div>
+          
+          <div class="card">
+            <div class="flex" style="gap: 12px;">
+              <div class="scenario-icon" style="margin: 0;">⚙</div>
+              <div>
+                <div class="scenario-name">开发 · Development</div>
+                <div class="scenario-desc">写 SQL 时——给相似案例，避免重复踩坑</div>
+              </div>
+            </div>
+            <div class="divider"></div>
+            <div class="section-title">第一性约束（必须为真）</div>
+            <ul class="text-sm" style="padding-left: 20px; color: var(--text-dim);">
+              <li>数据开发有"模式"——不是每个 SQL 都 unique</li>
+              <li>过去有"好的写法"和"坏的写法"</li>
+              <li>开发者会主动查询而不只是被动接受</li>
+              <li>建议要可执行 + 有依据</li>
+            </ul>
+            <div class="divider"></div>
+            <div class="section-title">量化目标</div>
+            <div class="metric-row">
+              <span class="metric-name">建议采纳率</span>
+              <span class="metric-current">45% → 目标 70%</span>
+            </div>
+            <div class="metric-row">
+              <span class="metric-name">模板复用</span>
+              <span class="metric-current">23 → 目标 50+</span>
+            </div>
+            <div class="divider"></div>
+            <div class="section-title">三种建议时机</div>
+            <div class="text-sm">写时（IDE 实时）/ 提交时（lint）/ 出问题时（错误信息）</div>
+          </div>
+          
+          <div class="card">
+            <div class="flex" style="gap: 12px;">
+              <div class="scenario-icon" style="margin: 0;">⚡</div>
+              <div>
+                <div class="scenario-name">运维 · Operations</div>
+                <div class="scenario-desc">数据出问题——5 分钟给前 3 假设 + 1 个最可能</div>
+              </div>
+            </div>
+            <div class="divider"></div>
+            <div class="section-title">第一性约束（必须为真）</div>
+            <ul class="text-sm" style="padding-left: 20px; color: var(--text-dim);">
+              <li>数据问题有因果链——不是孤立事件</li>
+              <li>因果链被记录在 schema / 血缘 / log</li>
+              <li>历史上有类似问题可调出</li>
+              <li>定位 = 现象→根因的链条</li>
+              <li>时间是核心约束——越快越好</li>
+            </ul>
+            <div class="divider"></div>
+            <div class="section-title">量化目标</div>
+            <div class="metric-row">
+              <span class="metric-name">P1 定位时长</span>
+              <span class="metric-current">8 分钟 → 目标 5 分钟</span>
+            </div>
+            <div class="metric-row">
+              <span class="metric-name">假设命中率</span>
+              <span class="metric-current">62%</span>
+            </div>
+            <div class="divider"></div>
+            <div class="note">
+              <strong>诚实边界</strong>：根因经常是组织层面（"上游改 schema 没通知"）——系统能记录，<strong>不能解决</strong>。
+            </div>
+          </div>
+          
+          <div class="card">
+            <div class="flex" style="gap: 12px;">
+              <div class="scenario-icon" style="margin: 0;">▤</div>
+              <div>
+                <div class="scenario-name">资产沉淀 · Assets</div>
+                <div class="scenario-desc">资产被创建时——自动归类 + 持续维护</div>
+              </div>
+            </div>
+            <div class="divider"></div>
+            <div class="section-title">第一性约束（必须为真）</div>
+            <ul class="text-sm" style="padding-left: 20px; color: var(--text-dim);">
+              <li>资产有 metadata（schema、字段、来源）</li>
+              <li>metadata 在创建时即存在</li>
+              <li>文档可从 metadata 自动生成</li>
+              <li>文档可被搜索</li>
+              <li>文档要保持新鲜</li>
+            </ul>
+            <div class="divider"></div>
+            <div class="section-title">量化目标</div>
+            <div class="metric-row">
+              <span class="metric-name">资产覆盖度</span>
+              <span class="metric-current">85% → 目标 100%</span>
+            </div>
+            <div class="metric-row">
+              <span class="metric-name">文档新鲜度</span>
+              <span class="metric-current">5 天 → 目标 &lt; 7 天</span>
+            </div>
+            <div class="divider"></div>
+            <div class="note">
+              <strong>半自动原则</strong>：自动生成能 cover 50%（字段名、类型、来源），剩下 50% 的"语义层"（业务含义、变更原因）<strong>必须人补</strong>。
+            </div>
+          </div>
+        </div>
+      </div>
+</template>

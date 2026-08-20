@@ -1,0 +1,251 @@
+<template id="tpl-page-axioms">
+      <div id="axioms" class="page">
+        <div class="page-header">
+          <div class="page-title">本体健康度</div>
+          <div class="page-subtitle">axiom 和分类法自身的健康——不是评估系统的指标，是评估"自演化机制"的指标</div>
+        </div>
+        
+        <div class="grid grid-4 section">
+          <div class="card">
+            <div class="card-title">候选数 / 周</div>
+            <div class="metric">3</div>
+            <div class="metric-trend up">健康（建议 1-5）</div>
+          </div>
+          <div class="card">
+            <div class="card-title">误报率 / 月</div>
+            <div class="metric">8<span style="font-size: 16px; color: var(--text-dim);">%</span></div>
+            <div class="metric-trend up">健康（阈值 20%）</div>
+          </div>
+          <div class="card">
+            <div class="card-title">退休数 / 季</div>
+            <div class="metric">2</div>
+            <div class="metric-trend up">健康（&gt; 0 说明有自修剪）</div>
+          </div>
+          <div class="card">
+            <div class="card-title">方法论平均年龄</div>
+            <div class="metric">45<span style="font-size: 16px; color: var(--text-dim);">天</span></div>
+            <div class="metric-trend up">健康（&lt; 90 天）</div>
+          </div>
+        </div>
+        
+        <div class="section">
+          <div class="section-title">活跃 axiom · 按使用频率</div>
+          <div class="card" style="padding: 0;">
+            <div class="list-item">
+              <div class="list-item-icon" style="background: rgba(88, 166, 255, 0.15); color: var(--accent);">A01</div>
+              <div class="list-item-main">
+                <div class="list-item-title">无直接 PII</div>
+                <div class="list-item-sub">使用 234 次 · 误报 4% · 状态 active</div>
+              </div>
+              <div class="list-item-meta">
+                <div class="health-bar" style="width: 120px;">
+                  <div class="health-segment" style="width: 95%; background: var(--success);"></div>
+                </div>
+              </div>
+            </div>
+            <div class="list-item">
+              <div class="list-item-icon" style="background: rgba(88, 166, 255, 0.15); color: var(--accent);">A14</div>
+              <div class="list-item-main">
+                <div class="list-item-title">指标单一源</div>
+                <div class="list-item-sub">使用 89 次 · 误报 2% · 状态 active</div>
+              </div>
+              <div class="list-item-meta">
+                <div class="health-bar" style="width: 120px;">
+                  <div class="health-segment" style="width: 92%; background: var(--success);"></div>
+                </div>
+              </div>
+            </div>
+            <div class="list-item">
+              <div class="list-item-icon" style="background: rgba(88, 166, 255, 0.15); color: var(--accent);">A18</div>
+              <div class="list-item-main">
+                <div class="list-item-title">事故-资产影响映射</div>
+                <div class="list-item-sub">使用 67 次 · 误报 0% · 状态 active</div>
+              </div>
+              <div class="list-item-meta">
+                <div class="health-bar" style="width: 120px;">
+                  <div class="health-segment" style="width: 88%; background: var(--success);"></div>
+                </div>
+              </div>
+            </div>
+            <div class="list-item" style="background: rgba(248, 81, 73, 0.05);">
+              <div class="list-item-icon" style="background: rgba(248, 81, 73, 0.15); color: var(--danger);">A08</div>
+              <div class="list-item-main">
+                <div class="list-item-title">旧版 PII 检测规则</div>
+                <div class="list-item-sub">误报率 35% · 超过阈值 · 建议降级到 provisional</div>
+              </div>
+              <div class="list-item-meta">
+                <span class="badge badge-danger">建议降级</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="section">
+          <div class="flex-between">
+            <div class="section-title" style="margin: 0;">Axiom 候选 · LLM 提议待 ratify</div>
+            <span class="badge badge-accent">2 条</span>
+          </div>
+          <div class="grid grid-2">
+            <div class="card">
+              <div class="flex-between">
+                <span class="badge badge-accent">CAND-007</span>
+                <span class="text-xs text-dim">提议于 2026-08-12</span>
+              </div>
+              <div style="font-size: 16px; font-weight: 600; margin-top: 8px;">用户画像表必须有 union_id 字段</div>
+              <div class="text-sm text-dim" style="margin-top: 8px;">
+                <strong>证据</strong>：3 例缺失（来自 3 个不同业务方）<br>
+                <strong>建议严重度</strong>：P1
+              </div>
+              <div class="divider"></div>
+              <div class="flex" style="gap: 8px;">
+                <button class="btn">批准 · ratify</button>
+                <button class="btn btn-ghost">拒绝</button>
+                <button class="btn btn-ghost">延迟</button>
+              </div>
+            </div>
+            
+            <div class="card">
+              <div class="flex-between">
+                <span class="badge badge-accent">CAND-008</span>
+                <span class="text-xs text-dim">提议于 2026-08-15</span>
+              </div>
+              <div style="font-size: 16px; font-weight: 600; margin-top: 8px;">GMV 必须按月对账</div>
+              <div class="text-sm text-dim" style="margin-top: 8px;">
+                <strong>证据</strong>：2 例偏差（同 30 天内）<br>
+                <strong>建议严重度</strong>：P2
+              </div>
+              <div class="divider"></div>
+              <div class="flex" style="gap: 8px;">
+                <button class="btn">批准 · ratify</button>
+                <button class="btn btn-ghost">拒绝</button>
+                <button class="btn btn-ghost">延迟</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Axiom 变更历史 + 审计链 -->
+        <div class="section">
+          <div class="flex-between">
+            <div class="section-title" style="margin: 0;">Axiom 变更历史 · 审计链</div>
+            <div class="flex" style="gap: 6px;">
+              <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">📋 导出审计</button>
+              <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">🔍 筛选 axiom</button>
+            </div>
+          </div>
+          
+          <!-- A01 无直接 PII 变更历史 -->
+          <div class="card" style="margin-bottom: 12px;">
+            <div class="flex-between" style="padding: 12px 16px; border-bottom: 1px solid var(--border); background: var(--surface-2); border-radius: 8px 8px 0 0;">
+              <div class="flex" style="gap: 8px; align-items: center;">
+                <span class="badge badge-accent">A01</span>
+                <strong>无直接 PII</strong>
+                <span class="text-xs text-dim">234 次扫描 · 0 违规 · 当前误报 4%</span>
+              </div>
+              <span class="badge badge-success" style="font-size: 10px;">v4 当前</span>
+            </div>
+            <div style="padding: 16px;">
+              <div class="timeline">
+                <div class="timeline-item">
+                  <div class="timeline-date">2026-08-15 · <span style="color: var(--success);">v4 current</span></div>
+                  <div class="timeline-title">禁止 email / phone / id_card / <strong style="color: var(--accent);">passport</strong> / 银行卡</div>
+                  <div class="timeline-desc">
+                    <strong>变更</strong>: PII 类型从 4 类扩展到 6 类（+passport, +银行卡）<br>
+                    <strong>作者</strong>: <span class="badge badge-info" style="font-size: 10px;">@张工程师</span> · 
+                    <strong>批准</strong>: <span class="badge badge-info" style="font-size: 10px;">@治理委员会</span><br>
+                    <strong>影响面</strong>: dm_user_profile.passport 字段被识别为 PII（4 条记录触发修复）<br>
+                    <span class="text-xs" style="color: var(--text-dim);">git: a3f9c2d · 误报率稳定 4%</span>
+                  </div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-date">2026-06-10 · v3</div>
+                  <div class="timeline-title">禁止 email / phone / id_card</div>
+                  <div class="timeline-desc">
+                    <strong>变更</strong>: PII 检测从字段名匹配升级到内容启发式<br>
+                    <strong>作者</strong>: <span class="badge badge-info" style="font-size: 10px;">@李工程师</span> · 
+                    <strong>批准</strong>: <span class="badge badge-info" style="font-size: 10px;">@数据-lead</span><br>
+                    <strong>影响面</strong>: 检测率从 78% → 94%，67 个字段被新加入监控<br>
+                    <span class="text-xs" style="color: var(--text-dim);">git: b7e2f91 · 误报率从 12% → 6%</span>
+                  </div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-date">2026-03-22 · v2</div>
+                  <div class="timeline-title">禁止 email / phone（基于字段名正则）</div>
+                  <div class="timeline-desc">
+                    <strong>变更</strong>: 创建 axiom，规则从 2 类 → 3 类<br>
+                    <strong>作者</strong>: <span class="badge badge-info" style="font-size: 10px;">@王工程师</span><br>
+                    <strong>影响面</strong>: 23 个字段被识别为 PII<br>
+                    <span class="text-xs" style="color: var(--text-dim);">git: c5d8a3f · 误报率 12%</span>
+                  </div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-date">2026-01-15 · v1</div>
+                  <div class="timeline-title">禁止 email / phone（仅字段名）</div>
+                  <div class="timeline-desc">
+                    <strong>变更</strong>: 首次定义<br>
+                    <strong>作者</strong>: <span class="badge badge-info" style="font-size: 10px;">@治理委员会</span><br>
+                    <span class="text-xs" style="color: var(--text-dim);">误报率 28%</span>
+                  </div>
+                </div>
+              </div>
+              <div class="flex" style="gap: 6px; margin-top: 12px;">
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">🔄 v1 ↔ v4 对比</button>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">⏪ 回滚到 v3</button>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">📊 影响面分析</button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- A14 指标单一源 变更历史 -->
+          <div class="card" style="margin-bottom: 12px;">
+            <div class="flex-between" style="padding: 12px 16px; border-bottom: 1px solid var(--border); background: var(--surface-2); border-radius: 8px 8px 0 0;">
+              <div class="flex" style="gap: 8px; align-items: center;">
+                <span class="badge badge-accent">A14</span>
+                <strong>指标单一源</strong>
+                <span class="text-xs text-dim">89 次扫描 · 误报 2%</span>
+              </div>
+              <span class="badge badge-success" style="font-size: 10px;">v2 当前</span>
+            </div>
+            <div style="padding: 16px;">
+              <div class="timeline">
+                <div class="timeline-item">
+                  <div class="timeline-date">2026-07-20 · <span style="color: var(--success);">v2 current</span></div>
+                  <div class="timeline-title">每个业务指标必须有且仅有一个权威 mart</div>
+                  <div class="timeline-desc">
+                    <strong>变更</strong>: 范围从 GMV 扩展到所有业务指标（DAU, GMV, 复购率等）<br>
+                    <strong>作者</strong>: <span class="badge badge-info" style="font-size: 10px;">@王工程师</span> · 
+                    <strong>批准</strong>: <span class="badge badge-info" style="font-size: 10px;">@数据-lead</span> + <span class="badge badge-info" style="font-size: 10px;">@财务-李四</span><br>
+                    <strong>影响面</strong>: dm_dau 需重新审计（防双源冲突）<br>
+                    <span class="text-xs" style="color: var(--text-dim);">git: f4e2b1a</span>
+                  </div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-date">2026-05-10 · v1</div>
+                  <div class="timeline-title">GMV 只能由一个 mart 计算</div>
+                  <div class="timeline-desc">
+                    <strong>变更</strong>: 创建 axiom（起因：财务 vs 数仓 GMV 偏差 200 万）<br>
+                    <strong>作者</strong>: <span class="badge badge-info" style="font-size: 10px;">@王工程师</span> · 
+                    <strong>批准</strong>: <span class="badge badge-info" style="font-size: 10px;">@财务-王五</span><br>
+                    <span class="text-xs" style="color: var(--text-dim);">git: c5d8a3f</span>
+                  </div>
+                </div>
+              </div>
+              <div class="flex" style="gap: 6px; margin-top: 12px;">
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">🔄 v1 ↔ v2 对比</button>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">📊 影响面分析</button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="note">
+            <strong>审计原则</strong>: axiom 修改需要数据 lead 批准；P0 axiom 变更需要治理委员会 + 业务方双批。回滚操作 30 天内可执行，超期需重新走批准流。
+          </div>
+        </div>
+        
+        <div class="section">
+          <div class="note">
+            <strong>自演化机制</strong>：每日 02:00 系统自动跑 axiom review，<strong>LLM 提议、人类 ratify</strong>。每天人工介入 &lt; 10 分钟。
+          </div>
+        </div>
+      </div>
+</template>

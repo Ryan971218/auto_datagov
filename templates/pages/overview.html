@@ -1,0 +1,131 @@
+<template id="tpl-page-overview">
+      <div id="overview" class="page active">
+        <div class="banner">
+          <div class="banner-icon">◈</div>
+          <div class="banner-content">
+            <div class="banner-title">让业务含义在人和系统之间流转顺畅</div>
+            <div class="banner-text">
+              不是数据治理系统，是<strong>业务含义流转的基础设施</strong>。
+              数据（bits）和含义（meaning）之间的 gap 是宇宙级的——本平台让这个 gap <strong>可见、可追溯、可修复</strong>。
+            </div>
+          </div>
+        </div>
+        
+        <div class="page-header">
+          <div class="page-title">流转健康度</div>
+          <div class="page-subtitle">本月业务含义流转的整体态势</div>
+        </div>
+        
+        <div class="grid grid-4 section">
+          <div class="card">
+            <div class="card-title">本月流转次数</div>
+            <div class="metric">234</div>
+            <div class="metric-trend up">↑ 12% vs 上月</div>
+          </div>
+          <div class="card">
+            <div class="card-title">共识达成率</div>
+            <div class="metric">87<span style="font-size: 16px; color: var(--text-dim);">%</span></div>
+            <div class="metric-trend up">↑ 4% vs 上月</div>
+          </div>
+          <div class="card">
+            <div class="card-title">待解决流转冲突</div>
+            <div class="metric">12</div>
+            <div class="metric-trend warn">3 个 P0 · 5 个 P1</div>
+          </div>
+          <div class="card">
+            <div class="card-title">Axiom 误报率</div>
+            <div class="metric">8<span style="font-size: 16px; color: var(--text-dim);">%</span></div>
+            <div class="metric-trend up">健康（阈值 20%）</div>
+          </div>
+        </div>
+        
+        <div class="section">
+          <div class="section-title">最近的口径冲突</div>
+          <div class="card" style="padding: 0;">
+            <div class="list-item">
+              <div class="list-item-icon" style="background: rgba(248, 81, 73, 0.15); color: var(--danger);">⚡</div>
+              <div class="list-item-main">
+                <div class="list-item-title">[P0] 财务 GMV 与数仓 GMV 偏差 200 万</div>
+                <div class="list-item-sub">业务含义：GMV · 状态：处理中 · 负责人：@数据工程师</div>
+              </div>
+              <div class="list-item-meta">
+                <span class="badge badge-danger">P0</span>
+                <span class="text-xs text-dim">2 小时前</span>
+              </div>
+            </div>
+            <div class="list-item">
+              <div class="list-item-icon" style="background: rgba(210, 153, 34, 0.15); color: var(--warning);">⚠</div>
+              <div class="list-item-main">
+                <div class="list-item-title">[P1] 退款时间窗口定义变更未同步</div>
+                <div class="list-item-sub">业务含义：GMV · 状态：跟踪中 · 负责人：@finance-team</div>
+              </div>
+              <div class="list-item-meta">
+                <span class="badge badge-warning">P1</span>
+                <span class="text-xs text-dim">昨天</span>
+              </div>
+            </div>
+            <div class="list-item">
+              <div class="list-item-icon" style="background: rgba(63, 185, 80, 0.15); color: var(--success);">✓</div>
+              <div class="list-item-main">
+                <div class="list-item-title">[已解决] DAU 计算口径不一致</div>
+                <div class="list-item-sub">业务含义：DAU · 状态：已沉淀为 axiom · 负责人：@数据团队</div>
+              </div>
+              <div class="list-item-meta">
+                <span class="badge badge-success">已解决</span>
+                <span class="text-xs text-dim">3 天前</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="section">
+          <div class="section-title">4 个使用场景的健康度</div>
+          <div class="grid grid-4">
+            <div class="scenario-card">
+              <div class="scenario-icon">↓</div>
+              <div class="scenario-name">入库</div>
+              <div class="scenario-desc">数据接入时拦截问题</div>
+              <div class="scenario-metrics">
+                <div class="metric-row"><span class="metric-name">拦截率</span><span class="metric-current">78%</span></div>
+                <div class="progress"><div class="progress-bar" style="width: 78%; background: var(--warning);"></div></div>
+                <div class="metric-row" style="margin-top: 8px;"><span class="metric-name">误报率</span><span class="metric-current">12%</span></div>
+                <div class="progress"><div class="progress-bar" style="width: 12%; background: var(--success);"></div></div>
+              </div>
+            </div>
+            <div class="scenario-card">
+              <div class="scenario-icon">⚙</div>
+              <div class="scenario-name">开发</div>
+              <div class="scenario-desc">写 SQL 时给相似案例</div>
+              <div class="scenario-metrics">
+                <div class="metric-row"><span class="metric-name">建议采纳率</span><span class="metric-current">45%</span></div>
+                <div class="progress"><div class="progress-bar" style="width: 45%; background: var(--warning);"></div></div>
+                <div class="metric-row" style="margin-top: 8px;"><span class="metric-name">模板复用</span><span class="metric-current">23 次</span></div>
+                <div class="progress"><div class="progress-bar" style="width: 46%; background: var(--warning);"></div></div>
+              </div>
+            </div>
+            <div class="scenario-card">
+              <div class="scenario-icon">⚡</div>
+              <div class="scenario-name">运维</div>
+              <div class="scenario-desc">出问题时快速定位</div>
+              <div class="scenario-metrics">
+                <div class="metric-row"><span class="metric-name">P1 定位时长</span><span class="metric-current">8 分钟</span></div>
+                <div class="progress"><div class="progress-bar" style="width: 60%; background: var(--danger);"></div></div>
+                <div class="metric-row" style="margin-top: 8px;"><span class="metric-name">假设命中率</span><span class="metric-current">62%</span></div>
+                <div class="progress"><div class="progress-bar" style="width: 62%; background: var(--warning);"></div></div>
+              </div>
+            </div>
+            <div class="scenario-card">
+              <div class="scenario-icon">▤</div>
+              <div class="scenario-name">资产沉淀</div>
+              <div class="scenario-desc">自动归类 + 持续维护</div>
+              <div class="scenario-metrics">
+                <div class="metric-row"><span class="metric-name">资产覆盖度</span><span class="metric-current">85%</span></div>
+                <div class="progress"><div class="progress-bar" style="width: 85%; background: var(--success);"></div></div>
+                <div class="metric-row" style="margin-top: 8px;"><span class="metric-name">文档新鲜度</span><span class="metric-current">5 天</span></div>
+                <div class="progress"><div class="progress-bar" style="width: 80%; background: var(--success);"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</template>

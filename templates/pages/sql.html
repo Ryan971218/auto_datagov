@@ -1,0 +1,217 @@
+<template id="tpl-page-sql">
+      <div id="sql" class="page">
+        <div class="page-header">
+          <div class="flex-between">
+            <div>
+              <div class="page-title">SQL 查询</div>
+              <div class="page-subtitle">在线 SQL 编辑器 · 配合 AI 助手的"生成 SQL"形成开发闭环</div>
+            </div>
+            <button class="btn">💾 存为 template</button>
+          </div>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 280px; gap: 16px;">
+          
+          <!-- 左侧：编辑器 + 结果 -->
+          <div>
+            <!-- 数据源选择 -->
+            <div class="card" style="margin-bottom: 16px;">
+              <div class="flex-between">
+                <div class="flex" style="gap: 12px;">
+                  <span class="text-dim text-sm">数据源：</span>
+                  <span class="badge badge-accent">H · yunhai_dw</span>
+                  <span class="text-dim text-sm">·</span>
+                  <span class="text-dim text-sm">database: yunhai_dw</span>
+                </div>
+                <div class="text-xs text-dim">
+                  ⏱ 上次查询 5 分钟前
+                </div>
+              </div>
+            </div>
+            
+            <!-- SQL 编辑器 -->
+            <div class="card" style="padding: 0;">
+              <div style="background: var(--bg); padding: 16px; border-radius: 8px 8px 0 0; border-bottom: 1px solid var(--border);">
+                <pre style="margin: 0; padding: 16px; font-family: 'SF Mono', Monaco, monospace; font-size: 13px; line-height: 1.6; color: var(--text); overflow-x: auto;"><span style="color: var(--text);">-- GMV 月度对账 · 来自 AI 助手生成
+-- 来源: concepts/gmv, sops/sop-gmv-001
+WITH finance_gmv AS (
+  SELECT
+    DATE_TRUNC('month', order_date) AS month,
+    SUM(paid_amount_cny) - SUM(refund_amount_cny) AS gmv
+  FROM finance.dm_finance_gmv
+  WHERE order_date >= DATE_TRUNC('month', CURRENT_DATE - INTERVAL '3 months')
+  GROUP BY 1
+),
+warehouse_gmv AS (
+  SELECT
+    DATE_TRUNC('month', paid_at) AS month,
+    SUM(paid_order_amount) - SUM(refund_amount) AS gmv
+  FROM {{ ref('dm_finance_gmv') }}
+  WHERE paid_at >= DATE_TRUNC('month', CURRENT_DATE - INTERVAL '3 months')
+  GROUP BY 1
+)
+SELECT
+  f.month,
+  f.gmv AS finance_gmv,
+  w.gmv AS warehouse_gmv,
+  f.gmv - w.gmv AS diff,
+  ROUND((f.gmv - w.gmv) * 100.0 / f.gmv, 2) AS diff_pct
+FROM finance_gmv f
+JOIN warehouse_gmv w USING (month)
+WHERE ABS(f.gmv - w.gmv) > 100  -- 阈值 100 元
+ORDER BY 1 DESC
+LIMIT 10;</span></pre>
+              </div>
+              
+              <!-- 操作栏 -->
+              <div style="padding: 12px 16px; display: flex; justify-content: space-between; align-items: center;">
+                <div class="flex" style="gap: 8px;">
+                  <button class="btn">▶ 运行 (⌘+⏎)</button>
+                  <button class="btn btn-ghost">⏹ 停止</button>
+                  <button class="btn btn-ghost">📋 复制</button>
+                  <button class="btn btn-ghost" style="color: var(--accent-2);">✦ AI 优化</button>
+                </div>
+                <div class="text-xs text-dim">
+                  📝 行 18 · 列 47 · 2.3KB
+                </div>
+              </div>
+            </div>
+            
+            <!-- 结果 -->
+            <div class="card" style="margin-top: 16px; padding: 0;">
+              <div class="flex-between" style="padding: 16px; border-bottom: 1px solid var(--border);">
+                <div>
+                  <div style="font-size: 14px; font-weight: 600;">查询结果</div>
+                  <div class="text-xs text-dim" style="margin-top: 2px;">运行成功 · 2.3s · 3 行 · 扫描 12,450 行</div>
+                </div>
+                <div class="flex" style="gap: 6px;">
+                  <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">📥 导出 CSV</button>
+                  <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">📊 可视化</button>
+                </div>
+              </div>
+              <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+                <thead>
+                  <tr style="background: var(--surface-2);">
+                    <th style="padding: 10px 16px; text-align: left; border-bottom: 1px solid var(--border); font-weight: 600; color: var(--text-dim); font-size: 11px; text-transform: uppercase;">month</th>
+                    <th style="padding: 10px 16px; text-align: right; border-bottom: 1px solid var(--border); font-weight: 600; color: var(--text-dim); font-size: 11px; text-transform: uppercase;">finance_gmv</th>
+                    <th style="padding: 10px 16px; text-align: right; border-bottom: 1px solid var(--border); font-weight: 600; color: var(--text-dim); font-size: 11px; text-transform: uppercase;">warehouse_gmv</th>
+                    <th style="padding: 10px 16px; text-align: right; border-bottom: 1px solid var(--border); font-weight: 600; color: var(--text-dim); font-size: 11px; text-transform: uppercase;">diff</th>
+                    <th style="padding: 10px 16px; text-align: right; border-bottom: 1px solid var(--border); font-weight: 600; color: var(--text-dim); font-size: 11px; text-transform: uppercase;">diff_pct</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style="padding: 10px 16px; border-bottom: 1px solid var(--border);"><code class="code">2026-08</code></td>
+                    <td style="padding: 10px 16px; border-bottom: 1px solid var(--border); text-align: right;">¥128,540,231</td>
+                    <td style="padding: 10px 16px; border-bottom: 1px solid var(--border); text-align: right;">¥126,540,231</td>
+                    <td style="padding: 10px 16px; border-bottom: 1px solid var(--border); text-align: right; color: var(--danger); font-weight: 600;">-¥2,000,000</td>
+                    <td style="padding: 10px 16px; border-bottom: 1px solid var(--border); text-align: right; color: var(--danger); font-weight: 600;">-1.58%</td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 10px 16px; border-bottom: 1px solid var(--border);"><code class="code">2026-07</code></td>
+                    <td style="padding: 10px 16px; border-bottom: 1px solid var(--border); text-align: right;">¥118,234,567</td>
+                    <td style="padding: 10px 16px; border-bottom: 1px solid var(--border); text-align: right;">¥117,434,567</td>
+                    <td style="padding: 10px 16px; border-bottom: 1px solid var(--border); text-align: right; color: var(--warning);">-¥800,000</td>
+                    <td style="padding: 10px 16px; border-bottom: 1px solid var(--border); text-align: right; color: var(--warning);">-0.68%</td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 10px 16px;"><code class="code">2026-06</code></td>
+                    <td style="padding: 10px 16px; text-align: right;">¥108,123,456</td>
+                    <td style="padding: 10px 16px; text-align: right;">¥108,123,456</td>
+                    <td style="padding: 10px 16px; text-align: right; color: var(--success);">¥0</td>
+                    <td style="padding: 10px 16px; text-align: right; color: var(--success);">0.00%</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            
+            <!-- AI 反馈 -->
+            <div class="card" style="margin-top: 16px;">
+              <div class="flex" style="gap: 12px;">
+                <div class="list-item-icon" style="background: rgba(188, 140, 255, 0.2); color: var(--accent-2);">✦</div>
+                <div style="flex: 1;">
+                  <div style="font-size: 14px; font-weight: 600;">查询优化建议</div>
+                  <div class="text-sm text-dim" style="margin-top: 4px;">
+                    ① <code class="code">WHERE ABS(...)</code> 改为 <code class="code">diff_pct</code> 判断更清晰<br>
+                    ② 建议添加 <code class="code">partition_filter</code> 提升大表性能<br>
+                    ③ 这个查询和 <a class="link">SOP sop-gmv-001</a> 的对账逻辑 92% 重复，建议提取为 template
+                  </div>
+                  <div class="flex" style="gap: 6px; margin-top: 12px;">
+                    <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">👍 有用</button>
+                    <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">👎 跳过</button>
+                    <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">📌 存为 template</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 右侧：历史 + 收藏 -->
+          <div>
+            <div class="card">
+              <div class="section-title">最近查询</div>
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                <div class="card" style="padding: 10px; background: rgba(88, 166, 255, 0.05); border-color: rgba(88, 166, 255, 0.3);">
+                  <div class="text-sm" style="font-weight: 500;">GMV 月度对账</div>
+                  <div class="text-xs text-dim">5 分钟前 · 2.3s · 3 行</div>
+                </div>
+                <div class="card" style="padding: 10px;">
+                  <div class="text-sm">DAU 排查</div>
+                  <div class="text-xs text-dim">3 小时前 · 1.2s · 12 行</div>
+                </div>
+                <div class="card" style="padding: 10px;">
+                  <div class="text-sm">留存 cohort 计算</div>
+                  <div class="text-xs text-dim">昨天 · 4.5s · 8 行</div>
+                </div>
+                <div class="card" style="padding: 10px;">
+                  <div class="text-sm">退款时间窗口分析</div>
+                  <div class="text-xs text-dim">2 天前 · 0.8s · 24 行</div>
+                </div>
+                <div class="card" style="padding: 10px;">
+                  <div class="text-sm">订单明细核对</div>
+                  <div class="text-xs text-dim">3 天前 · 1.5s · 156 行</div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="card" style="margin-top: 16px;">
+              <div class="section-title">收藏的 template</div>
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                <a class="card" style="padding: 10px; cursor: pointer; text-decoration: none; color: var(--text); display: block;">
+                  <div class="flex-between">
+                    <span class="text-sm" style="font-weight: 500;">tpl-gmv-monthly-recon</span>
+                    <span class="badge badge-success" style="font-size: 10px;">7×</span>
+                  </div>
+                  <div class="text-xs text-dim">复用 7 次 · @data-eng-team</div>
+                </a>
+                <a class="card" style="padding: 10px; cursor: pointer; text-decoration: none; color: var(--text); display: block;">
+                  <div class="flex-between">
+                    <span class="text-sm" style="font-weight: 500;">tpl-dau-diagnose</span>
+                    <span class="badge badge-success" style="font-size: 10px;">12×</span>
+                  </div>
+                  <div class="text-xs text-dim">复用 12 次 · @data-eng-team</div>
+                </a>
+                <a class="card" style="padding: 10px; cursor: pointer; text-decoration: none; color: var(--text); display: block;">
+                  <div class="flex-between">
+                    <span class="text-sm" style="font-weight: 500;">tpl-retention-cohort</span>
+                    <span class="badge badge-success" style="font-size: 10px;">4×</span>
+                  </div>
+                  <div class="text-xs text-dim">复用 4 次 · @growth-team</div>
+                </a>
+              </div>
+            </div>
+            
+            <div class="card" style="margin-top: 16px;">
+              <div class="section-title">快捷操作</div>
+              <div style="display: flex; flex-direction: column; gap: 6px;">
+                <button class="btn btn-ghost" style="justify-content: flex-start;">✦ 让 AI 帮我写</button>
+                <button class="btn btn-ghost" style="justify-content: flex-start;">📂 打开文件</button>
+                <button class="btn btn-ghost" style="justify-content: flex-start;">🔍 查表结构</button>
+                <button class="btn btn-ghost" style="justify-content: flex-start;">📊 看血缘</button>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+</template>

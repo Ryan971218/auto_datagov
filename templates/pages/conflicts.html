@@ -1,0 +1,55 @@
+<template id="tpl-page-conflicts">
+      <div id="conflicts" class="page">
+        <div class="page-header">
+          <div class="page-title">流转冲突</div>
+          <div class="page-subtitle">含义流转失败的现场——每个冲突都该被记录、被沉淀、被防止重演</div>
+        </div>
+        
+        <div class="grid grid-3 section">
+          <div class="card">
+            <div class="flex-between">
+              <span class="badge badge-danger">P0 · 紧急</span>
+              <span class="text-xs text-dim">2 小时前</span>
+            </div>
+            <div style="font-size: 16px; font-weight: 600; margin-top: 8px;">财务 GMV 与数仓 GMV 偏差 200 万</div>
+            <div class="text-sm text-dim" style="margin-top: 8px;">
+              业务方：@finance-team<br>
+              工程方：@data-eng-team<br>
+              涉及含义：<a class="link">GMV</a>
+            </div>
+            <div class="divider"></div>
+            <div class="text-sm">根因假设：业务方 8/15 修改了定义（含"已发货未支付"），未提前通知数仓。</div>
+          </div>
+          
+          <div class="card">
+            <div class="flex-between">
+              <span class="badge badge-warning">P1</span>
+              <span class="text-xs text-dim">昨天</span>
+            </div>
+            <div style="font-size: 16px; font-weight: 600; margin-top: 8px;">退款时间窗口定义变更未同步</div>
+            <div class="text-sm text-dim" style="margin-top: 8px;">
+              业务方：@finance-team<br>
+              工程方：@data-eng-team<br>
+              涉及含义：<a class="link">GMV</a>
+            </div>
+            <div class="divider"></div>
+            <div class="text-sm">上次同样问题（2026-07）已沉淀为 SOP，未触发——为什么？</div>
+          </div>
+          
+          <div class="card">
+            <div class="flex-between">
+              <span class="badge badge-info">P2</span>
+              <span class="text-xs text-dim">3 天前</span>
+            </div>
+            <div style="font-size: 16px; font-weight: 600; margin-top: 8px;">用户画像表缺少 union_id 字段</div>
+            <div class="text-sm text-dim" style="margin-top: 8px;">
+              业务方：@growth-team<br>
+              工程方：@data-eng-team<br>
+              涉及含义：<a class="link">活跃用户</a>
+            </div>
+            <div class="divider"></div>
+            <div class="text-sm">已自动提议为 axiom 候选：CAND-007</div>
+          </div>
+        </div>
+      </div>
+</template>

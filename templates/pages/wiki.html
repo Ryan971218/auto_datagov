@@ -1,0 +1,373 @@
+<template id="tpl-page-wiki">
+      <div id="wiki" class="page">
+        <div class="page-header">
+          <div class="page-title">Wiki 总览</div>
+          <div class="page-subtitle">所有 wiki 内容的统一浏览入口——像 Obsidian 一样翻阅</div>
+        </div>
+        
+        <!-- 顶部统计 -->
+        <div class="grid grid-4 section">
+          <div class="card" style="text-align: center; padding: 16px;">
+            <div class="metric" style="margin: 0; font-size: 32px;">6</div>
+            <div class="text-sm text-dim">业务含义</div>
+            <div class="text-xs text-dim" style="margin-top: 4px;">concept 页</div>
+          </div>
+          <div class="card" style="text-align: center; padding: 16px;">
+            <div class="metric" style="margin: 0; font-size: 32px;">402</div>
+            <div class="text-sm text-dim">数据资产</div>
+            <div class="text-xs text-dim" style="margin-top: 4px;">234 库表 + 89 报表 + 67 dbt + 12 API</div>
+          </div>
+          <div class="card" style="text-align: center; padding: 16px;">
+            <div class="metric" style="margin: 0; font-size: 32px;">5</div>
+            <div class="text-sm text-dim">活跃问题</div>
+            <div class="text-xs text-dim" style="margin-top: 4px;">含 3 P0/P1 待处理</div>
+          </div>
+          <div class="card" style="text-align: center; padding: 16px;">
+            <div class="metric" style="margin: 0; font-size: 32px;">39</div>
+            <div class="text-sm text-dim">方法论</div>
+            <div class="text-xs text-dim" style="margin-top: 4px;">14 axiom + 8 SOP + 12 template + 5 flow</div>
+          </div>
+        </div>
+        
+        <!-- 全局搜索 -->
+        <div class="section">
+          <div class="card">
+            <div class="search" style="max-width: none;">
+              <span class="search-icon">⌕</span>
+              <input type="search" placeholder="在 41 个 wiki 页面里搜索...（支持中英文）" style="padding: 14px 12px 14px 40px; font-size: 14px;">
+            </div>
+            <div class="text-xs text-dim" style="margin-top: 8px;">
+              💡 试试：<code class="code">GMV</code> · <code class="code">退款</code> · <code class="code">union_id</code> · <code class="code">口径</code>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 标签云 -->
+        <div class="section">
+          <div class="section-title">标签云 · 按主题浏览</div>
+          <div class="card" style="padding: 16px;">
+            <div class="flex" style="flex-wrap: wrap; gap: 8px;">
+              <span class="badge badge-accent">GMV (8)</span>
+              <span class="badge badge-accent">DAU (5)</span>
+              <span class="badge badge-accent">PII (4)</span>
+              <span class="badge badge-purple">财务 (6)</span>
+              <span class="badge badge-purple">增长 (7)</span>
+              <span class="badge badge-info">用户画像 (3)</span>
+              <span class="badge badge-info">退款 (4)</span>
+              <span class="badge badge-info">留存 (3)</span>
+              <span class="badge badge-warning">事故 (4)</span>
+              <span class="badge badge-warning">P0 (2)</span>
+              <span class="badge badge-warning">P1 (3)</span>
+              <span class="badge badge-success">已沉淀 (8)</span>
+              <span class="badge">axiom (14)</span>
+              <span class="badge">SOP (8)</span>
+              <span class="badge">template (12)</span>
+              <span class="badge">flow (5)</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 完整页面索引 -->
+        <div class="section">
+          <div class="section-title">完整页面索引 · 41 个 wiki 页面</div>
+          <div class="grid grid-2">
+            
+            <!-- 业务含义 -->
+            <div class="card">
+              <div class="flex-between" style="margin-bottom: 12px;">
+                <div style="font-size: 16px; font-weight: 600;">◇ 业务含义 <span class="text-dim text-sm">(6)</span></div>
+                <a class="link text-sm">→ 打开</a>
+              </div>
+              <ul style="list-style: none; padding: 0;">
+                <li style="padding: 6px 0; border-bottom: 1px solid var(--border);">
+                  <a class="link" style="font-weight: 500;">GMV</a>
+                  <span class="badge badge-purple" style="margin-left: 8px; font-size: 10px;">业务方</span>
+                  <div class="text-xs text-dim" style="margin-top: 2px;">商品交易总额 · @finance-team · 3 次口径冲突</div>
+                </li>
+                <li style="padding: 6px 0; border-bottom: 1px solid var(--border);">
+                  <a class="link">DAU</a>
+                  <span class="badge badge-purple" style="margin-left: 8px; font-size: 10px;">业务方</span>
+                  <div class="text-xs text-dim" style="margin-top: 2px;">日活跃用户 · @growth-team · 已沉淀 axiom</div>
+                </li>
+                <li style="padding: 6px 0; border-bottom: 1px solid var(--border);">
+                  <a class="link">月活用户 (MAU)</a>
+                  <div class="text-xs text-dim" style="margin-top: 2px;">@growth-team</div>
+                </li>
+                <li style="padding: 6px 0; border-bottom: 1px solid var(--border);">
+                  <a class="link">7 日留存</a>
+                  <span class="badge badge-warning" style="margin-left: 8px; font-size: 10px;">P3 待处理</span>
+                  <div class="text-xs text-dim" style="margin-top: 2px;">分母不统一问题</div>
+                </li>
+                <li style="padding: 6px 0; border-bottom: 1px solid var(--border);">
+                  <a class="link">客单价 (AOV)</a>
+                  <div class="text-xs text-dim" style="margin-top: 2px;">@sales-team</div>
+                </li>
+                <li style="padding: 6px 0;">
+                  <a class="link">复购率</a>
+                  <div class="text-xs text-dim" style="margin-top: 2px;">@growth-team</div>
+                </li>
+              </ul>
+            </div>
+            
+            <!-- 数据资产 -->
+            <div class="card">
+              <div class="flex-between" style="margin-bottom: 12px;">
+                <div style="font-size: 16px; font-weight: 600;">▤ 数据资产 <span class="text-dim text-sm">(402)</span></div>
+                <a class="link text-sm">→ 打开</a>
+              </div>
+              <div class="text-sm text-dim" style="margin-bottom: 8px;">按类型分组：</div>
+              <ul style="list-style: none; padding: 0;">
+                <li style="padding: 6px 0; border-bottom: 1px solid var(--border);">
+                  <strong>库表</strong> <span class="text-dim">(234)</span>
+                  <div class="text-xs text-dim" style="margin-top: 4px;">
+                    <a class="link"><code class="code">dwd.dwd_orders</code></a> · 
+                    <a class="link"><code class="code">dm.dm_finance_gmv</code></a> · 
+                    <a class="link"><code class="code">dim.dim_user_profile</code></a> · 
+                    <a class="link"><code class="code">dwd.dwd_user_event</code></a>
+                    <span class="text-dim"> · 还有 230 个...</span>
+                  </div>
+                </li>
+                <li style="padding: 6px 0; border-bottom: 1px solid var(--border);">
+                  <strong>BI 报表</strong> <span class="text-dim">(89)</span>
+                  <div class="text-xs text-dim" style="margin-top: 4px;">
+                    <a class="link">销售周报</a> · 
+                    <a class="link">月度财务看板</a> · 
+                    <a class="link">运营 dashboard</a>
+                  </div>
+                </li>
+                <li style="padding: 6px 0; border-bottom: 1px solid var(--border);">
+                  <strong>dbt models</strong> <span class="text-dim">(67)</span>
+                  <div class="text-xs text-dim" style="margin-top: 4px;">
+                    <a class="link"><code class="code">stg_orders</code></a> · 
+                    <a class="link"><code class="code">dim_user</code></a> · 
+                    <a class="link"><code class="code">fct_orders</code></a> · 
+                    <a class="link"><code class="code">dm_finance_gmv</code></a>
+                  </div>
+                </li>
+                <li style="padding: 6px 0;">
+                  <strong>API</strong> <span class="text-dim">(12)</span>
+                  <div class="text-xs text-dim" style="margin-top: 4px;">
+                    <a class="link"><code class="code">/api/v1/users</code></a> · 
+                    <a class="link"><code class="code">/api/v1/gmv/realtime</code></a> · 
+                    <a class="link"><code class="code">/api/v1/profile</code></a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            
+            <!-- 问题 -->
+            <div class="card">
+              <div class="flex-between" style="margin-bottom: 12px;">
+                <div style="font-size: 16px; font-weight: 600;">⚐ 问题 <span class="text-dim text-sm">(5 活跃 · 23 历史)</span></div>
+                <a class="link text-sm">→ 打开</a>
+              </div>
+              <ul style="list-style: none; padding: 0;">
+                <li style="padding: 6px 0; border-bottom: 1px solid var(--border);">
+                  <a class="link">2026-08-17 财务 GMV 偏差 200 万</a>
+                  <span class="badge badge-danger" style="margin-left: 8px; font-size: 10px;">P0</span>
+                  <span class="text-xs text-dim"> · 处理中</span>
+                </li>
+                <li style="padding: 6px 0; border-bottom: 1px solid var(--border);">
+                  <a class="link">2026-08-16 退款时间窗口变更</a>
+                  <span class="badge badge-warning" style="margin-left: 8px; font-size: 10px;">P1</span>
+                  <span class="text-xs text-dim"> · 已沉淀 SOP</span>
+                </li>
+                <li style="padding: 6px 0; border-bottom: 1px solid var(--border);">
+                  <a class="link">2026-08-14 DAU 口径不一致</a>
+                  <span class="badge badge-success" style="margin-left: 8px; font-size: 10px;">已解决</span>
+                </li>
+                <li style="padding: 6px 0; border-bottom: 1px solid var(--border);">
+                  <a class="link">2026-08-12 用户画像缺 union_id</a>
+                  <span class="badge badge-info" style="margin-left: 8px; font-size: 10px;">P2 · axiom 候选</span>
+                </li>
+                <li style="padding: 6px 0;">
+                  <a class="link">2026-08-08 留存率分母不统一</a>
+                  <span class="badge" style="background: rgba(139, 148, 158, 0.15); margin-left: 8px; font-size: 10px;">P3</span>
+                </li>
+              </ul>
+              <div class="text-xs text-dim" style="margin-top: 8px;">
+                💡 还有 23 个历史问题（在 <a class="link">归档</a>）
+              </div>
+            </div>
+            
+            <!-- 方法论 -->
+            <div class="card">
+              <div class="flex-between" style="margin-bottom: 12px;">
+                <div style="font-size: 16px; font-weight: 600;">⧉ 方法论 <span class="text-dim text-sm">(39)</span></div>
+                <a class="link text-sm">→ 打开</a>
+              </div>
+              <ul style="list-style: none; padding: 0;">
+                <li style="padding: 6px 0; border-bottom: 1px solid var(--border);">
+                  <strong style="color: var(--accent);">axiom</strong> <span class="text-dim">(14)</span>
+                  <div class="text-xs text-dim" style="margin-top: 4px;">
+                    <a class="link">A14 指标单一源</a> · 
+                    <a class="link">A01 无直接 PII</a> · 
+                    <a class="link">A18 事故-资产影响映射</a>
+                    <span class="text-dim"> · 还有 11 个...</span>
+                  </div>
+                </li>
+                <li style="padding: 6px 0; border-bottom: 1px solid var(--border);">
+                  <strong style="color: var(--info);">SOP</strong> <span class="text-dim">(8)</span>
+                  <div class="text-xs text-dim" style="margin-top: 4px;">
+                    <a class="link">sop-gmv-001 月度对账</a> · 
+                    <a class="link">sop-dau-001 偏差排查</a> · 
+                    <a class="link">sop-incident-001 事故响应</a>
+                  </div>
+                </li>
+                <li style="padding: 6px 0; border-bottom: 1px solid var(--border);">
+                  <strong style="color: var(--accent-2);">template</strong> <span class="text-dim">(12)</span>
+                  <div class="text-xs text-dim" style="margin-top: 4px;">
+                    <a class="link">tpl-user-profile</a> · 
+                    <a class="link">tpl-daily-etl</a> · 
+                    <a class="link">tpl-incident-report</a>
+                  </div>
+                </li>
+                <li style="padding: 6px 0;">
+                  <strong style="color: var(--warning);">flow</strong> <span class="text-dim">(5)</span>
+                  <div class="text-xs text-dim" style="margin-top: 4px;">
+                    <a class="link">flow-001 上游变更通知</a> · 
+                    <a class="link">flow-002 季度业务 review</a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            
+          </div>
+        </div>
+        
+        <!-- 页面关系图 -->
+        <div class="section">
+          <div class="section-title">页面关系图 · 关键节点的连接</div>
+          <div class="card" style="padding: 20px;">
+            <svg viewBox="0 0 800 360" style="width: 100%; height: auto; max-height: 360px;">
+              <!-- 中心节点: GMV -->
+              <g>
+                <circle cx="400" cy="180" r="50" fill="rgba(88, 166, 255, 0.2)" stroke="var(--accent)" stroke-width="2"/>
+                <text x="400" y="175" text-anchor="middle" fill="var(--accent)" font-size="16" font-weight="600">GMV</text>
+                <text x="400" y="195" text-anchor="middle" fill="var(--text-dim)" font-size="11">concept</text>
+              </g>
+              
+              <!-- 周围节点 -->
+              <!-- 左上: axiom A14 -->
+              <g>
+                <line x1="350" y1="160" x2="180" y2="80" stroke="var(--border)" stroke-width="1.5" stroke-dasharray="3,3"/>
+                <circle cx="150" cy="60" r="32" fill="rgba(88, 166, 255, 0.1)" stroke="var(--accent)" stroke-width="1.5"/>
+                <text x="150" y="58" text-anchor="middle" fill="var(--accent)" font-size="12" font-weight="600">A14</text>
+                <text x="150" y="74" text-anchor="middle" fill="var(--text-dim)" font-size="10">axiom</text>
+                <text x="150" y="105" text-anchor="middle" fill="var(--text-dim)" font-size="10">指标单一源</text>
+              </g>
+              
+              <!-- 上: SOP -->
+              <g>
+                <line x1="400" y1="130" x2="400" y2="60" stroke="var(--border)" stroke-width="1.5" stroke-dasharray="3,3"/>
+                <circle cx="400" cy="40" r="32" fill="rgba(57, 197, 207, 0.1)" stroke="var(--info)" stroke-width="1.5"/>
+                <text x="400" y="38" text-anchor="middle" fill="var(--info)" font-size="12" font-weight="600">sop-001</text>
+                <text x="400" y="54" text-anchor="middle" fill="var(--text-dim)" font-size="10">SOP</text>
+                <text x="400" y="20" text-anchor="middle" fill="var(--text-dim)" font-size="10">GMV 月度对账</text>
+              </g>
+              
+              <!-- 右上: problem -->
+              <g>
+                <line x1="450" y1="160" x2="620" y2="80" stroke="var(--border)" stroke-width="1.5" stroke-dasharray="3,3"/>
+                <circle cx="650" cy="60" r="32" fill="rgba(248, 81, 73, 0.1)" stroke="var(--danger)" stroke-width="1.5"/>
+                <text x="650" y="58" text-anchor="middle" fill="var(--danger)" font-size="12" font-weight="600">08-17</text>
+                <text x="650" y="74" text-anchor="middle" fill="var(--text-dim)" font-size="10">problem</text>
+                <text x="650" y="105" text-anchor="middle" fill="var(--text-dim)" font-size="10">偏差 200 万</text>
+              </g>
+              
+              <!-- 左下: template -->
+              <g>
+                <line x1="350" y1="200" x2="180" y2="280" stroke="var(--border)" stroke-width="1.5" stroke-dasharray="3,3"/>
+                <circle cx="150" cy="300" r="32" fill="rgba(188, 140, 255, 0.1)" stroke="var(--accent-2)" stroke-width="1.5"/>
+                <text x="150" y="298" text-anchor="middle" fill="var(--accent-2)" font-size="12" font-weight="600">tpl-001</text>
+                <text x="150" y="314" text-anchor="middle" fill="var(--text-dim)" font-size="10">template</text>
+                <text x="150" y="345" text-anchor="middle" fill="var(--text-dim)" font-size="10">每日 ETL</text>
+              </g>
+              
+              <!-- 下: dbt model -->
+              <g>
+                <line x1="400" y1="230" x2="400" y2="280" stroke="var(--border)" stroke-width="1.5" stroke-dasharray="3,3"/>
+                <circle cx="400" cy="320" r="32" fill="rgba(188, 140, 255, 0.05)" stroke="var(--accent-2)" stroke-width="1.5"/>
+                <text x="400" y="318" text-anchor="middle" fill="var(--text-dim)" font-size="11" font-weight="600">dm_finance_gmv</text>
+                <text x="400" y="334" text-anchor="middle" fill="var(--text-dim)" font-size="10">asset (dbt)</text>
+              </g>
+              
+              <!-- 右下: asset 库表 -->
+              <g>
+                <line x1="450" y1="200" x2="620" y2="280" stroke="var(--border)" stroke-width="1.5" stroke-dasharray="3,3"/>
+                <circle cx="650" cy="300" r="32" fill="rgba(139, 148, 158, 0.1)" stroke="var(--text-dim)" stroke-width="1.5"/>
+                <text x="650" y="298" text-anchor="middle" fill="var(--text-dim)" font-size="11" font-weight="600">dwd_orders</text>
+                <text x="650" y="314" text-anchor="middle" fill="var(--text-dim)" font-size="10">asset (table)</text>
+              </g>
+              
+              <!-- 图例 -->
+              <g>
+                <rect x="20" y="340" width="12" height="12" fill="rgba(88, 166, 255, 0.2)" stroke="var(--accent)"/>
+                <text x="38" y="350" fill="var(--text-dim)" font-size="11">concept</text>
+                <rect x="100" y="340" width="12" height="12" fill="rgba(57, 197, 207, 0.2)" stroke="var(--info)"/>
+                <text x="118" y="350" fill="var(--text-dim)" font-size="11">SOP</text>
+                <rect x="160" y="340" width="12" height="12" fill="rgba(248, 81, 73, 0.2)" stroke="var(--danger)"/>
+                <text x="178" y="350" fill="var(--text-dim)" font-size="11">problem</text>
+                <rect x="240" y="340" width="12" height="12" fill="rgba(188, 140, 255, 0.2)" stroke="var(--accent-2)"/>
+                <text x="258" y="350" fill="var(--text-dim)" font-size="11">template</text>
+                <rect x="330" y="340" width="12" height="12" fill="rgba(210, 153, 34, 0.2)" stroke="var(--warning)"/>
+                <text x="348" y="350" fill="var(--text-dim)" font-size="11">axiom/asset</text>
+              </g>
+            </svg>
+            <div class="note" style="margin-top: 8px;">
+              <strong>说明</strong>：这是核心节点的关系示意。完整关系图请用 <code class="code">dg graph view gmv</code> 命令生成（基于 git log + cross-link 分析）。
+            </div>
+          </div>
+        </div>
+        
+        <!-- 最近更新 -->
+        <div class="section">
+          <div class="section-title">最近更新 · 7 天内</div>
+          <div class="card" style="padding: 0;">
+            <div class="list-item">
+              <div class="list-item-icon" style="background: rgba(248, 81, 73, 0.15); color: var(--danger);">P0</div>
+              <div class="list-item-main">
+                <div class="list-item-title">问题库 · 2026-08-17 财务 GMV 偏差 200 万</div>
+                <div class="list-item-sub">2 小时前 · @数据工程师 · 未沉淀</div>
+              </div>
+            </div>
+            <div class="list-item">
+              <div class="list-item-icon" style="background: rgba(88, 166, 255, 0.15); color: var(--accent);">CAND</div>
+              <div class="list-item-main">
+                <div class="list-item-title">axiom 候选 · CAND-008 GMV 必须按月对账</div>
+                <div class="list-item-sub">昨天 · LLM 提议 · 待 ratify</div>
+              </div>
+            </div>
+            <div class="list-item">
+              <div class="list-item-icon" style="background: rgba(63, 185, 80, 0.15); color: var(--success);">✓</div>
+              <div class="list-item-main">
+                <div class="list-item-title">问题库 · 2026-08-14 DAU 口径不一致 → 已解决</div>
+                <div class="list-item-sub">3 天前 · 沉淀为 axiom A07</div>
+              </div>
+            </div>
+            <div class="list-item">
+              <div class="list-item-icon" style="background: rgba(57, 197, 207, 0.15); color: var(--info);">SOP</div>
+              <div class="list-item-main">
+                <div class="list-item-title">SOP · sop-pii-001 PII 字段处置</div>
+                <div class="list-item-sub">5 天前 · @data-eng-team 创建</div>
+              </div>
+            </div>
+            <div class="list-item">
+              <div class="list-item-icon" style="background: rgba(188, 140, 255, 0.15); color: var(--accent-2);">tpl</div>
+              <div class="list-item-main">
+                <div class="list-item-title">template · tpl-pii-mask PII 脱敏 SQL 片段</div>
+                <div class="list-item-sub">1 周前 · @data-eng-team · 已复用 67 次</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 双链 vs 单链 -->
+        <div class="section">
+          <div class="note">
+            <strong>📚 这是单仓库视角</strong>。完整 wiki 应该用 git 管理 markdown 文件，每个 wiki 页面是一个 .md 文件，cross-link 通过 <code class="code">[[link]]</code> 语法。<br>
+            本页面是<strong>从文件渲染出来的视图</strong>，修改请改源文件（<code class="code">wiki/concepts/gmv.md</code> 等），刷新即生效。
+          </div>
+        </div>
+      </div>
+</template>

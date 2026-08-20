@@ -1,0 +1,905 @@
+<template id="tpl-page-scripts">
+      <div id="scripts" class="page">
+        <div class="page-header">
+          <div class="flex-between">
+            <div>
+              <div class="page-title">脚本管理</div>
+              <div class="page-subtitle">代码本身的治理——版本、关联、运行历史；不同于 DAG 调度（什么时候跑）</div>
+            </div>
+            <div class="flex" style="gap: 8px;">
+              <button class="btn btn-ghost">🌿 main</button>
+              <button class="btn">+ 新建脚本</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 顶部统计 -->
+        <div class="grid grid-4 section">
+          <div class="card">
+            <div class="card-title">脚本总数</div>
+            <div class="metric">127</div>
+            <div class="metric-trend">87 Python · 23 dbt · 12 SQL · 5 Notebook</div>
+          </div>
+          <div class="card">
+            <div class="card-title">已关联 DAG</div>
+            <div class="metric">23</div>
+            <div class="metric-trend warn">104 未关联（ad-hoc / utils）</div>
+          </div>
+          <div class="card">
+            <div class="card-title">今日运行次数</div>
+            <div class="metric">156</div>
+            <div class="metric-trend up">↑ 12% vs 昨日</div>
+          </div>
+          <div class="card">
+            <div class="card-title">git 最近变更</div>
+            <div class="metric" style="font-size: 18px; font-family: 'SF Mono', monospace;">a3f9c2d</div>
+            <div class="metric-trend">@张工程师 · 2 小时前</div>
+          </div>
+        </div>
+        
+        <!-- 类型 tab -->
+        <div class="tabs" data-tabset="scripts">
+          <div class="tab active" data-target="scripts-all">全部 <span class="text-xs text-dim">(127)</span></div>
+          <div class="tab" data-target="scripts-python">Python <span class="text-xs text-dim">(87)</span></div>
+          <div class="tab" data-target="scripts-dbt">dbt models <span class="text-xs text-dim">(23)</span></div>
+          <div class="tab" data-target="scripts-sql">SQL <span class="text-xs text-dim">(12)</span></div>
+          <div class="tab" data-target="scripts-shell">Shell <span class="text-xs text-dim">(...)</span></div>
+          <div class="tab" data-target="scripts-notebook">Notebook <span class="text-xs text-dim">(5)</span></div>
+        </div>
+        
+        <!-- 全部视图 -->
+        <div class="tab-pane active" data-pane="scripts-all">
+        <div style="display: grid; grid-template-columns: 380px 1fr; gap: 16px;">
+          
+          <!-- 左侧：文件树 -->
+          <div class="card" style="padding: 0;">
+            <div style="padding: 12px 16px; border-bottom: 1px solid var(--border); background: var(--surface-2);">
+              <div class="flex-between">
+                <span class="text-sm" style="font-weight: 600;">📁 仓库结构</span>
+                <span class="text-xs text-dim">main · 127 文件</span>
+              </div>
+            </div>
+            <div style="padding: 8px; max-height: 600px; overflow-y: auto;">
+              <div style="font-family: 'SF Mono', Monaco, monospace; font-size: 12px; line-height: 1.8;">
+                <div style="padding: 2px 8px; color: var(--text-dim);">📁 dags/</div>
+                <div style="padding: 2px 24px; color: var(--text-dim);">📁 etl/</div>
+                <div class="flex-between" style="padding: 4px 8px 4px 40px; border-radius: 4px; background: rgba(88, 166, 255, 0.1); border-left: 3px solid var(--accent);">
+                  <span>🐍 orders.py</span>
+                  <span class="text-xs text-dim">142 行</span>
+                </div>
+                <div class="flex-between" style="padding: 4px 8px 4px 40px; border-radius: 4px;">
+                  <span>🐍 users.py</span>
+                  <span class="text-xs text-dim">89 行</span>
+                </div>
+                <div class="flex-between" style="padding: 4px 8px 4px 40px; border-radius: 4px;">
+                  <span>🐍 returns.py</span>
+                  <span class="text-xs text-dim">76 行</span>
+                </div>
+                <div style="padding: 2px 24px; color: var(--text-dim);">📁 utils/</div>
+                <div class="flex-between" style="padding: 4px 8px 4px 40px; border-radius: 4px;">
+                  <span>🐍 pii_mask.py</span>
+                  <span class="text-xs text-dim">203 行</span>
+                </div>
+                <div class="flex-between" style="padding: 4px 8px 4px 40px; border-radius: 4px;">
+                  <span>🐍 sql_formatter.py</span>
+                  <span class="text-xs text-dim">45 行</span>
+                </div>
+                <div style="padding: 2px 8px; color: var(--text-dim);">📁 models/</div>
+                <div style="padding: 2px 24px; color: var(--text-dim);">📁 staging/</div>
+                <div class="flex-between" style="padding: 4px 8px 4px 40px; border-radius: 4px;">
+                  <span>📊 stg_orders.sql</span>
+                  <span class="text-xs text-dim">34 行</span>
+                </div>
+                <div class="flex-between" style="padding: 4px 8px 4px 40px; border-radius: 4px;">
+                  <span>📊 stg_users.sql</span>
+                  <span class="text-xs text-dim">28 行</span>
+                </div>
+                <div style="padding: 2px 24px; color: var(--text-dim);">📁 marts/</div>
+                <div class="flex-between" style="padding: 4px 8px 4px 40px; border-radius: 4px;">
+                  <span>📊 dm_finance_gmv.sql</span>
+                  <span class="text-xs text-dim">67 行</span>
+                </div>
+                <div class="flex-between" style="padding: 4px 8px 4px 40px; border-radius: 4px;">
+                  <span>📊 dm_user_profile.sql</span>
+                  <span class="text-xs text-dim">112 行</span>
+                </div>
+                <div style="padding: 2px 8px; color: var(--text-dim);">📁 notebooks/</div>
+                <div class="flex-between" style="padding: 4px 8px 4px 24px; border-radius: 4px;">
+                  <span>📓 gmv_diagnosis.ipynb</span>
+                  <span class="text-xs text-dim">2.1MB</span>
+                </div>
+                <div class="flex-between" style="padding: 4px 8px 4px 24px; border-radius: 4px;">
+                  <span>📓 dau_exploration.ipynb</span>
+                  <span class="text-xs text-dim">1.8MB</span>
+                </div>
+                <div style="padding: 2px 8px; color: var(--text-dim);">📁 scripts/</div>
+                <div class="flex-between" style="padding: 4px 8px 4px 24px; border-radius: 4px;">
+                  <span>🐚 check_today_data.sh</span>
+                  <span class="text-xs text-dim">28 行</span>
+                </div>
+                <div style="padding: 2px 8px; color: var(--text-dim); text-align: center; margin-top: 8px;">··· 还有 110 个文件 ···</div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 右侧：脚本详情 -->
+          <div>
+            <div class="card" style="padding: 0;">
+              <!-- 头部：路径 + 操作 -->
+              <div style="padding: 16px; border-bottom: 1px solid var(--border);">
+                <div class="flex-between">
+                  <div>
+                    <div style="font-family: 'SF Mono', monospace; font-size: 14px; font-weight: 600;">🐍 dags/etl/orders.py</div>
+                    <div class="text-xs text-dim" style="margin-top: 4px;">
+                      Python · 142 行 · 4.8KB · 最后修改 2 小时前 · <code class="code">a3f9c2d</code>
+                    </div>
+                  </div>
+                  <div class="flex" style="gap: 6px; flex-wrap: wrap;">
+                    <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">✏️ 编辑</button>
+                    <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">▶ 运行</button>
+                    <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">📋 复制</button>
+                    <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">📜 历史</button>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- 元数据 -->
+              <div style="padding: 16px; border-bottom: 1px solid var(--border); background: var(--surface-2);">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 13px;">
+                  <div><span class="text-dim">关联 DAG：</span> <a class="link">dwd_daily_orders_etl</a></div>
+                  <div><span class="text-dim">关联资产：</span> <a class="link"><code class="code">dwd.dwd_orders</code></a></div>
+                  <div><span class="text-dim">承载含义：</span> <a class="link">GMV</a>, <a class="link">退款</a></div>
+                  <div><span class="text-dim">引用 template：</span> <a class="link">tpl-pii-mask</a></div>
+                  <div><span class="text-dim">最近运行：</span> 2 小时前 · <span class="badge badge-success" style="font-size: 10px;">✓ 成功</span></div>
+                  <div><span class="text-dim">运行次数：</span> 89 次（30 天）</div>
+                </div>
+              </div>
+              
+              <!-- 代码预览 -->
+              <div style="background: var(--bg); padding: 0;">
+                <div style="background: var(--surface-2); padding: 6px 16px; font-size: 11px; color: var(--text-dim); border-bottom: 1px solid var(--border);">
+                  <span>Python 3.11</span> · <span>依赖：pymysql, pyhive, pandas, jinja2</span>
+                </div>
+                <pre style="margin: 0; padding: 16px; font-family: 'SF Mono', Monaco, monospace; font-size: 12px; line-height: 1.7; color: var(--text); overflow-x: auto;"><span style="color: var(--text-dim);">  1</span> <span style="color: var(--accent-2);">import</span> logging
+<span style="color: var(--text-dim);">  2</span> <span style="color: var(--accent-2);">from</span> datetime <span style="color: var(--accent-2);">import</span> datetime, timedelta
+<span style="color: var(--text-dim);">  3</span> <span style="color: var(--accent-2);">from</span> airflow <span style="color: var(--accent-2);">import</span> DAG
+<span style="color: var(--text-dim);">  4</span> <span style="color: var(--accent-2);">from</span> airflow.operators.python <span style="color: var(--accent-2);">import</span> PythonOperator
+<span style="color: var(--text-dim);">  5</span> <span style="color: var(--accent-2);">from</span> utils.pii_mask <span style="color: var(--accent-2);">import</span> mask_phone, mask_email
+<span style="color: var(--text-dim);">  6</span>
+<span style="color: var(--text-dim);">  7</span> <span style="color: var(--accent-2);">def</span> <span style="color: var(--success);">extract_orders</span>(**context):
+<span style="color: var(--text-dim);">  8</span>     <span style="color: var(--text-dim);">"""Extract orders from MySQL — 承载含义: GMV, 退款"""</span>
+<span style="color: var(--text-dim);">  9</span>     sql = <span style="color: var(--success);">"""
+<span style="color: var(--text-dim);"> 10</span>         SELECT order_id, user_id, paid_amount, refund_amount,
+<span style="color: var(--text-dim);"> 11</span>                order_date, status
+<span style="color: var(--text-dim);"> 12</span>         FROM yunhai_biz.orders
+<span style="color: var(--text-dim);"> 13</span>         WHERE order_date >= %s
+<span style="color: var(--text-dim);"> 14</span>     """</span> % (context[<span style="color: var(--success);">'ds'</span>],)
+<span style="color: var(--text-dim);"> 15</span>     <span style="color: var(--text-dim);"># PII 字段: user_id (脱敏后入仓)</span>
+<span style="color: var(--text-dim);"> 16</span>     <span style="color: var(--accent-2);">return</span> query_mysql(sql)
+<span style="color: var(--text-dim);"> 17</span>
+<span style="color: var(--text-dim);"> 18</span> <span style="color: var(--accent-2);">def</span> <span style="color: var(--success);">clean_orders</span>(df):
+<span style="color: var(--text-dim);"> 19</span>     <span style="color: var(--text-dim);"># axiom A01: 无直接 PII — user_id 必脱敏</span>
+<span style="color: var(--text-dim);"> 20</span>     df[<span style="color: var(--success);">'user_id_masked'</span>] = df[<span style="color: var(--success);">'user_id'</span>].apply(mask_phone)
+<span style="color: var(--text-dim);"> 21</span>     <span style="color: var(--accent-2);">return</span> df.drop(columns=[<span style="color: var(--success);">'user_id'</span>])
+<span style="color: var(--text-dim);"> 22</span>
+<span style="color: var(--text-dim);"> 23</span> with DAG(<span style="color: var(--success);">'dwd_daily_orders_etl'</span>, schedule_interval=<span style="color: var(--success);">'@daily'</span>) <span style="color: var(--accent-2);">as</span> dag:
+<span style="color: var(--text-dim);"> 24</span>     t1 = PythonOperator(task_id=<span style="color: var(--success);">'extract'</span>, python_callable=extract_orders)
+<span style="color: var(--text-dim);"> 25</span>     t2 = PythonOperator(task_id=<span style="color: var(--text-dim);">...</span></pre>
+              </div>
+            </div>
+            
+            <!-- 关联信息 -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px;">
+              <!-- 关联 DAG -->
+              <div class="card">
+                <div class="section-title">关联 DAG · 1 个</div>
+                <a class="card" style="padding: 12px; cursor: pointer; display: block; text-decoration: none; color: var(--text);">
+                  <div class="flex-between">
+                    <strong>⏱ dwd_daily_orders_etl</strong>
+                    <span class="badge badge-success" style="font-size: 10px;">健康</span>
+                  </div>
+                  <div class="text-xs text-dim" style="margin-top: 4px;">每日 02:00 · 4 任务 · 上次 ✓</div>
+                </a>
+              </div>
+              <!-- 引用 template -->
+              <div class="card">
+                <div class="section-title">引用 template · 2 个</div>
+                <a class="card" style="padding: 12px; cursor: pointer; display: block; text-decoration: none; color: var(--text);">
+                  <div class="flex-between">
+                    <strong>📜 tpl-pii-mask</strong>
+                    <span class="badge badge-info" style="font-size: 10px;">PII 脱敏</span>
+                  </div>
+                  <div class="text-xs text-dim" style="margin-top: 4px;">复用 67 次 · @data-eng-team</div>
+                </a>
+                <a class="card" style="padding: 12px; cursor: pointer; display: block; text-decoration: none; color: var(--text); margin-top: 8px;">
+                  <div class="flex-between">
+                    <strong>📜 tpl-daily-etl</strong>
+                    <span class="badge badge-purple" style="font-size: 10px;">每日 ETL</span>
+                  </div>
+                  <div class="text-xs text-dim" style="margin-top: 4px;">复用 15 次 · @data-eng-team</div>
+                </a>
+              </div>
+            </div>
+            
+            <!-- 运行历史 -->
+            <div class="card" style="margin-top: 16px; padding: 0;">
+              <div style="padding: 12px 16px; border-bottom: 1px solid var(--border);">
+                <div class="section-title" style="margin: 0;">最近运行 · 30 天内 89 次</div>
+              </div>
+              <div style="padding: 16px;">
+                <div style="font-size: 11px; color: var(--text-dim); margin-bottom: 8px;">每个 ■ = 1 次运行</div>
+                <div style="display: flex; gap: 2px; flex-wrap: wrap; max-width: 100%;">
+                  <span style="width: 8px; height: 16px; background: var(--success); border-radius: 1px;" title="Day -30: 成功"></span>
+                  <span style="width: 8px; height: 16px; background: var(--success); border-radius: 1px;"></span>
+                  <span style="width: 8px; height: 16px; background: var(--success); border-radius: 1px;"></span>
+                  <span style="width: 8px; height: 16px; background: var(--danger); border-radius: 1px;" title="Day -27: 失败"></span>
+                  <span style="width: 8px; height: 16px; background: var(--success); border-radius: 1px;"></span>
+                  <span style="width: 8px; height: 16px; background: var(--success); border-radius: 1px;"></span>
+                  <span style="width: 8px; height: 16px; background: var(--success); border-radius: 1px;"></span>
+                  <span style="width: 8px; height: 16px; background: var(--warning); border-radius: 1px;" title="Day -23: 警告"></span>
+                  <span style="width: 8px; height: 16px; background: var(--success); border-radius: 1px;"></span>
+                  <span style="width: 8px; height: 1px; background: var(--text-dim); margin: 0 4px; align-self: center;"></span>
+                  <span style="width: 8px; height: 16px; background: var(--text-dim); border-radius: 1px; opacity: 0.3;" title="省略"></span>
+                  <span style="width: 8px; height: 16px; background: var(--success); border-radius: 1px;"></span>
+                  <span style="width: 8px; height: 16px; background: var(--success); border-radius: 1px;"></span>
+                  <span style="width: 8px; height: 16px; background: var(--success); border-radius: 1px;"></span>
+                  <span style="width: 8px; height: 16px; background: var(--success); border-radius: 1px;"></span>
+                  <span style="width: 8px; height: 16px; background: var(--success); border-radius: 1px;"></span>
+                  <span style="width: 8px; height: 16px; background: var(--success); border-radius: 1px;"></span>
+                  <span style="width: 8px; height: 16px; background: var(--success); border-radius: 1px;"></span>
+                  <span style="width: 8px; height: 16px; background: var(--success); border-radius: 1px;"></span>
+                  <span style="width: 8px; height: 16px; background: var(--success); border-radius: 1px;"></span>
+                  <span style="width: 8px; height: 16px; background: var(--success); border-radius: 1px;"></span>
+                </div>
+                <div class="flex-between" style="margin-top: 8px; font-size: 11px; color: var(--text-dim);">
+                  <span>30 天前</span>
+                  <span class="flex" style="gap: 12px;">
+                    <span>■ 成功 87</span>
+                    <span>■ 失败 1</span>
+                    <span>■ 警告 1</span>
+                  </span>
+                  <span>今天</span>
+                </div>
+              </div>
+            </div>
+            
+            <!-- axiom 提示 -->
+            <div class="card" style="margin-top: 16px;">
+              <div class="note" style="margin: 0;">
+                <strong>📋 代码里的 axiom 引用</strong> · 这个脚本引用了 <code class="code">axiom A01 无直接 PII</code> 和 <code class="code">axiom A14 指标单一源</code>。<br>
+                修改后会自动触发 axiom 校验，<strong>违反 P0 axiom 会阻断 merge</strong>。
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        </div>
+        
+        <!-- Python 视图 -->
+        <div class="tab-pane" data-pane="scripts-python">
+          <div style="display: grid; grid-template-columns: 380px 1fr; gap: 16px;">
+            <div class="card" style="padding: 0;">
+              <div style="padding: 12px 16px; border-bottom: 1px solid var(--border); background: var(--surface-2);">
+                <div class="flex-between">
+                  <span class="text-sm" style="font-weight: 600;">📁 Python 脚本 · 87 个</span>
+                  <span class="text-xs text-dim">按目录</span>
+                </div>
+              </div>
+              <div style="padding: 8px; max-height: 600px; overflow-y: auto;">
+                <div style="font-family: 'SF Mono', Monaco, monospace; font-size: 12px; line-height: 1.8;">
+                  <div style="padding: 2px 8px; color: var(--text-dim);">📁 dags/etl/ <span style="color: var(--text-dim);">(5)</span></div>
+                  <div class="flex-between" style="padding: 4px 8px 4px 24px; border-radius: 4px;">
+                    <span>🐍 orders.py</span>
+                    <span class="text-xs text-dim">142 行</span>
+                  </div>
+                  <div class="flex-between" style="padding: 4px 8px 4px 24px; border-radius: 4px;">
+                    <span>🐍 users.py</span>
+                    <span class="text-xs text-dim">89 行</span>
+                  </div>
+                  <div class="flex-between" style="padding: 4px 8px 4px 24px; border-radius: 4px;">
+                    <span>🐍 returns.py</span>
+                    <span class="text-xs text-dim">76 行</span>
+                  </div>
+                  <div class="flex-between" style="padding: 4px 8px 4px 24px; border-radius: 4px;">
+                    <span>🐍 events.py</span>
+                    <span class="text-xs text-dim">203 行</span>
+                  </div>
+                  <div style="padding: 2px 8px; color: var(--text-dim);">📁 dags/utils/ <span style="color: var(--text-dim);">(8)</span></div>
+                  <div class="flex-between" style="padding: 4px 8px 4px 24px; border-radius: 4px; background: rgba(88, 166, 255, 0.1); border-left: 3px solid var(--accent);">
+                    <span>🐍 pii_mask.py</span>
+                    <span class="text-xs text-dim">203 行</span>
+                  </div>
+                  <div class="flex-between" style="padding: 4px 8px 4px 24px; border-radius: 4px;">
+                    <span>🐍 sql_formatter.py</span>
+                    <span class="text-xs text-dim">45 行</span>
+                  </div>
+                  <div class="flex-between" style="padding: 4px 8px 4px 24px; border-radius: 4px;">
+                    <span>🐍 hive_helper.py</span>
+                    <span class="text-xs text-dim">167 行</span>
+                  </div>
+                  <div style="padding: 2px 8px; color: var(--text-dim);">📁 libs/ <span style="color: var(--text-dim);">(38)</span></div>
+                  <div class="flex-between" style="padding: 4px 8px 4px 24px; border-radius: 4px;">
+                    <span>🐍 notion_client.py</span>
+                    <span class="text-xs text-dim">312 行</span>
+                  </div>
+                  <div class="flex-between" style="padding: 4px 8px 4px 24px; border-radius: 4px;">
+                    <span>🐍 wiki_client.py</span>
+                    <span class="text-xs text-dim">189 行</span>
+                  </div>
+                  <div style="padding: 2px 8px; color: var(--text-dim);">📁 scripts/ <span style="color: var(--text-dim);">(24)</span></div>
+                  <div style="padding: 2px 8px; color: var(--text-dim);">📁 tests/ <span style="color: var(--text-dim);">(12)</span></div>
+                  <div style="padding: 2px 8px; color: var(--text-dim); text-align: center; margin-top: 8px;">··· 还有 60+ 个 ···</div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="card" style="padding: 0;">
+                <div style="padding: 16px; border-bottom: 1px solid var(--border);">
+                  <div class="flex-between">
+                    <div>
+                      <div style="font-family: 'SF Mono', monospace; font-size: 14px; font-weight: 600;">🐍 dags/utils/pii_mask.py</div>
+                      <div class="text-xs text-dim" style="margin-top: 4px;">
+                        Python · 203 行 · 6.4KB · 最后修改 1 周前 · <code class="code">b7e2f91</code>
+                      </div>
+                    </div>
+                    <div class="flex" style="gap: 6px;">
+                      <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">✏️ 编辑</button>
+                      <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">▶ 运行</button>
+                      <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">📋 复制</button>
+                    </div>
+                  </div>
+                </div>
+                <div style="padding: 16px; border-bottom: 1px solid var(--border); background: var(--surface-2);">
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 13px;">
+                    <div><span class="text-dim">被引用：</span> <strong>67 次</strong> （在 23 个文件中）</div>
+                    <div><span class="text-dim">关联 axiom：</span> <a class="link">A01 无直接 PII</a></div>
+                    <div><span class="text-dim">关联 template：</span> <a class="link">tpl-pii-mask</a></div>
+                    <div><span class="text-dim">测试覆盖：</span> <span style="color: var(--success);">92%</span></div>
+                  </div>
+                </div>
+                <div style="background: var(--bg);">
+                  <div style="background: var(--surface-2); padding: 6px 16px; font-size: 11px; color: var(--text-dim); border-bottom: 1px solid var(--border);">
+                    Python 3.11 · 无外部依赖
+                  </div>
+                  <pre style="margin: 0; padding: 16px; font-family: 'SF Mono', Monaco, monospace; font-size: 12px; line-height: 1.7; color: var(--text); overflow-x: auto;"><span style="color: var(--text);">  1  """PII 脱敏工具 — 关联 axiom A01 无直接 PII"""
+  2  """被 dags/etl/orders.py 等 23 个文件引用"""
+  3
+  4  import re
+  5
+  6  PHONE_PATTERN = re.compile(r&#39;1[3-9]\d{9}&#39;)
+  7  ID_CARD_PATTERN = re.compile(r&#39;\d{17}[\dXx]&#39;)
+  8  EMAIL_PATTERN = re.compile(r&#39;[\w.+-]+@[\w-]+\.[\w.-]+&#39;)
+  9
+ 10  def mask_phone(phone: str) -> str:
+ 11      """手机号脱敏：138****8000"""
+ 12      if not PHONE_PATTERN.match(phone):
+ 13          return phone
+ 14      return phone[:3] + &#39;****&#39; + phone[-4:]
+ 15
+ 16  def mask_id_card(id_card: str) -> str:
+ 17      """身份证脱敏：110101********1234"""
+ 18      if not ID_CARD_PATTERN.match(id_card):
+ 19          return id_card
+ 20      return id_card[:6] + &#39;********&#39; + id_card[-4:]
+ 21
+ 22  def mask_email(email: str) -> str:
+ 23      """邮箱脱敏：a***@example.com"""
+ 24      if &#39;@&#39; not in email:
+ 25          return email
+ 26      local, domain = email.split(&#39;@&#39;, 1)
+ 27      return local[:1] + &#39;***&#39; + &#39;@&#39; + domain
+ 28
+ 29  # axiom A01 校验：所有使用 PII 的字段必须经过 mask_* 函数</span></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- dbt models 视图 -->
+        <div class="tab-pane" data-pane="scripts-dbt">
+          <div style="display: grid; grid-template-columns: 380px 1fr; gap: 16px;">
+            <div class="card" style="padding: 0;">
+              <div style="padding: 12px 16px; border-bottom: 1px solid var(--border); background: var(--surface-2);">
+                <div class="flex-between">
+                  <span class="text-sm" style="font-weight: 600;">📁 dbt models · 23 个</span>
+                  <span class="text-xs text-dim">按层</span>
+                </div>
+              </div>
+              <div style="padding: 8px; max-height: 600px; overflow-y: auto;">
+                <div style="font-family: 'SF Mono', Monaco, monospace; font-size: 12px; line-height: 1.8;">
+                  <div style="padding: 2px 8px; color: var(--accent);">▸ staging/ <span style="color: var(--text-dim);">(8)</span></div>
+                  <div class="flex-between" style="padding: 4px 8px 4px 24px; border-radius: 4px;">
+                    <span>📊 stg_orders.sql</span>
+                    <span class="text-xs text-dim">34 行 · 5 测试</span>
+                  </div>
+                  <div class="flex-between" style="padding: 4px 8px 4px 24px; border-radius: 4px;">
+                    <span>📊 stg_users.sql</span>
+                    <span class="text-xs text-dim">28 行 · 4 测试</span>
+                  </div>
+                  <div class="flex-between" style="padding: 4px 8px 4px 24px; border-radius: 4px;">
+                    <span>📊 stg_returns.sql</span>
+                    <span class="text-xs text-dim">42 行 · 6 测试</span>
+                  </div>
+                  <div style="padding: 2px 8px; color: var(--accent-2);">▸ intermediate/ <span style="color: var(--text-dim);">(5)</span></div>
+                  <div class="flex-between" style="padding: 4px 8px 4px 24px; border-radius: 4px;">
+                    <span>📊 int_orders_enriched.sql</span>
+                    <span class="text-xs text-dim">56 行</span>
+                  </div>
+                  <div class="flex-between" style="padding: 4px 8px 4px 24px; border-radius: 4px;">
+                    <span>📊 int_user_segments.sql</span>
+                    <span class="text-xs text-dim">78 行</span>
+                  </div>
+                  <div style="padding: 2px 8px; color: var(--warning);">▸ marts/ <span style="color: var(--text-dim);">(10)</span></div>
+                  <div class="flex-between" style="padding: 4px 8px 4px 24px; border-radius: 4px; background: rgba(88, 166, 255, 0.1); border-left: 3px solid var(--accent);">
+                    <span>📊 dm_finance_gmv.sql</span>
+                    <span class="text-xs text-dim">67 行 · 3 测试</span>
+                  </div>
+                  <div class="flex-between" style="padding: 4px 8px 4px 24px; border-radius: 4px;">
+                    <span>📊 dm_user_profile.sql</span>
+                    <span class="text-xs text-dim">112 行 · 8 测试</span>
+                  </div>
+                  <div class="flex-between" style="padding: 4px 8px 4px 24px; border-radius: 4px;">
+                    <span>📊 fct_orders.sql</span>
+                    <span class="text-xs text-dim">89 行 · 12 测试</span>
+                  </div>
+                  <div class="flex-between" style="padding: 4px 8px 4px 24px; border-radius: 4px;">
+                    <span>📊 fct_user_event.sql</span>
+                    <span class="text-xs text-dim">156 行 · 7 测试</span>
+                  </div>
+                  <div style="padding: 2px 8px; color: var(--text-dim);">▸ schema.yml</div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="card" style="padding: 0;">
+                <div style="padding: 16px; border-bottom: 1px solid var(--border);">
+                  <div class="flex-between">
+                    <div>
+                      <div style="font-family: 'SF Mono', monospace; font-size: 14px; font-weight: 600;">📊 models/marts/dm_finance_gmv.sql</div>
+                      <div class="text-xs text-dim" style="margin-top: 4px;">
+                        dbt model · 67 行 · <span class="badge badge-warning" style="font-size: 10px;">materialized: table</span> · 最后 dbt run: 昨天
+                      </div>
+                    </div>
+                    <div class="flex" style="gap: 6px;">
+                      <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">✏️ 编辑</button>
+                      <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">▶ dbt run</button>
+                      <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">🧪 dbt test</button>
+                    </div>
+                  </div>
+                </div>
+                <div style="padding: 16px; border-bottom: 1px solid var(--border); background: var(--surface-2);">
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 13px;">
+                    <div><span class="text-dim">refs：</span> <code class="code">fct_orders</code>, <code class="code">int_orders_enriched</code></div>
+                    <div><span class="text-dim">sources：</span> <code class="code">finance.dm_finance_gmv</code></div>
+                    <div><span class="text-dim">tests：</span> <span style="color: var(--success);">3/3 通过</span></div>
+                    <div><span class="text-dim">rows：</span> 36 行（每月一行）</div>
+                    <div><span class="text-dim">承载含义：</span> <a class="link">GMV</a>（axiom A14 单一源）</div>
+                    <div><span class="text-dim">下游：</span> BI 销售周报 + <code class="code">/api/v1/gmv/*</code></div>
+                  </div>
+                </div>
+                <div style="background: var(--bg);">
+                  <div style="background: var(--surface-2); padding: 6px 16px; font-size: 11px; color: var(--text-dim); border-bottom: 1px solid var(--border);">
+                    dbt 1.6 · 引用 2 个 model · 测试 3 个
+                  </div>
+                  <pre style="margin: 0; padding: 16px; font-family: 'SF Mono', Monaco, monospace; font-size: 12px; line-height: 1.7; color: var(--text); overflow-x: auto;"><span style="color: var(--text);">  1  {{ config(
+  2      materialized=&#39;table&#39;,
+  3      partition_by={&#39;month&#39;},
+  4      tags=[&#39;finance&#39;, &#39;gmv&#39;, &#39;axiom-a14&#39;]
+  5  )}}
+  6
+  7  with orders as (
+  8      select * from {{ ref(&#39;fct_orders&#39;) }}
+  9      where order_date &gt;= date_trunc(&#39;month&#39;, current_date - interval &#39;24 months&#39;)
+ 10      -- axiom A01: user_id 已脱敏（来自 stg_orders）
+ 11  ),
+ 12  enriched as (
+ 13      select * from {{ ref(&#39;int_orders_enriched&#39;) }}
+ 14  )
+ 15
+ 16  select
+ 17      date_trunc(&#39;month&#39;, orders.order_date) as month,
+ 18      sum(orders.paid_order_amount - orders.refund_amount) as gmv,
+ 19      -- axiom A14: 这是 GMV 单一源，不允许其他 mart计算 GMV
+ 20      count(distinct orders.order_id) as order_count,
+ 21      count(distinct orders.user_id_masked) as buyer_count
+ 22  from orders
+ 23  left join enriched using (order_id)
+ 24  group by 1
+ 25
+ 26  -- tests:
+ 27  --   - dbt_utils.unique_combination_of_columns: [month]
+ 28  --   - dbt_utils.accepted_range: gmv &gt;= 0
+ 29  --   - relationships: month -&gt; dim_calendar.month</span></pre>
+                </div>
+              </div>
+              <div class="card" style="margin-top: 16px;">
+                <div class="section-title">dbt test 最近结果</div>
+                <div style="display: flex; gap: 4px; align-items: center;">
+                  <span class="badge badge-success" style="font-size: 10px;">✓</span>
+                  <span class="text-sm">unique_combination_of_columns: [month]</span>
+                  <span class="text-xs text-dim" style="margin-left: auto;">2.1s</span>
+                </div>
+                <div style="display: flex; gap: 4px; align-items: center; margin-top: 8px;">
+                  <span class="badge badge-success" style="font-size: 10px;">✓</span>
+                  <span class="text-sm">accepted_range: gmv &gt;= 0</span>
+                  <span class="text-xs text-dim" style="margin-left: auto;">0.4s</span>
+                </div>
+                <div style="display: flex; gap: 4px; align-items: center; margin-top: 8px;">
+                  <span class="badge badge-success" style="font-size: 10px;">✓</span>
+                  <span class="text-sm">relationships: month -&gt; dim_calendar.month</span>
+                  <span class="text-xs text-dim" style="margin-left: auto;">1.2s</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- SQL 视图 -->
+        <div class="tab-pane" data-pane="scripts-sql">
+          <div style="display: grid; grid-template-columns: 380px 1fr; gap: 16px;">
+            <div class="card" style="padding: 0;">
+              <div style="padding: 12px 16px; border-bottom: 1px solid var(--border); background: var(--surface-2);">
+                <div class="flex-between">
+                  <span class="text-sm" style="font-weight: 600;">📁 SQL 脚本 · 12 个</span>
+                  <span class="text-xs text-dim">按用途</span>
+                </div>
+              </div>
+              <div style="padding: 8px; max-height: 600px; overflow-y: auto;">
+                <div style="font-family: 'SF Mono', Monaco, monospace; font-size: 12px; line-height: 1.8;">
+                  <div style="padding: 2px 8px; color: var(--text-dim);">📁 queries/ <span style="color: var(--text-dim);">(4)</span></div>
+                  <div class="flex-between" style="padding: 4px 8px 4px 24px; border-radius: 4px;">
+                    <span>📜 query_active_users.sql</span>
+                    <span class="text-xs text-dim">42 行</span>
+                  </div>
+                  <div class="flex-between" style="padding: 4px 8px 4px 24px; border-radius: 4px;">
+                    <span>📜 query_retention_cohort.sql</span>
+                    <span class="text-xs text-dim">68 行</span>
+                  </div>
+                  <div style="padding: 2px 8px; color: var(--text-dim);">📁 migrations/ <span style="color: var(--text-dim);">(3)</span></div>
+                  <div class="flex-between" style="padding: 4px 8px 4px 24px; border-radius: 4px;">
+                    <span>📜 2026-01-15_add_union_id.sql</span>
+                    <span class="text-xs text-dim">12 行</span>
+                  </div>
+                  <div class="flex-between" style="padding: 4px 8px 4px 24px; border-radius: 4px;">
+                    <span>📜 2026-03-22_add_index_orders.sql</span>
+                    <span class="text-xs text-dim">8 行</span>
+                  </div>
+                  <div style="padding: 2px 8px; color: var(--text-dim);">📁 stored_procs/ <span style="color: var(--text-dim);">(2)</span></div>
+                  <div class="flex-between" style="padding: 4px 8px 4px 24px; border-radius: 4px; background: rgba(88, 166, 255, 0.1); border-left: 3px solid var(--accent);">
+                    <span>📜 sp_monthly_close.sql</span>
+                    <span class="text-xs text-dim">156 行</span>
+                  </div>
+                  <div class="flex-between" style="padding: 4px 8px 4px 24px; border-radius: 4px;">
+                    <span>📜 sp_data_purge.sql</span>
+                    <span class="text-xs text-dim">89 行</span>
+                  </div>
+                  <div style="padding: 2px 8px; color: var(--text-dim);">📁 udfs/ <span style="color: var(--text-dim);">(3)</span></div>
+                  <div class="flex-between" style="padding: 4px 8px 4px 24px; border-radius: 4px;">
+                    <span>📜 fn_mask_phone.sql</span>
+                    <span class="text-xs text-dim">23 行</span>
+                  </div>
+                  <div class="flex-between" style="padding: 4px 8px 4px 24px; border-radius: 4px;">
+                    <span>📜 fn_calc_cohort.sql</span>
+                    <span class="text-xs text-dim">47 行</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="card" style="padding: 0;">
+                <div style="padding: 16px; border-bottom: 1px solid var(--border);">
+                  <div class="flex-between">
+                    <div>
+                      <div style="font-family: 'SF Mono', monospace; font-size: 14px; font-weight: 600;">📜 stored_procs/sp_monthly_close.sql</div>
+                      <div class="text-xs text-dim" style="margin-top: 4px;">
+                        Stored Procedure · 156 行 · Hive · 最后修改 1 个月前
+                      </div>
+                    </div>
+                    <div class="flex" style="gap: 6px;">
+                      <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">✏️ 编辑</button>
+                      <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">▶ 执行</button>
+                      <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">📜 历史</button>
+                    </div>
+                  </div>
+                </div>
+                <div style="padding: 16px; border-bottom: 1px solid var(--border); background: var(--surface-2);">
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 13px;">
+                    <div><span class="text-dim">类型：</span> <strong>Hive stored procedure</strong></div>
+                    <div><span class="text-dim">触发：</span> 每月 30 号 02:00</div>
+                    <div><span class="text-dim">承载含义：</span> GMV, 退款率, 复购率</div>
+                    <div><span class="text-dim">关联 SOP：</span> <a class="link">sop-gmv-001 月度对账</a></div>
+                  </div>
+                </div>
+                <div style="background: var(--bg);">
+                  <pre style="margin: 0; padding: 16px; font-family: 'SF Mono', Monaco, monospace; font-size: 12px; line-height: 1.7; color: var(--text); overflow-x: auto;"><span style="color: var(--text);">  1  -- 月度结账 stored procedure
+  2  -- 触发: monthly_revenue_reconciliation DAG
+  3  -- 关联 SOP: sop-gmv-001
+  4
+  5  CREATE PROCEDURE sp_monthly_close(IN target_month STRING)
+  6  BEGIN
+  7      DECLARE finance_gmv DECIMAL(18,2);
+  8      DECLARE warehouse_gmv DECIMAL(18,2);
+  9
+ 10      -- step 1: 计算财务 GMV
+ 11      SELECT SUM(paid_amount - refund_amount)
+ 12        INTO finance_gmv
+ 13        FROM finance.dm_finance_gmv
+ 14       WHERE month = target_month;
+ 15
+ 16      -- step 2: 计算数仓 GMV（axiom A14 单一源）
+ 17      SELECT gmv
+ 18        INTO warehouse_gmv
+ 19        FROM dm.dm_finance_gmv
+ 20       WHERE month = target_month;
+ 21
+ 22      -- step 3: 比对 &amp; 通知
+ 23      IF ABS(finance_gmv - warehouse_gmv) &gt; 100 THEN
+ 24          INSERT INTO ops.alert_log VALUES (
+ 25              &#39;gmv_diff&#39;, target_month, finance_gmv, warehouse_gmv
+ 26          );
+ 27          CALL notify_slack(&#39;#data-alerts&#39;, &#39;GMV 偏差&#39;);
+ 28      END IF;
+ 29  END;</span></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Shell 视图 -->
+        <div class="tab-pane" data-pane="scripts-shell">
+          <div style="display: grid; grid-template-columns: 380px 1fr; gap: 16px;">
+            <div class="card" style="padding: 0;">
+              <div style="padding: 12px 16px; border-bottom: 1px solid var(--border); background: var(--surface-2);">
+                <div class="flex-between">
+                  <span class="text-sm" style="font-weight: 600;">📁 Shell 脚本 · 5 个</span>
+                  <span class="text-xs text-dim">运维</span>
+                </div>
+              </div>
+              <div style="padding: 8px; max-height: 600px; overflow-y: auto;">
+                <div style="font-family: 'SF Mono', Monaco, monospace; font-size: 12px; line-height: 1.8;">
+                  <div style="padding: 2px 8px; color: var(--text-dim);">📁 cron/ <span style="color: var(--text-dim);">(2)</span></div>
+                  <div class="flex-between" style="padding: 4px 8px 4px 24px; border-radius: 4px; background: rgba(88, 166, 255, 0.1); border-left: 3px solid var(--accent);">
+                    <span>🐚 check_today_data.sh</span>
+                    <span class="text-xs text-dim">28 行</span>
+                  </div>
+                  <div class="flex-between" style="padding: 4px 8px 4px 24px; border-radius: 4px;">
+                    <span>🐚 rotate_logs.sh</span>
+                    <span class="text-xs text-dim">12 行</span>
+                  </div>
+                  <div style="padding: 2px 8px; color: var(--text-dim);">📁 deploy/ <span style="color: var(--text-dim);">(2)</span></div>
+                  <div class="flex-between" style="padding: 4px 8px 4px 24px; border-radius: 4px;">
+                    <span>🐚 deploy_etl.sh</span>
+                    <span class="text-xs text-dim">67 行</span>
+                  </div>
+                  <div class="flex-between" style="padding: 4px 8px 4px 24px; border-radius: 4px;">
+                    <span>🐚 rollback_dbt.sh</span>
+                    <span class="text-xs text-dim">45 行</span>
+                  </div>
+                  <div style="padding: 2px 8px; color: var(--text-dim);">📁 utils/ <span style="color: var(--text-dim);">(1)</span></div>
+                  <div class="flex-between" style="padding: 4px 8px 4px 24px; border-radius: 4px;">
+                    <span>🐚 env_check.sh</span>
+                    <span class="text-xs text-dim">23 行</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="card" style="padding: 0;">
+                <div style="padding: 16px; border-bottom: 1px solid var(--border);">
+                  <div class="flex-between">
+                    <div>
+                      <div style="font-family: 'SF Mono', monospace; font-size: 14px; font-weight: 600;">🐚 cron/check_today_data.sh</div>
+                      <div class="text-xs text-dim" style="margin-top: 4px;">
+                        Bash · 28 行 · Cron 每日 06:00 · owner @sre-team
+                      </div>
+                    </div>
+                    <div class="flex" style="gap: 6px;">
+                      <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">✏️ 编辑</button>
+                      <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">▶ 手动执行</button>
+                      <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">📜 cron 日志</button>
+                    </div>
+                  </div>
+                </div>
+                <div style="padding: 16px; border-bottom: 1px solid var(--border); background: var(--surface-2);">
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 13px;">
+                    <div><span class="text-dim">Cron：</span> <code class="code">0 6 * * * /opt/scripts/check_today_data.sh</code></div>
+                    <div><span class="text-dim">最近：</span> 1 天前 · <span class="badge badge-success" style="font-size: 10px;">✓ 成功</span></div>
+                    <div><span class="text-dim">检查项：</span> 5（GMV / DAU / 订单 / 退款 / 用户画像）</div>
+                    <div><span class="text-dim">触发告警：</span> 0 次 / 30 天</div>
+                  </div>
+                </div>
+                <div style="background: var(--bg);">
+                  <pre style="margin: 0; padding: 16px; font-family: 'SF Mono', Monaco, monospace; font-size: 12px; line-height: 1.7; color: var(--text); overflow-x: auto;"><span style="color: var(--text);">  1  #!/bin/bash
+  2  # 每日 06:00 检查昨日数据完整性
+  3  # 关联: SOP sop-dau-001, axiom A18 事故-资产映射
+  4
+  5  set -e
+  6
+  7  ALERT_WEBHOOK="https://hooks.slack.com/..."
+  8  YESTERDAY=$(date -d &#39;yesterday&#39; +%Y-%m-%d)
+  9
+ 10  check_gmv() {
+ 11      gmv=$(hive -e "SELECT COUNT(*) FROM dm.dm_finance_gmv WHERE month=&#39;$YESTERDAY&#39;")
+ 12      if [ "$gmv" -eq 0 ]; then
+ 13          curl -X POST "$ALERT_WEBHOOK" -d "{"text":"GMV 昨日无数据"}"
+ 14      fi
+ 15  }
+ 16
+ 17  check_gmv
+ 18  check_dau
+ 19  check_orders
+ 20  check_refunds
+ 21  check_user_profile
+ 22
+ 23  echo "Check complete at $(date)" &gt;&gt; /var/log/data_check.log</span></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Notebook 视图 -->
+        <div class="tab-pane" data-pane="scripts-notebook">
+          <div style="display: grid; grid-template-columns: 380px 1fr; gap: 16px;">
+            <div class="card" style="padding: 0;">
+              <div style="padding: 12px 16px; border-bottom: 1px solid var(--border); background: var(--surface-2);">
+                <div class="flex-between">
+                  <span class="text-sm" style="font-weight: 600;">📁 Notebooks · 5 个</span>
+                  <span class="text-xs text-dim">探索性</span>
+                </div>
+              </div>
+              <div style="padding: 8px; max-height: 600px; overflow-y: auto;">
+                <div style="font-family: 'SF Mono', Monaco, monospace; font-size: 12px; line-height: 1.8;">
+                  <div style="padding: 2px 8px; color: var(--text-dim);">📁 exploration/</div>
+                  <div class="flex-between" style="padding: 4px 8px 4px 24px; border-radius: 4px; background: rgba(88, 166, 255, 0.1); border-left: 3px solid var(--accent);">
+                    <span>📓 gmv_diagnosis.ipynb</span>
+                    <span class="text-xs text-dim">2.1MB · 12 cells</span>
+                  </div>
+                  <div class="flex-between" style="padding: 4px 8px 4px 24px; border-radius: 4px;">
+                    <span>📓 dau_exploration.ipynb</span>
+                    <span class="text-xs text-dim">1.8MB · 8 cells</span>
+                  </div>
+                  <div class="flex-between" style="padding: 4px 8px 4px 24px; border-radius: 4px;">
+                    <span>📓 retention_model.ipynb</span>
+                    <span class="text-xs text-dim">3.4MB · 15 cells</span>
+                  </div>
+                  <div style="padding: 2px 8px; color: var(--text-dim);">📁 experiments/</div>
+                  <div class="flex-between" style="padding: 4px 8px 4px 24px; border-radius: 4px;">
+                    <span>📓 pii_mask_benchmark.ipynb</span>
+                    <span class="text-xs text-dim">567KB · 6 cells</span>
+                  </div>
+                  <div class="flex-between" style="padding: 4px 8px 4px 24px; border-radius: 4px;">
+                    <span>📓 axiom_eval.ipynb</span>
+                    <span class="text-xs text-dim">1.2MB · 9 cells</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="card" style="padding: 0;">
+                <div style="padding: 16px; border-bottom: 1px solid var(--border);">
+                  <div class="flex-between">
+                    <div>
+                      <div style="font-family: 'SF Mono', monospace; font-size: 14px; font-weight: 600;">📓 notebooks/exploration/gmv_diagnosis.ipynb</div>
+                      <div class="text-xs text-dim" style="margin-top: 4px;">
+                        Jupyter Notebook · 2.1MB · 12 cells · 最后运行 5 天前
+                      </div>
+                    </div>
+                    <div class="flex" style="gap: 6px;">
+                      <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">▶ 打开</button>
+                      <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">📥 nbconvert</button>
+                      <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">📌 沉淀为 SOP</button>
+                    </div>
+                  </div>
+                </div>
+                <div style="padding: 16px; border-bottom: 1px solid var(--border); background: var(--surface-2);">
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 13px;">
+                    <div><span class="text-dim">Kernel：</span> Python 3.11</div>
+                    <div><span class="text-dim">最近运行：</span> 5 天前 · <span class="badge badge-success" style="font-size: 10px;">✓</span></div>
+                    <div><span class="text-dim">关联含义：</span> <a class="link">GMV</a></div>
+                    <div><span class="text-dim">沉淀潜力：</span> <span style="color: var(--success);">3 cells 可固化为 SOP</span></div>
+                  </div>
+                </div>
+                <div style="background: var(--bg); padding: 16px;">
+                  <div class="text-sm" style="margin-bottom: 12px; color: var(--text-dim);">
+                    📓 Cells 摘要 · 12 cells
+                  </div>
+                  <div style="display: flex; flex-direction: column; gap: 8px; font-family: 'SF Mono', Monaco, monospace; font-size: 12px;">
+                    <div class="flex" style="gap: 8px; align-items: center; padding: 8px; background: var(--surface-2); border-radius: 4px;">
+                      <span class="badge badge-info" style="font-size: 10px;">[1]</span>
+                      <span style="color: var(--success);">md</span>
+                      <span style="flex: 1;"># GMV 偏差诊断 — 关联 concepts/gmv, sops/sop-gmv-001</span>
+                    </div>
+                    <div class="flex" style="gap: 8px; align-items: center; padding: 8px; background: var(--surface-2); border-radius: 4px;">
+                      <span class="badge badge-info" style="font-size: 10px;">[2]</span>
+                      <span style="color: var(--accent);">code</span>
+                      <span style="flex: 1;">import pandas as pd; df = pd.read_parquet(...)</span>
+                      <span class="text-xs text-dim">· 1.2s</span>
+                    </div>
+                    <div class="flex" style="gap: 8px; align-items: center; padding: 8px; background: var(--surface-2); border-radius: 4px;">
+                      <span class="badge badge-info" style="font-size: 10px;">[3]</span>
+                      <span style="color: var(--success);">md</span>
+                      <span style="flex: 1;">## Step 1: 比对财务 vs 数仓 GMV</span>
+                    </div>
+                    <div class="flex" style="gap: 8px; align-items: center; padding: 8px; background: var(--surface-2); border-radius: 4px;">
+                      <span class="badge badge-info" style="font-size: 10px;">[4]</span>
+                      <span style="color: var(--accent);">code</span>
+                      <span style="flex: 1;">diff = finance_gmv - warehouse_gmv  # 200 万</span>
+                      <span class="text-xs text-dim">· 0.3s</span>
+                    </div>
+                    <div class="flex" style="gap: 8px; align-items: center; padding: 8px; background: var(--surface-2); border-radius: 4px;">
+                      <span class="badge badge-warning" style="font-size: 10px;">[5]</span>
+                      <span style="color: var(--accent);">code</span>
+                      <span style="flex: 1;">df.groupby('order_date').sum()  # 按日聚合</span>
+                      <span class="text-xs text-dim">· 8.4s</span>
+                    </div>
+                    <div class="flex" style="gap: 8px; align-items: center; padding: 8px; background: var(--surface-2); border-radius: 4px;">
+                      <span class="badge badge-info" style="font-size: 10px;">[6]</span>
+                      <span style="color: var(--success);">md</span>
+                      <span style="flex: 1;">## Step 2: 根因 — 业务方定义变更</span>
+                    </div>
+                    <div class="flex" style="gap: 8px; align-items: center; padding: 8px; background: var(--surface-2); border-radius: 4px;">
+                      <span class="badge badge-info" style="font-size: 10px;">[7-12]</span>
+                      <span style="color: var(--text-dim);">...</span>
+                      <span style="flex: 1;">后续诊断 + 修复建议 + 沉淀</span>
+                    </div>
+                  </div>
+                  <div class="note" style="margin-top: 16px;">
+                    💡 <strong>沉淀潜力</strong>: cell [4] 的 diff 计算逻辑可直接固化为 SOP 的第 2 步
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 最近 git 变更 -->
+        <div class="section">
+          <div class="section-title">最近 git 变更 · 7 天内</div>
+          <div class="card" style="padding: 0;">
+            <div class="list-item">
+              <div class="list-item-icon" style="background: rgba(63, 185, 80, 0.15); color: var(--success); font-family: 'SF Mono', monospace; font-size: 10px;">a3f9c2d</div>
+              <div class="list-item-main">
+                <div class="list-item-title">fix: orders.py 处理空 user_id 的边界 case</div>
+                <div class="list-item-sub">@张工程师 · 2 小时前 · 修改 dags/etl/orders.py · +12 -3</div>
+              </div>
+              <div class="list-item-meta">
+                <span class="badge badge-success" style="font-size: 10px;">main</span>
+              </div>
+            </div>
+            <div class="list-item">
+              <div class="list-item-icon" style="background: rgba(63, 185, 80, 0.15); color: var(--success); font-family: 'SF Mono', monospace; font-size: 10px;">b7e2f91</div>
+              <div class="list-item-main">
+                <div class="list-item-title">feat: dm_finance_gmv 加退款时间窗口参数</div>
+                <div class="list-item-sub">@李工程师 · 昨天 · 修改 models/marts/dm_finance_gmv.sql · +34 -8</div>
+              </div>
+              <div class="list-item-meta">
+                <span class="badge badge-success" style="font-size: 10px;">main</span>
+              </div>
+            </div>
+            <div class="list-item">
+              <div class="list-item-icon" style="background: rgba(210, 153, 34, 0.15); color: var(--warning); font-family: 'SF Mono', monospace; font-size: 10px;">c5d8a3f</div>
+              <div class="list-item-main">
+                <div class="list-item-title">chore: 删除 deprecated 的 legacy_user_event.py</div>
+                <div class="list-item-sub">@王工程师 · 3 天前 · 删除 dags/etl/legacy_user_event.py</div>
+              </div>
+              <div class="list-item-meta">
+                <span class="badge badge-warning" style="font-size: 10px;">cleanup</span>
+              </div>
+            </div>
+            <div class="list-item">
+              <div class="list-item-icon" style="background: rgba(63, 185, 80, 0.15); color: var(--success); font-family: 'SF Mono', monospace; font-size: 10px;">d9e3b4c</div>
+              <div class="list-item-main">
+                <div class="list-item-title">feat: gmv_diagnosis.ipynb 加自动对账 cell</div>
+                <div class="list-item-sub">@张工程师 · 5 天前 · 修改 notebooks/gmv_diagnosis.ipynb</div>
+              </div>
+              <div class="list-item-meta">
+                <span class="badge badge-success" style="font-size: 10px;">main</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</template>

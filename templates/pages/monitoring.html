@@ -1,0 +1,241 @@
+<template id="tpl-page-monitoring">
+      <div id="monitoring" class="page">
+        <div class="page-header">
+          <div class="page-title">监控告警 · 值班</div>
+          <div class="page-subtitle">活跃告警 + 值班轮转 + SLA 追踪——运维场景的主入口</div>
+        </div>
+        
+        <!-- 顶部统计 -->
+        <div class="grid grid-4 section">
+          <div class="card">
+            <div class="card-title">活跃告警</div>
+            <div class="metric">8</div>
+            <div class="metric-trend">2 P0 · 3 P1 · 3 P2</div>
+          </div>
+          <div class="card">
+            <div class="card-title">MTTA</div>
+            <div class="metric">3<span style="font-size: 16px; color: var(--text-dim);"> 分钟</span></div>
+            <div class="metric-trend up">平均响应时间 ↑</div>
+          </div>
+          <div class="card">
+            <div class="card-title">MTTR</div>
+            <div class="metric">28<span style="font-size: 16px; color: var(--text-dim);"> 分钟</span></div>
+            <div class="metric-trend up">平均恢复时间 ↑</div>
+          </div>
+          <div class="card">
+            <div class="card-title">本周值班</div>
+            <div class="metric" style="font-size: 20px;">@张工程师</div>
+            <div class="metric-trend text-sm" style="color: var(--text-dim);">下周一换班 → @李</div>
+          </div>
+        </div>
+        
+        <!-- 值班表 -->
+        <div class="section">
+          <div class="section-title">本周值班轮转</div>
+          <div class="card">
+            <div style="display: grid; grid-template-columns: 80px 1fr 100px 1fr; gap: 12px; align-items: center; font-size: 13px;">
+              <div class="text-dim">本周</div>
+              <div class="flex" style="gap: 8px;">
+                <span class="badge badge-success" style="font-size: 10px;">当前</span>
+                <strong>@张工程师</strong>
+                <span class="text-dim">· zhang@company.com</span>
+              </div>
+              <div class="text-dim">2026-08-12</div>
+              <div>~ 2026-08-18</div>
+              
+              <div class="text-dim">下周</div>
+              <div class="flex" style="gap: 8px;">
+                <span class="badge badge-info" style="font-size: 10px;">待交接</span>
+                <strong>@李工程师</strong>
+              </div>
+              <div class="text-dim">2026-08-19</div>
+              <div>~ 2026-08-25</div>
+              
+              <div class="text-dim">再下周</div>
+              <div class="flex" style="gap: 8px;">
+                <strong>@王工程师</strong>
+              </div>
+              <div class="text-dim">2026-08-26</div>
+              <div>~ 2026-09-01</div>
+            </div>
+            <div class="divider"></div>
+            <div class="flex" style="gap: 8px;">
+              <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">🔄 换班</button>
+              <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">📞 联系值班</button>
+              <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">📅 查看完整排班</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 活跃告警 -->
+        <div class="section">
+          <div class="flex-between" style="margin-bottom: 12px;">
+            <div class="section-title" style="margin: 0;">活跃告警 · 8 个</div>
+            <div class="flex" style="gap: 6px;">
+              <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">全部</button>
+              <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">P0</button>
+              <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">P1</button>
+              <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">已认领</button>
+            </div>
+          </div>
+          
+          <div class="card" style="padding: 0;">
+            <div class="list-item" style="background: rgba(248, 81, 73, 0.08);">
+              <div class="list-item-icon" style="background: rgba(248, 81, 73, 0.2); color: var(--danger); font-weight: 700;">!</div>
+              <div class="list-item-main">
+                <div class="list-item-title">realtime_gmv_aggregation Flink Job checkpoint 连续失败</div>
+                <div class="list-item-sub">来源: Spark 监控 · 触发 5 分钟前 · 影响: GMV 实时看板 · 未认领</div>
+              </div>
+              <div class="list-item-meta">
+                <span class="badge badge-danger">P0</span>
+                <button class="btn" style="font-size: 11px; padding: 4px 10px;">✋ 认领</button>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">详情</button>
+              </div>
+            </div>
+            <div class="list-item" style="background: rgba(248, 81, 73, 0.08);">
+              <div class="list-item-icon" style="background: rgba(248, 81, 73, 0.2); color: var(--danger); font-weight: 700;">!</div>
+              <div class="list-item-main">
+                <div class="list-item-title">dm_finance_gmv 表权限被回收，ETL 写入失败</div>
+                <div class="list-item-sub">来源: Airflow 告警 · 触发 30 分钟前 · 已认领 @张工程师 · 进行中</div>
+              </div>
+              <div class="list-item-meta">
+                <span class="badge badge-danger">P0</span>
+                <span class="badge badge-info">已认领</span>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">详情</button>
+              </div>
+            </div>
+            <div class="list-item">
+              <div class="list-item-icon" style="background: rgba(210, 153, 34, 0.15); color: var(--warning);">⚠</div>
+              <div class="list-item-main">
+                <div class="list-item-title">dwd_user_event 数据延迟 > 2 小时</div>
+                <div class="list-item-sub">来源: 调度监控 · 触发 1 小时前 · 影响: 实时 DAU · 未认领</div>
+              </div>
+              <div class="list-item-meta">
+                <span class="badge badge-warning">P1</span>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">✋ 认领</button>
+              </div>
+            </div>
+            <div class="list-item">
+              <div class="list-item-icon" style="background: rgba(210, 153, 34, 0.15); color: var(--warning);">⚠</div>
+              <div class="list-item-main">
+                <div class="list-item-title">API /api/v1/gmv/realtime SLA 99.5% (目标 99.9%)</div>
+                <div class="list-item-sub">来源: API 监控 · 触发 3 小时前 · 已沉淀 SOP sop-gmv-001</div>
+              </div>
+              <div class="list-item-meta">
+                <span class="badge badge-warning">P1</span>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">✋ 认领</button>
+              </div>
+            </div>
+            <div class="list-item">
+              <div class="list-item-icon" style="background: rgba(210, 153, 34, 0.15); color: var(--warning);">⚠</div>
+              <div class="list-item-main">
+                <div class="list-item-title">dim_user_profile 缺 union_id 字段</div>
+                <div class="list-item-sub">来源: axiom 校验 · 触发 3 天前 · 已沉淀 axiom 候选 CAND-007</div>
+              </div>
+              <div class="list-item-meta">
+                <span class="badge badge-warning">P1</span>
+                <span class="badge badge-info">已认领</span>
+              </div>
+            </div>
+            <div class="list-item">
+              <div class="list-item-icon" style="background: rgba(57, 197, 207, 0.15); color: var(--info);">i</div>
+              <div class="list-item-main">
+                <div class="list-item-title">retention_d7 计算 PC/H5 分母不一致</div>
+                <div class="list-item-sub">来源: axiom 校验 · 触发 1 周前 · 影响: 留存报表</div>
+              </div>
+              <div class="list-item-meta">
+                <span class="badge badge-info">P2</span>
+              </div>
+            </div>
+            <div class="list-item">
+              <div class="list-item-icon" style="background: rgba(57, 197, 207, 0.15); color: var(--info);">i</div>
+              <div class="list-item-main">
+                <div class="list-item-title">用户画像表 doc 已 5 天未更新</div>
+                <div class="list-item-sub">来源: 文档新鲜度检查 · 触发 1 天前</div>
+              </div>
+              <div class="list-item-meta">
+                <span class="badge badge-info">P2</span>
+              </div>
+            </div>
+            <div class="list-item">
+              <div class="list-item-icon" style="background: rgba(57, 197, 207, 0.15); color: var(--info);">i</div>
+              <div class="list-item-main">
+                <div class="list-item-title">axiom A08 误报率持续 35%（已超阈值）</div>
+                <div class="list-item-sub">来源: axiom 健康度 · 触发 1 周前 · 建议降级</div>
+              </div>
+              <div class="list-item-meta">
+                <span class="badge badge-info">P2</span>
+                <span class="badge badge-warning">建议降级</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- SLA 追踪 -->
+        <div class="section">
+          <div class="section-title">SLA 追踪 · 本月</div>
+          <div class="card" style="padding: 0;">
+            <div class="list-item">
+              <div class="list-item-main">
+                <div class="list-item-title">API /api/v1/users/{id}</div>
+                <div class="list-item-sub">目标 99.95% · owner @data-eng-team</div>
+              </div>
+              <div class="list-item-meta">
+                <span class="health-bar" style="width: 120px;">
+                  <div class="health-segment" style="width: 99%; background: var(--success);"></div>
+                </span>
+                <span style="font-weight: 600; color: var(--success);">99.98%</span>
+              </div>
+            </div>
+            <div class="list-item">
+              <div class="list-item-main">
+                <div class="list-item-title">API /api/v1/orders</div>
+                <div class="list-item-sub">目标 99.99% · owner @data-eng-team</div>
+              </div>
+              <div class="list-item-meta">
+                <span class="health-bar" style="width: 120px;">
+                  <div class="health-segment" style="width: 99%; background: var(--success);"></div>
+                </span>
+                <span style="font-weight: 600; color: var(--success);">99.99%</span>
+              </div>
+            </div>
+            <div class="list-item">
+              <div class="list-item-main">
+                <div class="list-item-title">API /api/v1/gmv/realtime</div>
+                <div class="list-item-sub">目标 99.9% · owner @data-eng-team</div>
+              </div>
+              <div class="list-item-meta">
+                <span class="health-bar" style="width: 120px;">
+                  <div class="health-segment" style="width: 75%; background: var(--danger);"></div>
+                </span>
+                <span style="font-weight: 600; color: var(--danger);">99.5%</span>
+              </div>
+            </div>
+            <div class="list-item">
+              <div class="list-item-main">
+                <div class="list-item-title">dwd_daily_orders_etl 02:00 准点率</div>
+                <div class="list-item-sub">目标 99% · 30 天内 27 次准点</div>
+              </div>
+              <div class="list-item-meta">
+                <span class="health-bar" style="width: 120px;">
+                  <div class="health-segment" style="width: 90%; background: var(--success);"></div>
+                </span>
+                <span style="font-weight: 600; color: var(--success);">90%</span>
+              </div>
+            </div>
+            <div class="list-item">
+              <div class="list-item-main">
+                <div class="list-item-title">axiom 误报率（所有 axiom 平均）</div>
+                <div class="list-item-sub">目标 < 20% · 当前 8%</div>
+              </div>
+              <div class="list-item-meta">
+                <span class="health-bar" style="width: 120px;">
+                  <div class="health-segment" style="width: 40%; background: var(--success);"></div>
+                </span>
+                <span style="font-weight: 600; color: var(--success);">8%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</template>

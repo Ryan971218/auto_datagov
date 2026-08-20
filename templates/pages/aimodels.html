@@ -1,0 +1,581 @@
+<template id="tpl-page-aimodels">
+      <div id="aimodels" class="page">
+        <div class="page-header">
+          <div class="flex-between">
+            <div>
+              <div class="page-title">AI 模型配置</div>
+              <div class="page-subtitle">连接、路由、用量、降级——AI 助手的运行底座</div>
+            </div>
+            <button class="btn">+ 添加模型</button>
+          </div>
+        </div>
+        
+        <!-- 顶部统计 -->
+        <div class="grid grid-4 section">
+          <div class="card">
+            <div class="card-title">已配置模型</div>
+            <div class="metric">5</div>
+            <div class="metric-trend">4 远程 + 1 本地</div>
+          </div>
+          <div class="card">
+            <div class="card-title">本月调用</div>
+            <div class="metric">12,345</div>
+            <div class="metric-trend up">↑ 23% vs 上月</div>
+          </div>
+          <div class="card">
+            <div class="card-title">本月费用</div>
+            <div class="metric">$234<span style="font-size: 16px; color: var(--text-dim);">.56</span></div>
+            <div class="metric-trend up">成本可控</div>
+          </div>
+          <div class="card">
+            <div class="card-title">平均延迟</div>
+            <div class="metric">1.2<span style="font-size: 16px; color: var(--text-dim);">s</span></div>
+            <div class="metric-trend warn">失败率 2.1%</div>
+          </div>
+        </div>
+        
+        <!-- 当前激活的模型 -->
+        <div class="section">
+          <div class="section-title">当前激活的模型 · 5 个</div>
+          <div class="grid grid-2">
+            
+            <!-- GPT-4o -->
+            <div class="card">
+              <div class="flex-between">
+                <div class="flex" style="gap: 12px;">
+                  <div class="list-item-icon" style="background: rgba(16, 163, 127, 0.15); color: #10A37F; font-weight: 700;">O</div>
+                  <div>
+                    <div style="font-size: 16px; font-weight: 600;">gpt-4o <span class="badge badge-info" style="font-size: 10px;">OpenAI</span></div>
+                    <div class="text-xs text-dim">通用能力最强 · 128k context</div>
+                  </div>
+                </div>
+                <span class="badge badge-success">● 活跃</span>
+              </div>
+              <div class="divider"></div>
+              <div style="display: grid; grid-template-columns: 80px 1fr; gap: 6px 12px; font-size: 13px;">
+                <span class="text-dim">endpoint</span><span><code class="code">https://api.openai.com/v1</code></span>
+                <span class="text-dim">api_key</span><span><code class="code">${OPENAI_API_KEY}</code></span>
+                <span class="text-dim">timeout</span><span>30s</span>
+                <span class="text-dim">temperature</span><span>0.2</span>
+                <span class="text-dim">max_tokens</span><span>4096</span>
+              </div>
+              <div class="divider"></div>
+              <div class="flex" style="gap: 6px; flex-wrap: wrap;">
+                <span class="badge badge-info">通用</span>
+                <span class="badge badge-info">推理</span>
+                <span class="badge badge-info">多模态</span>
+                <span class="badge badge-warning">备选兜底</span>
+              </div>
+              <div class="divider"></div>
+              <div class="flex" style="gap: 16px;">
+                <div><div class="text-xs text-dim">本月调用</div><div style="font-weight: 600;">1,234</div></div>
+                <div><div class="text-xs text-dim">费用</div><div style="font-weight: 600;">$98.40</div></div>
+                <div><div class="text-xs text-dim">P95 延迟</div><div style="font-weight: 600;">3.2s</div></div>
+              </div>
+              <div class="divider"></div>
+              <div class="flex" style="gap: 6px;">
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">⚙ 配置</button>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">▶ 测试</button>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">📊 用量</button>
+              </div>
+            </div>
+            
+            <!-- Claude Sonnet -->
+            <div class="card">
+              <div class="flex-between">
+                <div class="flex" style="gap: 12px;">
+                  <div class="list-item-icon" style="background: rgba(204, 124, 92, 0.15); color: #CC7C5C; font-weight: 700;">A</div>
+                  <div>
+                    <div style="font-size: 16px; font-weight: 600;">claude-3.5-sonnet <span class="badge badge-info" style="font-size: 10px;">Anthropic</span></div>
+                    <div class="text-xs text-dim">长上下文 + 强推理 · 200k</div>
+                  </div>
+                </div>
+                <span class="badge badge-success">● 活跃</span>
+              </div>
+              <div class="divider"></div>
+              <div style="display: grid; grid-template-columns: 80px 1fr; gap: 6px 12px; font-size: 13px;">
+                <span class="text-dim">endpoint</span><span><code class="code">https://api.anthropic.com</code></span>
+                <span class="text-dim">api_key</span><span><code class="code">${ANTHROPIC_API_KEY}</code></span>
+                <span class="text-dim">timeout</span><span>60s</span>
+                <span class="text-dim">temperature</span><span>0.3</span>
+                <span class="text-dim">max_tokens</span><span>8192</span>
+              </div>
+              <div class="divider"></div>
+              <div class="flex" style="gap: 6px; flex-wrap: wrap;">
+                <span class="badge badge-info">复杂推理</span>
+                <span class="text-dim" style="font-size: 11px; margin-left: 8px;">(主路由：复杂任务 / 长文档)</span>
+              </div>
+              <div class="divider"></div>
+              <div class="flex" style="gap: 16px;">
+                <div><div class="text-xs text-dim">本月调用</div><div style="font-weight: 600;">4,567</div></div>
+                <div><div class="text-xs text-dim">费用</div><div style="font-weight: 600;">$112.30</div></div>
+                <div><div class="text-xs text-dim">P95 延迟</div><div style="font-weight: 600;">4.1s</div></div>
+              </div>
+              <div class="divider"></div>
+              <div class="flex" style="gap: 6px;">
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">⚙ 配置</button>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">▶ 测试</button>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">📊 用量</button>
+              </div>
+            </div>
+            
+            <!-- DeepSeek Coder -->
+            <div class="card">
+              <div class="flex-between">
+                <div class="flex" style="gap: 12px;">
+                  <div class="list-item-icon" style="background: rgba(77, 107, 254, 0.15); color: #4D6BFE; font-weight: 700;">D</div>
+                  <div>
+                    <div style="font-size: 16px; font-weight: 600;">deepseek-coder <span class="badge badge-info" style="font-size: 10px;">DeepSeek</span></div>
+                    <div class="text-xs text-dim">代码生成专家 · 性价比高</div>
+                  </div>
+                </div>
+                <span class="badge badge-success">● 活跃</span>
+              </div>
+              <div class="divider"></div>
+              <div style="display: grid; grid-template-columns: 80px 1fr; gap: 6px 12px; font-size: 13px;">
+                <span class="text-dim">endpoint</span><span><code class="code">https://api.deepseek.com</code></span>
+                <span class="text-dim">api_key</span><span><code class="code">${DEEPSEEK_API_KEY}</code></span>
+                <span class="text-dim">temperature</span><span>0.1</span>
+                <span class="text-dim">max_tokens</span><span>4096</span>
+              </div>
+              <div class="divider"></div>
+              <div class="flex" style="gap: 6px; flex-wrap: wrap;">
+                <span class="badge badge-info">SQL 生成</span>
+                <span class="badge badge-info">代码补全</span>
+                <span class="text-dim" style="font-size: 11px; margin-left: 8px;">(主路由：SQL 查询页生成 SQL)</span>
+              </div>
+              <div class="divider"></div>
+              <div class="flex" style="gap: 16px;">
+                <div><div class="text-xs text-dim">本月调用</div><div style="font-weight: 600;">3,890</div></div>
+                <div><div class="text-xs text-dim">费用</div><div style="font-weight: 600;">$23.86</div></div>
+                <div><div class="text-xs text-dim">P95 延迟</div><div style="font-weight: 600;">2.4s</div></div>
+              </div>
+              <div class="divider"></div>
+              <div class="flex" style="gap: 6px;">
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">⚙ 配置</button>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">▶ 测试</button>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">📊 用量</button>
+              </div>
+            </div>
+            
+            <!-- 本地 Qwen -->
+            <div class="card">
+              <div class="flex-between">
+                <div class="flex" style="gap: 12px;">
+                  <div class="list-item-icon" style="background: rgba(247, 141, 67, 0.15); color: #F78D43; font-weight: 700;">Q</div>
+                  <div>
+                    <div style="font-size: 16px; font-weight: 600;">qwen2.5-7b-local <span class="badge badge-info" style="font-size: 10px;">本地</span></div>
+                    <div class="text-xs text-dim">内网部署 · 数据不出域</div>
+                  </div>
+                </div>
+                <span class="badge badge-success">● 活跃</span>
+              </div>
+              <div class="divider"></div>
+              <div style="display: grid; grid-template-columns: 80px 1fr; gap: 6px 12px; font-size: 13px;">
+                <span class="text-dim">endpoint</span><span><code class="code">http://gpu-node-01:8080/v1</code></span>
+                <span class="text-dim">auth</span><span>无（内网）</span>
+                <span class="text-dim">temperature</span><span>0.3</span>
+                <span class="text-dim">max_tokens</span><span>2048</span>
+                <span class="text-dim">GPU</span><span>1× A100</span>
+              </div>
+              <div class="divider"></div>
+              <div class="flex" style="gap: 6px; flex-wrap: wrap;">
+                <span class="badge badge-success">敏感数据</span>
+                <span class="badge badge-success">成本 $0</span>
+                <span class="text-dim" style="font-size: 11px; margin-left: 8px;">(主路由：PII 相关 / 内部查询)</span>
+              </div>
+              <div class="divider"></div>
+              <div class="flex" style="gap: 16px;">
+                <div><div class="text-xs text-dim">本月调用</div><div style="font-weight: 600;">2,234</div></div>
+                <div><div class="text-xs text-dim">费用</div><div style="font-weight: 600; color: var(--success);">$0</div></div>
+                <div><div class="text-xs text-dim">P95 延迟</div><div style="font-weight: 600;">1.4s</div></div>
+              </div>
+              <div class="divider"></div>
+              <div class="flex" style="gap: 6px;">
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">⚙ 配置</button>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">▶ 测试</button>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">📊 用量</button>
+              </div>
+            </div>
+            
+            <!-- Llama 备选 -->
+            <div class="card">
+              <div class="flex-between">
+                <div class="flex" style="gap: 12px;">
+                  <div class="list-item-icon" style="background: rgba(0, 105, 137, 0.15); color: #006989; font-weight: 700;">L</div>
+                  <div>
+                    <div style="font-size: 16px; font-weight: 600;">llama-3.1-8b <span class="badge badge-info" style="font-size: 10px;">本地备选</span></div>
+                    <div class="text-xs text-dim">未启用 · 仅做降级备选</div>
+                  </div>
+                </div>
+                <span class="badge" style="background: rgba(139, 148, 158, 0.15); color: var(--text-dim);">● 待启用</span>
+              </div>
+              <div class="divider"></div>
+              <div style="display: grid; grid-template-columns: 80px 1fr; gap: 6px 12px; font-size: 13px;">
+                <span class="text-dim">endpoint</span><span><code class="code">http://gpu-node-02:8081/v1</code></span>
+                <span class="text-dim">purpose</span><span>远程模型全挂时的兜底</span>
+              </div>
+              <div class="divider"></div>
+              <div class="note" style="margin: 0;">
+                <strong>降级策略</strong>: 远程 API 全部失败时自动启用，本地推理质量较低但保证可用
+              </div>
+              <div class="divider"></div>
+              <div class="flex" style="gap: 6px;">
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">▶ 启用</button>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">⚙ 配置</button>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+        
+        <!-- 路由规则 -->
+        <div class="section">
+          <div class="flex-between" style="margin-bottom: 12px;">
+            <div class="section-title" style="margin: 0;">智能路由规则 · 任务 → 模型</div>
+            <button class="btn btn-ghost">+ 添加规则</button>
+          </div>
+          <div class="card" style="padding: 0;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+              <thead>
+                <tr style="background: var(--surface-2);">
+                  <th style="padding: 10px 16px; text-align: left; border-bottom: 1px solid var(--border); font-weight: 600; color: var(--text-dim); font-size: 11px; text-transform: uppercase;">任务</th>
+                  <th style="padding: 10px 16px; text-align: left; border-bottom: 1px solid var(--border); font-weight: 600; color: var(--text-dim); font-size: 11px; text-transform: uppercase;">主路由</th>
+                  <th style="padding: 10px 16px; text-align: left; border-bottom: 1px solid var(--border); font-weight: 600; color: var(--text-dim); font-size: 11px; text-transform: uppercase;">降级</th>
+                  <th style="padding: 10px 16px; text-align: left; border-bottom: 1px solid var(--border); font-weight: 600; color: var(--text-dim); font-size: 11px; text-transform: uppercase;">触发条件</th>
+                  <th style="padding: 10px 16px; text-align: left; border-bottom: 1px solid var(--border); font-weight: 600; color: var(--text-dim); font-size: 11px; text-transform: uppercase;">命中</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="padding: 10px 16px; border-bottom: 1px solid var(--border);">
+                    <strong>概念查询 / 简单问答</strong>
+                    <div class="text-xs text-dim">"GMV 是什么"</div>
+                  </td>
+                  <td style="padding: 10px 16px; border-bottom: 1px solid var(--border);">
+                    <span class="badge badge-success" style="font-size: 10px;">qwen-local</span>
+                  </td>
+                  <td style="padding: 10px 16px; border-bottom: 1px solid var(--border);">
+                    <span class="text-xs text-dim">claude-sonnet</span>
+                  </td>
+                  <td style="padding: 10px 16px; border-bottom: 1px solid var(--border);">
+                    <span class="text-xs text-dim">本地 QPS &gt; 50</span>
+                  </td>
+                  <td style="padding: 10px 16px; border-bottom: 1px solid var(--border);">8,234</td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px 16px; border-bottom: 1px solid var(--border);">
+                    <strong>SQL 生成</strong>
+                    <div class="text-xs text-dim">"帮我写 GMV 对账 SQL"</div>
+                  </td>
+                  <td style="padding: 10px 16px; border-bottom: 1px solid var(--border);">
+                    <span class="badge badge-info" style="font-size: 10px;">deepseek-coder</span>
+                  </td>
+                  <td style="padding: 10px 16px; border-bottom: 1px solid var(--border);">
+                    <span class="text-xs text-dim">claude-sonnet</span>
+                  </td>
+                  <td style="padding: 10px 16px; border-bottom: 1px solid var(--border);">
+                    <span class="text-xs text-dim">生成代码 test 失败率 &gt; 10%</span>
+                  </td>
+                  <td style="padding: 10px 16px; border-bottom: 1px solid var(--border);">1,567</td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px 16px; border-bottom: 1px solid var(--border);">
+                    <strong>复杂推理（多跳）</strong>
+                    <div class="text-xs text-dim">"为什么 GMV 对不上？"</div>
+                  </td>
+                  <td style="padding: 10px 16px; border-bottom: 1px solid var(--border);">
+                    <span class="badge badge-accent" style="font-size: 10px;">claude-sonnet</span>
+                  </td>
+                  <td style="padding: 10px 16px; border-bottom: 1px solid var(--border);">
+                    <span class="text-xs text-dim">gpt-4o</span>
+                  </td>
+                  <td style="padding: 10px 16px; border-bottom: 1px solid var(--border);">
+                    <span class="text-xs text-dim">Sonnet 不可用</span>
+                  </td>
+                  <td style="padding: 10px 16px; border-bottom: 1px solid var(--border);">2,341</td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px 16px; border-bottom: 1px solid var(--border);">
+                    <strong>长上下文（&gt; 32k）</strong>
+                    <div class="text-xs text-dim">日志全文 / 大文档分析</div>
+                  </td>
+                  <td style="padding: 10px 16px; border-bottom: 1px solid var(--border);">
+                    <span class="badge badge-accent" style="font-size: 10px;">claude-sonnet (200k)</span>
+                  </td>
+                  <td style="padding: 10px 16px; border-bottom: 1px solid var(--border);">
+                    <span class="text-xs text-dim">分块 + 多次调用</span>
+                  </td>
+                  <td style="padding: 10px 16px; border-bottom: 1px solid var(--border);">
+                    <span class="text-xs text-dim">输入 &gt; 200k</span>
+                  </td>
+                  <td style="padding: 10px 16px; border-bottom: 1px solid var(--border);">120</td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px 16px; border-bottom: 1px solid var(--border);">
+                    <strong>PII 字段处理</strong>
+                    <div class="text-xs text-dim">包含手机号/身份证的查询</div>
+                  </td>
+                  <td style="padding: 10px 16px; border-bottom: 1px solid var(--border);">
+                    <span class="badge badge-success" style="font-size: 10px;">qwen-local</span>
+                  </td>
+                  <td style="padding: 10px 16px; border-bottom: 1px solid var(--border);">
+                    <span class="text-xs text-dim">拒绝服务</span>
+                  </td>
+                  <td style="padding: 10px 16px; border-bottom: 1px solid var(--border);">
+                    <span class="text-xs text-dim">检测到 PII</span>
+                  </td>
+                  <td style="padding: 10px 16px; border-bottom: 1px solid var(--border);">83</td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px 16px;">
+                    <strong>所有远程失败</strong>
+                    <div class="text-xs text-dim">兜底链最后一级</div>
+                  </td>
+                  <td style="padding: 10px 16px;">
+                    <span class="badge badge-warning" style="font-size: 10px;">llama-local</span>
+                  </td>
+                  <td style="padding: 10px 16px;">
+                    <span class="text-xs text-dim">拒绝</span>
+                  </td>
+                  <td style="padding: 10px 16px;">
+                    <span class="text-xs text-dim">所有远程都失败</span>
+                  </td>
+                  <td style="padding: 10px 16px;">0 (本月)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+        <!-- 用量与费用 -->
+        <div class="section">
+          <div class="section-title">本月用量与费用 · 按模型</div>
+          <div class="grid grid-2">
+            <!-- 按模型分布 -->
+            <div class="card">
+              <div class="card-title">调用分布（12,345 次）</div>
+              <div style="margin-top: 12px;">
+                <div style="display: grid; grid-template-columns: 1fr auto; gap: 8px 12px; font-size: 13px; align-items: center; padding: 8px 0;">
+                  <div>
+                    <div class="flex-between" style="margin-bottom: 4px;">
+                      <span>qwen-local</span>
+                      <span class="text-dim">2,234 · 18%</span>
+                    </div>
+                    <div class="progress" style="height: 6px;"><div class="progress-bar" style="width: 18%; background: var(--success);"></div></div>
+                  </div>
+                </div>
+                <div style="padding: 8px 0;">
+                  <div class="flex-between" style="margin-bottom: 4px;">
+                    <span>deepseek-coder</span>
+                    <span class="text-dim">3,890 · 32%</span>
+                  </div>
+                  <div class="progress" style="height: 6px;"><div class="progress-bar" style="width: 32%; background: var(--info);"></div></div>
+                </div>
+                <div style="padding: 8px 0;">
+                  <div class="flex-between" style="margin-bottom: 4px;">
+                    <span>claude-sonnet</span>
+                    <span class="text-dim">4,567 · 37%</span>
+                  </div>
+                  <div class="progress" style="height: 6px;"><div class="progress-bar" style="width: 37%; background: var(--accent);"></div></div>
+                </div>
+                <div style="padding: 8px 0;">
+                  <div class="flex-between" style="margin-bottom: 4px;">
+                    <span>gpt-4o</span>
+                    <span class="text-dim">1,234 · 10%</span>
+                  </div>
+                  <div class="progress" style="height: 6px;"><div class="progress-bar" style="width: 10%; background: var(--warning);"></div></div>
+                </div>
+                <div style="padding: 8px 0;">
+                  <div class="flex-between" style="margin-bottom: 4px;">
+                    <span>llama-local</span>
+                    <span class="text-dim">0 · 0%</span>
+                  </div>
+                  <div class="progress" style="height: 6px;"><div class="progress-bar" style="width: 0%; background: var(--text-dim);"></div></div>
+                </div>
+              </div>
+              <div class="divider"></div>
+              <div class="flex-between text-sm">
+                <span class="text-dim">本月合计</span>
+                <strong>12,345 次</strong>
+              </div>
+            </div>
+            
+            <!-- 费用分布 -->
+            <div class="card">
+              <div class="card-title">费用分布（$234.56）</div>
+              <div style="margin-top: 12px;">
+                <div style="padding: 8px 0;">
+                  <div class="flex-between" style="margin-bottom: 4px;">
+                    <span>claude-sonnet</span>
+                    <span class="text-dim">$112.30 · 48%</span>
+                  </div>
+                  <div class="progress" style="height: 6px;"><div class="progress-bar" style="width: 48%; background: var(--accent);"></div></div>
+                </div>
+                <div style="padding: 8px 0;">
+                  <div class="flex-between" style="margin-bottom: 4px;">
+                    <span>gpt-4o</span>
+                    <span class="text-dim">$98.40 · 42%</span>
+                  </div>
+                  <div class="progress" style="height: 6px;"><div class="progress-bar" style="width: 42%; background: var(--warning);"></div></div>
+                </div>
+                <div style="padding: 8px 0;">
+                  <div class="flex-between" style="margin-bottom: 4px;">
+                    <span>deepseek-coder</span>
+                    <span class="text-dim">$23.86 · 10%</span>
+                  </div>
+                  <div class="progress" style="height: 6px;"><div class="progress-bar" style="width: 10%; background: var(--info);"></div></div>
+                </div>
+                <div style="padding: 8px 0;">
+                  <div class="flex-between" style="margin-bottom: 4px;">
+                    <span>qwen-local</span>
+                    <span class="text-dim" style="color: var(--success);">$0 · 0%</span>
+                  </div>
+                  <div class="progress" style="height: 6px;"><div class="progress-bar" style="width: 0%; background: var(--success);"></div></div>
+                </div>
+              </div>
+              <div class="divider"></div>
+              <div class="flex-between text-sm">
+                <span class="text-dim">本月合计</span>
+                <strong>$234.56</strong>
+              </div>
+              <div class="divider"></div>
+              <div class="note" style="margin: 0;">
+                💡 <strong>成本优化</strong>: 简单查询走本地（$0）本月节省约 $45
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 失败与降级 -->
+        <div class="section">
+          <div class="section-title">本月失败与降级</div>
+          <div class="grid grid-3">
+            <div class="card">
+              <div class="card-title">总调用</div>
+              <div class="metric">12,345</div>
+              <div class="metric-trend">100%</div>
+            </div>
+            <div class="card">
+              <div class="card-title">成功</div>
+              <div class="metric" style="color: var(--success);">12,082</div>
+              <div class="metric-trend up">97.9%</div>
+            </div>
+            <div class="card">
+              <div class="card-title">失败 / 降级</div>
+              <div class="metric" style="color: var(--danger);">263</div>
+              <div class="metric-trend warn">2.1% · 触发 47 次降级</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="section">
+          <div class="card" style="padding: 0;">
+            <div class="list-item">
+              <div class="list-item-icon" style="background: rgba(63, 185, 80, 0.15); color: var(--success);">✓</div>
+              <div class="list-item-main">
+                <div class="list-item-title">claude-sonnet 5xx 错误</div>
+                <div class="list-item-sub">本月 23 次 · 全部自动降级到 gpt-4o · 无用户感知</div>
+              </div>
+              <div class="list-item-meta">
+                <span class="badge badge-success" style="font-size: 10px;">降级生效</span>
+              </div>
+            </div>
+            <div class="list-item">
+              <div class="list-item-icon" style="background: rgba(210, 153, 34, 0.15); color: var(--warning);">⚠</div>
+              <div class="list-item-main">
+                <div class="list-item-title">deepseek-coder 限流（429）</div>
+                <div class="list-item-sub">本月 17 次 · 已重试到 claude-sonnet</div>
+              </div>
+              <div class="list-item-meta">
+                <span class="badge badge-warning" style="font-size: 10px;">限流</span>
+              </div>
+            </div>
+            <div class="list-item">
+              <div class="list-item-icon" style="background: rgba(248, 81, 73, 0.15); color: var(--danger);">✗</div>
+              <div class="list-item-main">
+                <div class="list-item-title">claude-sonnet 持续超时（&gt; 60s）</div>
+                <div class="list-item-sub">3 次 · 已自动降级 · 但降级链全失败 → 用户看到错误</div>
+              </div>
+              <div class="list-item-meta">
+                <span class="badge badge-danger" style="font-size: 10px;">未解决</span>
+              </div>
+            </div>
+            <div class="list-item">
+              <div class="list-item-icon" style="background: rgba(57, 197, 207, 0.15); color: var(--info);">i</div>
+              <div class="list-item-main">
+                <div class="list-item-title">qwen-local GPU 利用率</div>
+                <div class="list-item-sub">平均 78% · 接近上限（83%），建议扩容或限流</div>
+              </div>
+              <div class="list-item-meta">
+                <span class="badge badge-info" style="font-size: 10px;">建议</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 配置示例 -->
+        <div class="section">
+          <div class="section-title">配置文件示例 · models.yaml</div>
+          <div class="card">
+            <pre style="padding: 16px; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; font-size: 12px; font-family: 'SF Mono', Monaco, monospace; overflow-x: auto; color: var(--text);"><span style="color: var(--text-dim);"># AI 模型路由表
+# 配合 axiom 健康度自动 ratify 失败时的路由调整
+
+models:
+  - id: gpt-4o
+    provider: openai
+    endpoint: https://api.openai.com/v1
+    api_key: ${OPENAI_API_KEY}
+    timeout: 30s
+    params:
+      temperature: 0.2
+      max_tokens: 4096
+    purpose: [general, fallback]
+
+  - id: claude-3.5-sonnet
+    provider: anthropic
+    endpoint: https://api.anthropic.com
+    api_key: ${ANTHROPIC_API_KEY}
+    timeout: 60s
+    params:
+      temperature: 0.3
+      max_tokens: 8192
+    purpose: [reasoning, long-context]
+
+  - id: deepseek-coder
+    provider: deepseek
+    endpoint: https://api.deepseek.com
+    api_key: ${DEEPSEEK_API_KEY}
+    purpose: [sql-generation, code]
+
+  - id: qwen2.5-7b-local
+    provider: local
+    endpoint: http://gpu-node-01:8080/v1
+    purpose: [pii-safe, simple-qa]
+
+routing:
+  - task: simple-qa
+    primary: qwen2.5-7b-local
+    fallback: claude-3.5-sonnet
+    trigger: local_qps > 50
+
+  - task: sql-generation
+    primary: deepseek-coder
+    fallback: claude-3.5-sonnet
+    trigger: test_failure > 0.1
+
+  - task: reasoning
+    primary: claude-3.5-sonnet
+    fallback: gpt-4o
+
+  - task: long-context
+    primary: claude-3.5-sonnet
+    max_context: 200000
+
+  - task: pii-sensitive
+    primary: qwen2.5-7b-local
+    reject_external: true</span></pre>
+          </div>
+        </div>
+      </div>
+</template>

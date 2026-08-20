@@ -1,0 +1,239 @@
+<template id="tpl-page-concepts">
+      <div id="concepts" class="page">
+        <div class="page-header">
+          <div class="page-title">业务含义</div>
+          <div class="page-subtitle">业务方定义含义，数据工程团队追踪实现。ownership 永远归业务方。</div>
+        </div>
+        
+        <div class="split">
+          <div class="card" style="padding: 0;">
+            <div class="list-item" style="background: rgba(88, 166, 255, 0.1); border-left: 3px solid var(--accent);">
+              <div class="list-item-icon" style="background: rgba(88, 166, 255, 0.2); color: var(--accent);">$</div>
+              <div class="list-item-main">
+                <div class="list-item-title">GMV</div>
+                <div class="list-item-sub">商品交易总额 · 业务方定义</div>
+              </div>
+            </div>
+            <div class="list-item">
+              <div class="list-item-icon">◎</div>
+              <div class="list-item-main">
+                <div class="list-item-title">DAU</div>
+                <div class="list-item-sub">日活跃用户 · 业务方定义</div>
+              </div>
+            </div>
+            <div class="list-item">
+              <div class="list-item-icon">◐</div>
+              <div class="list-item-main">
+                <div class="list-item-title">月活用户</div>
+                <div class="list-item-sub">MAU · 业务方定义</div>
+              </div>
+            </div>
+            <div class="list-item">
+              <div class="list-item-icon">↻</div>
+              <div class="list-item-main">
+                <div class="list-item-title">7 日留存</div>
+                <div class="list-item-sub">retention_d7 · 业务方定义</div>
+              </div>
+            </div>
+            <div class="list-item">
+              <div class="list-item-icon">⌒</div>
+              <div class="list-item-main">
+                <div class="list-item-title">客单价</div>
+                <div class="list-item-sub">AOV · 业务方定义</div>
+              </div>
+            </div>
+            <div class="list-item">
+              <div class="list-item-icon">⟳</div>
+              <div class="list-item-main">
+                <div class="list-item-title">复购率</div>
+                <div class="list-item-sub">repurchase_rate · 业务方定义</div>
+              </div>
+            </div>
+          </div>
+          
+          <div>
+            <div class="card">
+              <div class="flex-between">
+                <div>
+                  <div style="font-size: 24px; font-weight: 700;">GMV</div>
+                  <div class="text-sm text-dim" style="margin-top: 4px;">商品交易总额 / 销售额</div>
+                </div>
+                <span class="badge badge-purple">业务方定义</span>
+              </div>
+              
+              <div class="note">
+                <strong>⚠ 业务定义归业务方所有。</strong>本页只追踪数据工程团队如何与该指标协作。如对业务定义有疑问，请联系 <code class="code">@finance-team</code>。
+              </div>
+              
+              <div class="section">
+                <div class="section-title">业务定义（来自业务方）</div>
+                <div class="field">
+                  <div class="field-label">计算公式</div>
+                  <div class="field-value"><code class="code">sum(paid_order_amount) - sum(refund_amount)</code></div>
+                </div>
+                <div class="field">
+                  <div class="field-label">单位</div>
+                  <div class="field-value">CNY</div>
+                </div>
+                <div class="field">
+                  <div class="field-label">业务方来源</div>
+                  <div class="field-value"><a class="link">finance wiki / 业务指标定义</a></div>
+                </div>
+                <div class="field">
+                  <div class="field-label">最近审查</div>
+                  <div class="field-value">2026-08-17 by @finance-team</div>
+                </div>
+                <div class="field">
+                  <div class="field-label">数据工程 owner</div>
+                  <div class="field-value">@data-eng-team</div>
+                </div>
+              </div>
+              
+              <div class="section">
+                <div class="section-title">数据工程视角 · 我们怎么算</div>
+                <div class="field">
+                  <div class="field-label">主表</div>
+                  <div class="field-value"><code class="code">dwd.dwd_orders.daily_gmv</code></div>
+                </div>
+                <div class="field">
+                  <div class="field-label">dbt model</div>
+                  <div class="field-value"><code class="code">dm_finance_gmv</code></div>
+                </div>
+                <div class="field">
+                  <div class="field-label">字段映射</div>
+                  <div class="field-value">
+                    <code class="code">paid_order_amount</code> ← 订单表
+                    <br><code class="code">refund_amount</code> ← 退款表
+                  </div>
+                </div>
+                <div class="field">
+                  <div class="field-label">一致性</div>
+                  <div class="field-value">
+                    <span class="badge badge-success">✓ 与业务定义匹配</span>
+                    <span class="text-xs text-dim" style="margin-left: 8px;">最近校验：2026-08-17</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="section">
+                <div class="flex-between">
+                  <div class="section-title" style="margin: 0;">口径冲突历史</div>
+                  <span class="badge badge-danger">3 次</span>
+                </div>
+                <div class="timeline">
+                  <div class="timeline-item danger">
+                    <div class="timeline-date">2026-08-15</div>
+                    <div class="timeline-title">业务方调整定义：含"已发货未支付"订单</div>
+                    <div class="timeline-desc">@finance-team 修改了定义，但未提前通知数据工程团队。<span class="badge badge-warning" style="margin-left: 4px;">跟踪中</span></div>
+                  </div>
+                  <div class="timeline-item warning">
+                    <div class="timeline-date">2026-07-22</div>
+                    <div class="timeline-title">业务 vs 数仓 GMV 差 80 万</div>
+                    <div class="timeline-desc">根因：退款时间窗口定义不一致（30 天 vs 90 天）。已沉淀为 SOP。</div>
+                  </div>
+                  <div class="timeline-item">
+                    <div class="timeline-date">2026-05-10</div>
+                    <div class="timeline-title">财务 vs 数仓 GMV 差 200 万</div>
+                    <div class="timeline-desc">根因：含/不含未支付订单的口径不同。已沉淀为 axiom A14（指标单一源）。</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 版本时间线（审计用） -->
+              <div class="section">
+                <div class="flex-between">
+                  <div class="section-title" style="margin: 0;">版本时间线 · 审计链</div>
+                  <span class="badge badge-success" style="font-size: 10px;">v3 当前</span>
+                </div>
+                <div class="timeline">
+                  <div class="timeline-item">
+                    <div class="timeline-date">2026-08-15 · <span style="color: var(--success);">v3 current</span></div>
+                    <div class="timeline-title">支付订单金额之和 − 退款金额</div>
+                    <div class="timeline-desc">
+                      <strong>变更</strong>: 退款时间窗口 30 天 → 90 天<br>
+                      <strong>批准</strong>: <span class="badge badge-info" style="font-size: 10px;">@财务-张三</span> <span class="badge badge-info" style="font-size: 10px;">@数据-lead</span><br>
+                      <strong>生效</strong>: 2026-08-15 · <strong>影响</strong>: dm_finance_gmv 重新计算 · 8 个下游收到通知
+                    </div>
+                  </div>
+                  <div class="timeline-item">
+                    <div class="timeline-date">2026-05-10 · v2</div>
+                    <div class="timeline-title">支付订单金额之和 − 退款金额</div>
+                    <div class="timeline-desc">
+                      <strong>变更</strong>: 排除"未支付订单"（之前包含，现在不计入）<br>
+                      <strong>批准</strong>: <span class="badge badge-info" style="font-size: 10px;">@财务-李四</span><br>
+                      <strong>生效</strong>: 2026-05-10 · <strong>影响</strong>: 财务 vs 数仓 GMV 偏差 200 万 → 沉淀 axiom A14
+                    </div>
+                  </div>
+                  <div class="timeline-item">
+                    <div class="timeline-date">2026-01-01 · v1</div>
+                    <div class="timeline-title">支付订单金额 − 退款金额</div>
+                    <div class="timeline-desc">
+                      <strong>变更</strong>: 首次定义<br>
+                      <strong>批准</strong>: <span class="badge badge-info" style="font-size: 10px;">@财务-王五</span><br>
+                      <strong>生效</strong>: 2026-01-01 · <strong>影响</strong>: 系统初始化
+                    </div>
+                  </div>
+                </div>
+                <div class="flex" style="gap: 8px; margin-top: 12px;">
+                  <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">📋 导出审计报告</button>
+                  <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">🔄 v1 ↔ v3 对比</button>
+                  <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">⏪ 回滚到 v2</button>
+                </div>
+                <div class="note" style="margin-top: 8px;">
+                  <strong>审计原则</strong>: GMV 口径变更必须经财务方 + 数据 lead 双方批准，且自动通知所有下游订阅方。
+                </div>
+              </div>
+              
+              <div class="section">
+                <div class="section-title">相关治理沉淀</div>
+                <div class="grid grid-3">
+                  <div class="card" style="padding: 12px;">
+                    <div class="flex-between">
+                      <span class="badge badge-accent">axiom</span>
+                      <span class="text-xs text-dim">A14</span>
+                    </div>
+                    <div style="margin-top: 8px; font-weight: 500;">指标单一源</div>
+                    <div class="text-xs text-dim" style="margin-top: 4px;">每个业务指标必须有且仅有一个权威计算源</div>
+                  </div>
+                  <div class="card" style="padding: 12px;">
+                    <div class="flex-between">
+                      <span class="badge badge-info">SOP</span>
+                      <span class="text-xs text-dim">sop-gmv-001</span>
+                    </div>
+                    <div style="margin-top: 8px; font-weight: 500;">GMV 月度对账</div>
+                    <div class="text-xs text-dim" style="margin-top: 4px;">发现 GMV 偏差时的标准排查流程</div>
+                  </div>
+                  <div class="card" style="padding: 12px;">
+                    <div class="flex-between">
+                      <span class="badge badge-purple">template</span>
+                      <span class="text-xs text-dim">tpl-001</span>
+                    </div>
+                    <div style="margin-top: 8px; font-weight: 500;">GMV 每日 ETL</div>
+                    <div class="text-xs text-dim" style="margin-top: 4px;">可直接复用的 SQL 模板</div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="section">
+                <div class="section-title">相关资产与问题</div>
+                <div class="field">
+                  <div class="field-label">数据资产</div>
+                  <div class="field-value">
+                    <a class="link">dwd_orders</a> · 
+                    <a class="link">dm_finance_gmv</a>
+                  </div>
+                </div>
+                <div class="field">
+                  <div class="field-label">相关问题</div>
+                  <div class="field-value">
+                    <a class="link">2026-05 财务 GMV 偏差 200 万</a> · 
+                    <a class="link">2026-07 退款时间窗口争议</a> · 
+                    <a class="link">2026-08 业务方定义变更</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</template>

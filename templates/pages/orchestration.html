@@ -1,0 +1,201 @@
+<template id="tpl-page-orchestration">
+      <div id="orchestration" class="page">
+        <div class="page-header">
+          <div class="flex-between">
+            <div>
+              <div class="page-title">任务调度 · Orchestration</div>
+              <div class="page-subtitle">Airflow / DolphinScheduler 风格——DAG 可视化、运行历史、操作控制台</div>
+            </div>
+            <button class="btn">+ 新建 DAG</button>
+          </div>
+        </div>
+        
+        <!-- 顶部统计 -->
+        <div class="grid grid-4 section">
+          <div class="card">
+            <div class="card-title">DAG 总数</div>
+            <div class="metric">8</div>
+            <div class="metric-trend">5 每日 · 2 每月 · 1 实时</div>
+          </div>
+          <div class="card">
+            <div class="card-title">运行中</div>
+            <div class="metric">12</div>
+            <div class="metric-trend up">↑ 2 vs 昨日</div>
+          </div>
+          <div class="card">
+            <div class="card-title">今日失败</div>
+            <div class="metric" style="color: var(--danger);">2</div>
+            <div class="metric-trend warn">需关注</div>
+          </div>
+          <div class="card">
+            <div class="card-title">SLA 达成率</div>
+            <div class="metric">94<span style="font-size: 16px; color: var(--text-dim);">%</span></div>
+            <div class="metric-trend warn">本月</div>
+          </div>
+        </div>
+        
+        <!-- 当前选中 DAG 的可视化 -->
+        <div class="section">
+          <div class="flex-between" style="margin-bottom: 12px;">
+            <div class="section-title" style="margin: 0;">DAG 可视化 · dwd_daily_orders_etl</div>
+            <div class="flex" style="gap: 8px;">
+              <span class="badge badge-success">运行中</span>
+              <span class="badge badge-info">每日 02:00</span>
+              <span class="badge">owner @data-eng-team</span>
+            </div>
+          </div>
+          <div class="card">
+            <svg viewBox="0 0 800 220" style="width: 100%; height: auto; max-height: 220px;">
+              <!-- 节点 1: extract_orders -->
+              <g>
+                <rect x="20" y="80" width="140" height="60" rx="8" fill="rgba(63, 185, 80, 0.15)" stroke="var(--success)" stroke-width="2"/>
+                <text x="90" y="105" text-anchor="middle" fill="var(--text)" font-size="13" font-weight="600">extract_orders</text>
+                <text x="90" y="125" text-anchor="middle" fill="var(--text-dim)" font-size="11">MySQL · 234 行</text>
+              </g>
+              <!-- 节点 2: extract_returns -->
+              <g>
+                <rect x="20" y="160" width="140" height="40" rx="8" fill="rgba(63, 185, 80, 0.15)" stroke="var(--success)" stroke-width="2"/>
+                <text x="90" y="183" text-anchor="middle" fill="var(--text)" font-size="12">extract_returns</text>
+              </g>
+              <!-- 节点 3: clean_orders -->
+              <g>
+                <rect x="220" y="80" width="140" height="60" rx="8" fill="rgba(63, 185, 80, 0.15)" stroke="var(--success)" stroke-width="2"/>
+                <text x="290" y="105" text-anchor="middle" fill="var(--text)" font-size="13" font-weight="600">clean_orders</text>
+                <text x="290" y="125" text-anchor="middle" fill="var(--text-dim)" font-size="11">去脏 + 补字段 · 5min</text>
+              </g>
+              <!-- 节点 4: load_dwd_orders -->
+              <g>
+                <rect x="420" y="80" width="140" height="60" rx="8" fill="rgba(88, 166, 255, 0.15)" stroke="var(--accent)" stroke-width="2"/>
+                <text x="490" y="105" text-anchor="middle" fill="var(--accent)" font-size="13" font-weight="600">load_dwd_orders</text>
+                <text x="490" y="125" text-anchor="middle" fill="var(--text-dim)" font-size="11">运行中 · Hive · 12/30 分区</text>
+              </g>
+              <!-- 节点 5: validate_dwd -->
+              <g>
+                <rect x="620" y="80" width="160" height="60" rx="8" fill="rgba(139, 148, 158, 0.1)" stroke="var(--text-dim)" stroke-width="1.5" stroke-dasharray="4,4"/>
+                <text x="700" y="105" text-anchor="middle" fill="var(--text-dim)" font-size="13" font-weight="600">validate_dwd</text>
+                <text x="700" y="125" text-anchor="middle" fill="var(--text-dim)" font-size="11">等待中 · axiom 校验</text>
+              </g>
+              <!-- 连线 -->
+              <line x1="160" y1="110" x2="220" y2="110" stroke="var(--text-dim)" stroke-width="1.5" marker-end="url(#arrow)"/>
+              <line x1="160" y1="180" x2="220" y2="125" stroke="var(--text-dim)" stroke-width="1.5" marker-end="url(#arrow)"/>
+              <line x1="360" y1="110" x2="420" y2="110" stroke="var(--text-dim)" stroke-width="1.5" marker-end="url(#arrow)"/>
+              <line x1="560" y1="110" x2="620" y2="110" stroke="var(--text-dim)" stroke-width="1.5" marker-end="url(#arrow)"/>
+              <!-- arrow marker -->
+              <defs>
+                <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+                  <path d="M0,0 L0,6 L6,3 z" fill="var(--text-dim)"/>
+                </marker>
+              </defs>
+              <!-- 图例 -->
+              <g>
+                <rect x="20" y="20" width="10" height="10" fill="rgba(63, 185, 80, 0.3)" stroke="var(--success)"/>
+                <text x="36" y="30" fill="var(--text-dim)" font-size="11">已完成</text>
+                <rect x="100" y="20" width="10" height="10" fill="rgba(88, 166, 255, 0.3)" stroke="var(--accent)"/>
+                <text x="116" y="30" fill="var(--text-dim)" font-size="11">运行中</text>
+                <rect x="180" y="20" width="10" height="10" fill="rgba(139, 148, 158, 0.2)" stroke="var(--text-dim)" stroke-dasharray="2,2"/>
+                <text x="196" y="30" fill="var(--text-dim)" font-size="11">等待中</text>
+              </g>
+            </svg>
+            <div class="flex" style="gap: 6px; flex-wrap: wrap; margin-top: 12px;">
+              <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">▶ 立即触发</button>
+              <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">↻ 重跑失败</button>
+              <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">⊘ 跳过</button>
+              <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">⏸ 暂停</button>
+              <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">📋 复制 DAG</button>
+              <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">⚙ 配置</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- DAG 列表 -->
+        <div class="section">
+          <div class="section-title">所有 DAG · 8 个</div>
+          <div class="card" style="padding: 0;">
+            <div class="list-item">
+              <div class="list-item-icon" style="background: rgba(63, 185, 80, 0.15); color: var(--success);">✓</div>
+              <div class="list-item-main">
+                <div class="list-item-title">dwd_daily_orders_etl <span class="text-xs text-dim" style="margin-left: 8px;">每日 02:00 · 4 任务 · 当前选中</span></div>
+                <div class="list-item-sub">最近 24h: ✓✓✓✓✓✓✗✓✓ (1 失败 · 已修复) · owner @data-eng-team</div>
+              </div>
+              <div class="list-item-meta">
+                <span class="badge badge-success">健康</span>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">查看</button>
+              </div>
+            </div>
+            <div class="list-item">
+              <div class="list-item-icon" style="background: rgba(88, 166, 255, 0.15); color: var(--accent);">▶</div>
+              <div class="list-item-main">
+                <div class="list-item-title">dm_user_profile_refresh <span class="text-xs text-dim" style="margin-left: 8px;">每日 03:00 · 6 任务</span></div>
+                <div class="list-item-sub">最近 24h: ✓✓✓✓✓✓✓✓✓ (9/9 成功) · owner @data-eng-team</div>
+              </div>
+              <div class="list-item-meta">
+                <span class="badge badge-success">健康</span>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">查看</button>
+              </div>
+            </div>
+            <div class="list-item">
+              <div class="list-item-icon" style="background: rgba(248, 81, 73, 0.15); color: var(--danger);">✗</div>
+              <div class="list-item-main">
+                <div class="list-item-title">realtime_gmv_aggregation <span class="text-xs text-dim" style="margin-left: 8px;">Flink 持续运行 · 3 任务</span></div>
+                <div class="list-item-sub">最近 24h: ✗✗✗✗✗✗✗✗ (连续失败) · etl_gmv_realtime Job 挂起</div>
+              </div>
+              <div class="list-item-meta">
+                <span class="badge badge-danger">需介入</span>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">查看</button>
+              </div>
+            </div>
+            <div class="list-item">
+              <div class="list-item-icon" style="background: rgba(63, 185, 80, 0.15); color: var(--success);">✓</div>
+              <div class="list-item-main">
+                <div class="list-item-title">monthly_revenue_reconciliation <span class="text-xs text-dim" style="margin-left: 8px;">每月 30 号 · 8 任务</span></div>
+                <div class="list-item-sub">下次运行：13 天后 · 上次: ✓ · 关联 SOP sop-gmv-001</div>
+              </div>
+              <div class="list-item-meta">
+                <span class="badge badge-success">健康</span>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">查看</button>
+              </div>
+            </div>
+            <div class="list-item">
+              <div class="list-item-icon" style="background: rgba(210, 153, 34, 0.15); color: var(--warning);">⏸</div>
+              <div class="list-item-main">
+                <div class="list-item-title">legacy_user_event_etl <span class="text-xs text-dim" style="margin-left: 8px;">每日 04:00 · 已暂停</span></div>
+                <div class="list-item-sub">被替代：dwd_user_event_v2 · 暂停 5 天</div>
+              </div>
+              <div class="list-item-meta">
+                <span class="badge badge-warning">暂停</span>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 10px;">查看</button>
+              </div>
+            </div>
+            <div class="list-item" style="background: var(--surface-2);">
+              <div class="text-xs text-dim" style="padding: 8px 0;">还有 3 个 DAG（ad_hoc_data_export / weekly_report_gen / quarterly_compliance）</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 最近运行历史 -->
+        <div class="section">
+          <div class="section-title">今日运行时间线</div>
+          <div class="card">
+            <div style="display: grid; grid-template-columns: 60px 1fr; gap: 12px; font-size: 12px;">
+              <div class="text-dim">02:00</div>
+              <div><span class="badge badge-success" style="font-size: 10px;">✓</span> dwd_daily_orders_etl · 18 分钟 · 4 任务全成功</div>
+              
+              <div class="text-dim">03:00</div>
+              <div><span class="badge badge-success" style="font-size: 10px;">✓</span> dm_user_profile_refresh · 12 分钟 · 6 任务全成功</div>
+              
+              <div class="text-dim">04:00</div>
+              <div><span class="badge badge-warning" style="font-size: 10px;">⏸</span> legacy_user_event_etl · 跳过（已暂停）</div>
+              
+              <div class="text-dim">08:00</div>
+              <div><span class="badge badge-info" style="font-size: 10px;">▶</span> realtime_gmv_aggregation · 持续 · 当前 checkpoint 失败</div>
+              
+              <div class="text-dim">14:30</div>
+              <div><span class="badge badge-danger" style="font-size: 10px;">✗</span> dm_finance_gmv · 手动触发 · 失败 · 表权限变更未通知</div>
+              
+              <div class="text-dim">15:00</div>
+              <div><span class="badge badge-warning" style="font-size: 10px;">⚠</span> 告警触发 → 已沉淀为问题 <a class="link">2026-08-17 表权限</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+</template>
